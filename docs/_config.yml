@@ -19,7 +19,6 @@
 # in the templates via {{ site.myvariable }}.
 
 
-
 title: Michael Holm's Website
 email: michaelholm6@gmail.com
 description: >- # this means to ignore newlines until "baseurl:"
@@ -28,7 +27,7 @@ url: https://michaelholm6.github.io # the base hostname & protocol for your site
 github_username:  michaelholm6
 
 # Build settings
-theme: jekyll-theme-cayman
+theme: cayman
 plugins:
   - jekyll-feed
 
