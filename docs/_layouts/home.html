@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ page.title }} - {{ site.title }}</title>
+  <link rel="stylesheet" href="{{ '/assets/css/index.css' | relative_url }}">
+</head>
+<body>
+  <header>
+    <div class="banner">
+      <canvas id="bannerCanvas"></canvas>
+    </div>
+  </header>
+  <main>
+    {{ content }} <!-- This is where the content of index.md or other pages will be inserted -->
+  </main>
+  <footer>
+    <p>&copy; {{ site.time | date: "%Y" }} {{ site.title }}</p>
+  </footer>
+
+<script src = 'assets/js/bouncing_ball.js' defer></script>
+</body>
+</html>
+

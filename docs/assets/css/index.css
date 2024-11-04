@@ -1,0 +1,51 @@
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .container {
+    width: 90%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 1em;
+  }
+  
+  h1, h2, h3 {
+    color: #333;
+  }
+  
+  #hero {
+    text-align: center;
+    padding: 2em 0;
+    background: #f4f4f4;
+  }
+  
+  #featured-content .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1em;
+  }
+  
+  .btn {
+    display: inline-block;
+    padding: 0.5em 1em;
+    color: white;
+    background: #333;
+    text-decoration: none;
+    border-radius: 4px;
+  }
+
+  .banner {
+    width: 100%;
+    height: 300px;
+    background: linear-gradient(to right, #007614, #01f055);
+    position: relative;
+    overflow: hidden;
+  }
+  canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
