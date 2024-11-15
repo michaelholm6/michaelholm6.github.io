@@ -357,7 +357,6 @@ canvas.addEventListener('mousedown', function (event) {
 
 canvas.addEventListener('touchstart', function (event) {
   // Prevent the default action (like scrolling)
-  event.preventDefault();
 
   const touch = event.touches[0]; // Get the first touch point
   const touchX = touch.clientX - canvas.offsetLeft;
@@ -499,6 +498,10 @@ canvas.addEventListener('mouseleave', function () {
 window.addEventListener('deviceorientation', (event) => {
   // Get the gamma value (side-to-side tilt)
   gamma = event.gamma;  // Side-to-side tilt (-90 to 90)
+  if (event.beta > 90) {
+    gamma = -gamma;
+  }
+
 }, false);
 
 if (isMobile())
@@ -512,9 +515,9 @@ window.addEventListener('orientationchange', () => {
   if (orientationType === 'portrait-primary' || orientationType === 'portrait-secondary') {
     referenceGamma = 0; // Portrait mode, set referenceGamma to 0 (no tilt)
   } else if (orientationType === 'landscape-primary') {
-    referenceGamma = 90; // Landscape mode, rotated 90° to the right (set referenceGamma to 90)
+    referenceGamma = 0; // Landscape mode, rotated 90° to the right (set referenceGamma to 90)
   } else if (orientationType === 'landscape-secondary') {
-    referenceGamma = -90; // Landscape mode, rotated 90° to the left (set referenceGamma to -90)
+    referenceGamma = 0; // Landscape mode, rotated 90° to the left (set referenceGamma to -90)
   }
 
   console.log('Reference Gamma reset to:', referenceGamma);
@@ -534,9 +537,9 @@ window.addEventListener('load', () => {
   if (orientationType === 'portrait-primary' || orientationType === 'portrait-secondary') {
     referenceGamma = 0; // Start with no tilt if in portrait mode
   } else if (orientationType === 'landscape-primary') {
-    referenceGamma = 90; // Start with tilt to the right (clockwise) if in landscape-primary
+    referenceGamma = 0; // Start with tilt to the right (clockwise) if in landscape-primary
   } else if (orientationType === 'landscape-secondary') {
-    referenceGamma = -90; // Start with tilt to the left (counterclockwise) if in landscape-secondary
+    referenceGamma = 0; // Start with tilt to the left (counterclockwise) if in landscape-secondary
   }
 });
 
