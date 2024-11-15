@@ -4,6 +4,8 @@ const ctx = canvas.getContext('2d');
 canvas.width = window.innerWidth * .9;
 canvas.height = canvas.offsetHeight;
 let letterBoxes = [];
+let gamma = 0;
+let referenceGamma = 0; 
 
 // Ball properties
 const ball = {
@@ -13,8 +15,8 @@ const ball = {
   color: '#FF5733',
   dx: 0,
   dy: 0,
-  gravity: 0.5,
-  bounce: 0.7,
+  gravity: 0.4,
+  bounce: 0.8,
   drag: 0.98,
   isDragging: false,
   previousX: 0,
@@ -297,6 +299,12 @@ function drawBall() {
 function updateBall() {
   if (!ball.isDragging) {
 
+    let gravityX = Math.sin((gamma - referenceGamma) * Math.PI / 180); // Gravity effect on X-axis based on gamma
+    let gravityY = Math.cos((gamma - referenceGamma) * Math.PI / 180)
+
+    ball.dx += gravityX * ball.gravity;
+    ball.dy += gravityY * ball.gravity;
+
     ball.dy += ball.gravity;
     ball.dy *= ball.drag;
     ball.dx *= ball.drag;
@@ -487,6 +495,52 @@ canvas.addEventListener('mouseleave', function () {
   ball.isDragging = false; // Stop dragging when the mouse leaves the canvas
 
 });
+
+window.addEventListener('deviceorientation', (event) => {
+  // Get the gamma value (side-to-side tilt)
+  gamma = event.gamma;  // Side-to-side tilt (-90 to 90)
+}, false);
+
+if (isMobile())
+{
+window.addEventListener('orientationchange', () => {
+
+  // Check the current screen orientation using screen.orientation.type
+  const orientationType = screen.orientation.type;
+
+  // Re-calibrate reference gamma based on the new device orientation
+  if (orientationType === 'portrait-primary' || orientationType === 'portrait-secondary') {
+    referenceGamma = 0; // Portrait mode, set referenceGamma to 0 (no tilt)
+  } else if (orientationType === 'landscape-primary') {
+    referenceGamma = 90; // Landscape mode, rotated 90° to the right (set referenceGamma to 90)
+  } else if (orientationType === 'landscape-secondary') {
+    referenceGamma = -90; // Landscape mode, rotated 90° to the left (set referenceGamma to -90)
+  }
+
+  console.log('Reference Gamma reset to:', referenceGamma);
+});
+}
+
+function isMobile() {
+  return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+}
+
+if (isMobile()){
+
+window.addEventListener('load', () => {
+  // Set initial reference gamma based on initial phone position (tilt zero)
+  const orientationType = screen.orientation.type;
+
+  if (orientationType === 'portrait-primary' || orientationType === 'portrait-secondary') {
+    referenceGamma = 0; // Start with no tilt if in portrait mode
+  } else if (orientationType === 'landscape-primary') {
+    referenceGamma = 90; // Start with tilt to the right (clockwise) if in landscape-primary
+  } else if (orientationType === 'landscape-secondary') {
+    referenceGamma = -90; // Start with tilt to the left (counterclockwise) if in landscape-secondary
+  }
+});
+
+}
 
 function colorLetterBoxes(letterBoxes) {
   letterBoxes.forEach(box => {
