@@ -6,6 +6,8 @@ canvas.height = canvas.offsetHeight;
 let letterBoxes = [];
 let gamma = 0;
 let referenceGamma = 0; 
+let upsideDown = false;
+let fingerDownDragging = false;
 
 // Ball properties
 const ball = {
@@ -302,6 +304,11 @@ function updateBall() {
     let gravityX = Math.sin((gamma - referenceGamma) * Math.PI / 180); // Gravity effect on X-axis based on gamma
     let gravityY = Math.cos((gamma - referenceGamma) * Math.PI / 180)
 
+    if (upsideDown) {
+      gravityX = -gravityX;
+      gravityY = -gravityY;
+    }
+
     ball.dx += gravityX * ball.gravity;
     ball.dy += gravityY * ball.gravity;
 
@@ -357,7 +364,7 @@ canvas.addEventListener('mousedown', function (event) {
 
 canvas.addEventListener('touchstart', function (event) {
   // Prevent the default action (like scrolling)
-
+  event.preventDefault();
   const touch = event.touches[0]; // Get the first touch point
   const touchX = touch.clientX - canvas.offsetLeft;
   const touchY = touch.clientY - canvas.offsetTop;
@@ -365,6 +372,7 @@ canvas.addEventListener('touchstart', function (event) {
   // Check if the touch is inside the ball
   if (touchX >= ball.x - ball.radius && touchX <= ball.x + ball.radius &&
       touchY >= ball.y - ball.radius && touchY <= ball.y + ball.radius) {
+    fingerDownDragging = true;
     ball.previousX = ball.x;
     ball.previousY = ball.y;
     ball.isDragging = true; // Start dragging
@@ -410,8 +418,10 @@ canvas.addEventListener('mousemove', function (event) {
 });
 
 canvas.addEventListener('touchmove', function (event) {
-  if (ball.isDragging) {
-    event.preventDefault(); // Prevent default touch actions like scrolling
+  if (fingerDownDragging) {
+    event.preventDefault();
+  }
+  if (ball.isDragging) { // Prevent default touch actions like scrolling
 
     // Get the first touch point
     const touch = event.touches[0]; // Use the first touch point
@@ -454,6 +464,7 @@ canvas.addEventListener('mouseup', () => {
 
 canvas.addEventListener('touchend', () => {
   ball.isDragging = false;
+  fingerDownDragging = false;
 });
 
 // Animation loop
@@ -500,6 +511,7 @@ window.addEventListener('deviceorientation', (event) => {
   gamma = event.gamma;  // Side-to-side tilt (-90 to 90)
   if (event.beta > 90) {
     gamma = -gamma;
+    upsideDown = true;
   }
 
 }, false);
