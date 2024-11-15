@@ -222,7 +222,7 @@ function drawName() {
   ctx.font = `${fontSize}px Arial`;
   ctx.textBaseline = 'middle';
   ctx.textAlign = 'center';
-  const maxWidth = canvas.width - 2 * padding;
+  const maxWidth = Math.min(canvas.width - 2 * padding, window.innerWidth - 2 * padding);
   y = canvas.height / 2 - lineHeight/2;
   x = canvas.width / 2;
 
