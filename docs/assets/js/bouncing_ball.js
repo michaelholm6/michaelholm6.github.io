@@ -1,8 +1,9 @@
 // Canvas setup
 const canvas = document.getElementById('bannerCanvas');
 const ctx = canvas.getContext('2d');
-canvas.width = canvas.offsetWidth;
+canvas.width = window.innerWidth * .9;
 canvas.height = canvas.offsetHeight;
+let letterBoxes = [];
 
 // Ball properties
 const ball = {
@@ -29,6 +30,14 @@ const textWidth = ctx.measureText(nameText).width;
 let textX = canvas.width / 2;
 let textY = canvas.height / 2;
 
+function resizeCanvas() {
+  // Set the canvas size to the window's width
+  canvas.width = window.innerWidth * 0.9; // 90% of the window width
+  canvas.height = canvas.offsetHeight; // You can adjust the height based on your needs
+
+  drawName();
+}
+
 function getTextAsecentandDescent(text, font) {
   // Create a temporary canvas context
   var canvas = document.createElement('canvas');
@@ -39,31 +48,74 @@ function getTextAsecentandDescent(text, font) {
   return [metrics.actualBoundingBoxAscent, metrics.actualBoundingBoxDescent]; // More accurate height
 }
 
-function getLetterBoundingBoxes(text, x, y) {
-  const letterBoxes = [];
-  ctx.font = '60px Arial'; // Ensure font is set correctly
-  let currentX = x; // Start position for each letter
+// function getLetterBoundingBoxes(text, maxWidth) {
+//   const letterBoxes = [];
+//   ctx.font = '60px Arial'; // Ensure the font is set correctly
+//   ctx.textAlign = 'center'; // Center the text
+//   const lineHeight = 60; // Adjust line height if needed (typically same as font size)
+//   let currentX = 0; // Start position for each letter
+//   let currentY = 0; // Start vertical position
+//   let line = ''; // Track the current line of text
 
-  for (let i = 0; i < text.length; i++) {
-    const letter = text[i];
-    const width = ctx.measureText(letter).width;
-    //const height = parseInt(ctx.font, 10);
-    const [ascent, descent] = getTextAsecentandDescent(text[i], '60px Arial'); // Adjust this based on your font size
+//   const words = text.split(' '); // Split text into words
 
-    // Create a bounding box for the letter
-    letterBoxes.push({
-      x: currentX,
-      width: width,
-      top: y - ascent,
-      bottom: y + descent,
-    });
+//   words.forEach((word, wordIndex) => {
+//       // Check if adding this word would exceed the max width
+//       const testLine = line + word + (wordIndex < words.length - 1 ? ' ' : ''); // Add a space for spacing except for the last word
+//       const testWidth = ctx.measureText(testLine).width;
 
-    // Move the starting position for the next letter
-    currentX += width; // Move right for the next letter
-  }
+//       if (testWidth > maxWidth && line) {
+//           // If the line is full, draw the current line and reset currentX
+//           // Draw the line of text
+//           for (let i = 0; i < line.length; i++) {
+//               const letter = line[i];
+//               const letterWidth = ctx.measureText(letter).width;
+//               const [ascent, descent] = getTextAsecentandDescent(letter, '60px Arial'); // Get ascent and descent
 
-  return letterBoxes;
-}
+//               // Create a bounding box for the letter
+//               letterBoxes.push({
+//                   x: currentX,
+//                   width: letterWidth,
+//                   top: currentY - ascent,
+//                   bottom: currentY + descent,
+//               });
+
+//               // Move currentX to the right for the next letter
+//               currentX += letterWidth;
+//           }
+
+//           // Move to the next line
+//           currentY += lineHeight; // Move down for the next line
+//           currentX = canvas.width/2 - ctx.measureText(line).width/2;; // Reset X to start position
+//           line = word + ' '; // Start a new line with the current word
+//       } else {
+//           line = testLine; // Otherwise, continue building the line
+//       }
+//   });
+
+//   //Handle the last line of text
+//   if (line) {
+//       for (let i = 0; i < line.length; i++) {
+//           const letter = line[i];
+//           const letterWidth = ctx.measureText(letter).width;
+//           const [ascent, descent] = getTextAsecentandDescent(letter, '60px Arial');
+
+//           // Create a bounding box for the letter
+//           letterBoxes.push({
+//               x: currentX,
+//               width: letterWidth,
+//               top: currentY - ascent,
+//               bottom: currentY + descent,
+//           });
+
+//           // Move currentX to the right for the next letter
+//           currentX += letterWidth;
+//       }
+//   }
+
+//   return letterBoxes; // Return the array of letter bounding boxes
+// }
+
 
 
 function isClippingThroughLetters(ball, ballX, ballY, ballRadius, letterBoxes) {
@@ -77,14 +129,18 @@ function isClippingThroughLetters(ball, ballX, ballY, ballRadius, letterBoxes) {
     if (lineIntersectsBox({ x: ball.x, y: ball.y }, { x: futureX, y: futureY }, box)) {
       // Collision detected, bounce the ball off the letter
       resolveCollision(lineDir, ball); // Pass velocity to handle bouncing
+     
       return true; // Collision detected
     }
 
+    const closestX = Math.max(box.x, Math.min(ballX, box.x + box.width));
+    const closestY = Math.max(box.top, Math.min(ballY, box.bottom));  
+
+    const distanceX = ballX - closestX;
+    const distanceY = ballY - closestY;
+
     if ((
-      ballX + ballRadius > box.x &&
-      ballX - ballRadius < box.x + box.width &&
-      ballY + ballRadius > box.top &&
-      ballY - ballRadius < box.bottom
+      (distanceX * distanceX + distanceY * distanceY <= ballRadius * ballRadius)
     ) || (ballX - ballRadius < 0 || ballX + ballRadius > canvas.width || ballY - ballRadius < 0 || ballY + ballRadius > canvas.height)) {
       return true;
     }
@@ -93,6 +149,7 @@ function isClippingThroughLetters(ball, ballX, ballY, ballRadius, letterBoxes) {
   // Check for boundary collisions (canvas edges)
   if (ballX - ballRadius < 0 || ballX + ballRadius > canvas.width ||
     ballY - ballRadius < 0 || ballY + ballRadius > canvas.height) {
+     // console.log('poop');
     return true; // Collision with canvas boundary
   }
 
@@ -158,10 +215,68 @@ function isCollidingWithText(x, y, r) {
 
 // Draw the name
 function drawName() {
+  letterBoxes = [];
+  const lineHeight = 60;
+  const padding = 10;
   ctx.fillStyle = '#FFFFFF';
   ctx.font = `${fontSize}px Arial`;
   ctx.textBaseline = 'middle';
-  ctx.fillText(nameText, textX, textY);
+  ctx.textAlign = 'center';
+  const maxWidth = canvas.width - 2 * padding;
+  y = canvas.height / 2 - lineHeight/2;
+  x = canvas.width / 2;
+
+  // Split text into words
+  const words = nameText.split(' ');
+  let line = '';
+
+  words.forEach(word => {
+      const testLine = line + word + ' ';
+      const testWidth = ctx.measureText(testLine).width;
+
+      // Check if adding the next word would exceed the maxWidth
+      if (testWidth > maxWidth && line) {
+          // Draw the line and move to the next line
+          line = line.trimEnd();
+          ctx.fillText(line, x, y);
+          lineWidth = ctx.measureText(line).width;
+          startingX = x - lineWidth/2;
+          for (let i = 0; i < line.length; i++) {
+              const letter = line[i];
+              const letterWidth = ctx.measureText(letter).width;
+              const [ascent, descent] = getTextAsecentandDescent(letter, '60px Arial');
+              letterBoxes.push({
+                  x: startingX,
+                  width: letterWidth-20,
+                  top: y - ascent,
+                  bottom: y + descent,
+              });
+              startingX += letterWidth;
+          };
+          line = '';
+          y += lineHeight;
+      };
+      line += word + ' ';
+    
+})
+    if (line) {
+      line = line.trimEnd(); 
+      ctx.fillText(line, x, y);
+    }
+    lineWidth = ctx.measureText(line).width;
+          startingX = x - lineWidth/2;
+          for (let i = 0; i < line.length; i++) {
+              const letter = line[i];
+              const letterWidth = ctx.measureText(letter).width;
+              const [ascent, descent] = getTextAsecentandDescent(letter, '60px Arial');
+              letterBoxes.push({
+                  x: startingX,
+                  width: letterWidth,
+                  top: y - ascent,
+                  bottom: y + descent,
+              });
+              startingX += letterWidth;
+          };
 }
 
 // Draw the ball
@@ -232,6 +347,23 @@ canvas.addEventListener('mousedown', function (event) {
   }
 });
 
+canvas.addEventListener('touchstart', function (event) {
+  // Prevent the default action (like scrolling)
+  event.preventDefault();
+
+  const touch = event.touches[0]; // Get the first touch point
+  const touchX = touch.clientX - canvas.offsetLeft;
+  const touchY = touch.clientY - canvas.offsetTop;
+  
+  // Check if the touch is inside the ball
+  if (touchX >= ball.x - ball.radius && touchX <= ball.x + ball.radius &&
+      touchY >= ball.y - ball.radius && touchY <= ball.y + ball.radius) {
+    ball.previousX = ball.x;
+    ball.previousY = ball.y;
+    ball.isDragging = true; // Start dragging
+  }
+});
+
 canvas.addEventListener('mousemove', function (event) {
   if (ball.isDragging) {
     // Get mouse coordinates
@@ -242,7 +374,7 @@ canvas.addEventListener('mousemove', function (event) {
 
 
     // Get bounding boxes for letters
-    const letterBoxes = getLetterBoundingBoxes(nameText, textX, textY);
+    //const letterBoxes = getLetterBoundingBoxes(nameText, canvas.width - 20);
 
     // Check for collision with text
     const isColliding = isClippingThroughLetters(ball, mouseX, mouseY, ball.radius, letterBoxes);
@@ -270,13 +402,58 @@ canvas.addEventListener('mousemove', function (event) {
   }
 });
 
+canvas.addEventListener('touchmove', function (event) {
+  if (ball.isDragging) {
+    event.preventDefault(); // Prevent default touch actions like scrolling
+
+    // Get the first touch point
+    const touch = event.touches[0]; // Use the first touch point
+    const touchX = touch.clientX - canvas.offsetLeft;
+    const touchY = touch.clientY - canvas.offsetTop;
+
+    // Save previous position for collision check
+    ball.previousX = ball.x;
+    ball.previousY = ball.y;
+
+    // Check for collision with text (assuming you have the same function)
+    const isColliding = isClippingThroughLetters(ball, touchX, touchY, ball.radius, letterBoxes);
+
+    if (!isColliding) {
+      // Only update position if there is no collision
+      ball.x = touchX;
+      ball.y = touchY;
+    }
+
+    if (isColliding) {
+      ball.x = ball.previousX;
+      ball.y = ball.previousY;
+    }
+
+    // Stop dragging if the touch is outside the ball
+    if (
+      touchX < ball.x - ball.radius ||
+      touchX > ball.x + ball.radius ||
+      touchY < ball.y - ball.radius ||
+      touchY > ball.y + ball.radius
+    ) {
+      ball.isDragging = false; // Stop dragging if the touch is outside the ball
+    }
+  }
+});
+
 canvas.addEventListener('mouseup', () => {
+  ball.isDragging = false;
+});
+
+canvas.addEventListener('touchend', () => {
   ball.isDragging = false;
 });
 
 // Animation loop
 function animate() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+  //const letterBoxes = getLetterBoundingBoxes(nameText, canvas.width - 20);
+  //colorLetterBoxes(letterBoxes);
   drawName();
   updateBall();
   drawBall();
@@ -296,6 +473,10 @@ function resizeCanvas() {
   drawName();
 }
 
+// Resize the canvas initially and when the window is resized
+window.addEventListener('resize', resizeCanvas);
+resizeCanvas();
+
 // Listen for the resize event
 window.addEventListener('resize', resizeCanvas);
 
@@ -304,4 +485,12 @@ resizeCanvas();
 
 canvas.addEventListener('mouseleave', function () {
   ball.isDragging = false; // Stop dragging when the mouse leaves the canvas
+
 });
+
+function colorLetterBoxes(letterBoxes) {
+  letterBoxes.forEach(box => {
+      ctx.fillStyle = 'rgba(255, 0, 0, 0.5)';
+      ctx.fillRect(box.x, box.top, box.width, box.bottom - box.top);
+  });
+}
