@@ -6,8 +6,7 @@ canvas.height = canvas.offsetHeight;
 let letterBoxes = [];
 let gamma = 0;
 let referenceGamma = 0; 
-let upsideDown = false;
-let fingerDownDragging = false;
+let beta = 0;
 
 // Ball properties
 const ball = {
@@ -17,7 +16,7 @@ const ball = {
   color: '#FF5733',
   dx: 0,
   dy: 0,
-  gravity: 0.4,
+  gravity: 0.5,
   bounce: 0.8,
   drag: 0.98,
   isDragging: false,
@@ -301,18 +300,17 @@ function drawBall() {
 function updateBall() {
   if (!ball.isDragging) {
 
-    let gravityX = Math.sin((gamma - referenceGamma) * Math.PI / 180); // Gravity effect on X-axis based on gamma
-    let gravityY = Math.cos((gamma - referenceGamma) * Math.PI / 180)
+    let gravityX = Math.sin((gamma) * Math.PI / 180); // Gravity effect on X-axis based on gamma
+    let gravityY = Math.sin(beta * Math.PI / 180); // Gravity effect on Y-axis based on beta
 
-    if (upsideDown) {
-      gravityX = -gravityX;
-      gravityY = -gravityY;
+    if (!isMobile()) {
+      gravityX = 0;
+      gravityY = 1;
     }
 
     ball.dx += gravityX * ball.gravity;
     ball.dy += gravityY * ball.gravity;
 
-    ball.dy += ball.gravity;
     ball.dy *= ball.drag;
     ball.dx *= ball.drag;
 
@@ -380,6 +378,9 @@ canvas.addEventListener('touchstart', function (event) {
 });
 
 canvas.addEventListener('mousemove', function (event) {
+  if (fingerDownDragging){
+    event.preventDefault();
+  }
   if (ball.isDragging) {
     // Get mouse coordinates
     const mouseX = event.offsetX;
@@ -509,10 +510,7 @@ canvas.addEventListener('mouseleave', function () {
 window.addEventListener('deviceorientation', (event) => {
   // Get the gamma value (side-to-side tilt)
   gamma = event.gamma;  // Side-to-side tilt (-90 to 90)
-  if (event.beta > 90) {
-    gamma = -gamma;
-    upsideDown = true;
-  }
+  beta = event.beta; // Front-to-back tilt (-180 to 180)
 
 }, false);
 
