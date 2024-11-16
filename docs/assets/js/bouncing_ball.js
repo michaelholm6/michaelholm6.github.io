@@ -7,6 +7,7 @@ let letterBoxes = [];
 let gamma = 0;
 let referenceGamma = 0; 
 let beta = 0;
+let fingerDownDragging = false;
 
 // Ball properties
 const ball = {
@@ -301,11 +302,13 @@ function updateBall() {
   if (!ball.isDragging) {
 
     let gravityX = Math.sin((gamma) * Math.PI / 180); // Gravity effect on X-axis based on gamma
-    let gravityY = Math.sin(beta * Math.PI / 180); // Gravity effect on Y-axis based on beta
+    //let gravityY = Math.sin(beta * Math.PI / 180); // Gravity effect on Y-axis based on beta
+
+    let gravityY = 0;
 
     if (!isMobile()) {
       gravityX = 0;
-      gravityY = 1;
+      gravityY = 0;
     }
 
     ball.dx += gravityX * ball.gravity;
@@ -525,9 +528,9 @@ window.addEventListener('orientationchange', () => {
   if (orientationType === 'portrait-primary' || orientationType === 'portrait-secondary') {
     referenceGamma = 0; // Portrait mode, set referenceGamma to 0 (no tilt)
   } else if (orientationType === 'landscape-primary') {
-    referenceGamma = 0; // Landscape mode, rotated 90° to the right (set referenceGamma to 90)
+    referenceGamma = 90; // Landscape mode, rotated 90° to the right (set referenceGamma to 90)
   } else if (orientationType === 'landscape-secondary') {
-    referenceGamma = 0; // Landscape mode, rotated 90° to the left (set referenceGamma to -90)
+    referenceGamma = -90; // Landscape mode, rotated 90° to the left (set referenceGamma to -90)
   }
 
   console.log('Reference Gamma reset to:', referenceGamma);
