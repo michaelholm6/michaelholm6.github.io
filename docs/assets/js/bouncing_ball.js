@@ -517,7 +517,7 @@ window.addEventListener('deviceorientation', function(event) {
 if (((gamma > 70 && event.gamma < -70) || (gamma < -70 && event.gamma > 70)) && !mirror) {
   mirror = true;
 }
-else if (((gamma > 70 && event.gamma < -70) || (gamma < -70 && event.gamma > 70)) && mirror) {
+else if (((gamma < -70 && event.gamma < -70) || (gamma > 70 && event.gamma > 70)) && mirror) {
   mirror = false;
 }
 if (mirror) {
