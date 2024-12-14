@@ -8,6 +8,7 @@ let gamma = 0;
 let referenceGamma = 0; 
 let beta = 0;
 let fingerDownDragging = false;
+let mirror = false;
 
 // Ball properties
 const ball = {
@@ -301,7 +302,7 @@ function drawBall() {
 function updateBall() {
   if (!ball.isDragging) {
 
-    let gravityX = Math.sin((gamma) * Math.PI / 180); // Gravity effect on X-axis based on gamma
+    let gravityX = Math.sin((gamma-referenceGamma) * Math.PI / 180); // Gravity effect on X-axis based on gamma
     //let gravityY = Math.sin(beta * Math.PI / 180); // Gravity effect on Y-axis based on beta
 
     let gravityY = 0;
@@ -510,12 +511,24 @@ canvas.addEventListener('mouseleave', function () {
 
 });
 
-window.addEventListener('deviceorientation', (event) => {
+window.addEventListener('deviceorientation', function(event) {
   // Get the gamma value (side-to-side tilt)
-  gamma = event.gamma;  // Side-to-side tilt (-90 to 90)
-  beta = event.beta; // Front-to-back tilt (-180 to 180)
+// Side-to-side tilt (-90 to 90)
+if (((gamma > 70 & event.gamma < -70) || (gamma < -70 & event.gamma > 70)) && !mirror) {
+  mirror = true;
+}
+else if (((gamma > 70 & event.gamma < -70) || (gamma < -70 & event.gamma > 70)) && mirror) {
+  mirror = false;
+}
+if (mirror) {
+  gamma = -event.gamma;
+} else {
+  gamma = event.gamma; // Side-to-side tilt (-90 to 90)
+  //beta = event.beta; // Front-to-back tilt (-180 to 180)
 
-}, false);
+}
+}
+)
 
 if (isMobile())
 {
@@ -528,9 +541,9 @@ window.addEventListener('orientationchange', () => {
   if (orientationType === 'portrait-primary' || orientationType === 'portrait-secondary') {
     referenceGamma = 0; // Portrait mode, set referenceGamma to 0 (no tilt)
   } else if (orientationType === 'landscape-primary') {
-    referenceGamma = 90; // Landscape mode, rotated 90° to the right (set referenceGamma to 90)
+    referenceGamma = 0; // Landscape mode, rotated 90° to the right (set referenceGamma to 90)
   } else if (orientationType === 'landscape-secondary') {
-    referenceGamma = -90; // Landscape mode, rotated 90° to the left (set referenceGamma to -90)
+    referenceGamma = 0; // Landscape mode, rotated 90° to the left (set referenceGamma to -90)
   }
 
   console.log('Reference Gamma reset to:', referenceGamma);
