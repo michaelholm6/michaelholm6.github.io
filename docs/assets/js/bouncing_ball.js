@@ -514,10 +514,10 @@ canvas.addEventListener('mouseleave', function () {
 window.addEventListener('deviceorientation', function(event) {
   // Get the gamma value (side-to-side tilt)
 // Side-to-side tilt (-90 to 90)
-if (((gamma > 70 & event.gamma < -70) || (gamma < -70 & event.gamma > 70)) && !mirror) {
+if (((gamma > 70 && event.gamma < -70) || (gamma < -70 && event.gamma > 70)) && !mirror) {
   mirror = true;
 }
-else if (((gamma > 70 & event.gamma < -70) || (gamma < -70 & event.gamma > 70)) && mirror) {
+else if (((gamma > 70 && event.gamma < -70) || (gamma < -70 && event.gamma > 70)) && mirror) {
   mirror = false;
 }
 if (mirror) {
