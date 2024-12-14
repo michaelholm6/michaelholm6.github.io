@@ -521,9 +521,9 @@ else if (((gamma > 70 && event.gamma < -70) || (gamma < -70 && event.gamma > 70)
   mirror = false;
 }
 if (mirror) {
-  gamma = -event.gamma;
+  gamma = event.gamma;
 } else {
-  gamma = event.gamma; // Side-to-side tilt (-90 to 90)
+  gamma = -event.gamma; // Side-to-side tilt (-90 to 90)
   //beta = event.beta; // Front-to-back tilt (-180 to 180)
 
 }
