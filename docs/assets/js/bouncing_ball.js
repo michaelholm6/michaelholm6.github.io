@@ -303,13 +303,11 @@ function updateBall() {
   if (!ball.isDragging) {
 
     let gravityX = Math.sin((gamma-referenceGamma) * Math.PI / 180); // Gravity effect on X-axis based on gamma
-    //let gravityY = Math.sin(beta * Math.PI / 180); // Gravity effect on Y-axis based on beta
-
-    let gravityY = 0;
+    let gravityY = Math.sin(beta * Math.PI / 180); // Gravity effect on Y-axis based on beta
 
     if (!isMobile()) {
       gravityX = 0;
-      gravityY = 0;
+      gravityY = 1;
     }
 
     ball.dx += gravityX * ball.gravity;
@@ -523,10 +521,9 @@ else if (((gamma < -70 && event.gamma < -70) || (gamma > 70 && event.gamma > 70)
 if (mirror) {
   gamma = -event.gamma ;
 } else {
-  gamma = event.gamma; // Side-to-side tilt (-90 to 90)
-  //beta = event.beta; // Front-to-back tilt (-180 to 180)
-
+  gamma = event.gamma;
 }
+beta = event.beta;
 }
 )
 
