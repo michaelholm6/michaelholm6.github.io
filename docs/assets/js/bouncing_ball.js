@@ -364,7 +364,6 @@ canvas.addEventListener('mousedown', function (event) {
 
 canvas.addEventListener('touchstart', function (event) {
   // Prevent the default action (like scrolling)
-  event.preventDefault();
   const touch = event.touches[0]; // Get the first touch point
   const touchX = touch.clientX - canvas.offsetLeft;
   const touchY = touch.clientY - canvas.offsetTop;
@@ -372,6 +371,7 @@ canvas.addEventListener('touchstart', function (event) {
   // Check if the touch is inside the ball
   if (touchX >= ball.x - ball.radius && touchX <= ball.x + ball.radius &&
       touchY >= ball.y - ball.radius && touchY <= ball.y + ball.radius) {
+        event.preventDefault();
     fingerDownDragging = true;
     ball.previousX = ball.x;
     ball.previousY = ball.y;
