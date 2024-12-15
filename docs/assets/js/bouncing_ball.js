@@ -10,7 +10,19 @@ let beta = 0;
 let fingerDownDragging = false;
 let mirror = false;
 let screen_angle = 0;
-let orientation_supported = supportsOrientation();
+let orientation_supported = false;
+
+window.onload = () => {
+  supportsOrientation().then((isGranted) => {
+    if (isGranted) {
+      // Proceed with device orientation event listeners
+      window.addEventListener('deviceorientation', handleOrientation);
+      orientation_supported = true;
+    } else {
+      console.log("Permission to access device orientation was denied.");
+    }
+  });
+};
 
 // Ball properties
 const ball = {
