@@ -13,14 +13,15 @@ let screen_angle = 0;
 let orientation_supported = false;
 
 window.onload = () => {
-  supportsOrientation().then((isGranted) => {
-    if (isGranted) {
-      // Proceed with device orientation event listeners
-      orientation_supported = true;
-    } else {
-      console.log("Permission to access device orientation was denied.");
-    }
-  });
+  setTimeout(() => {
+    supportsOrientation().then((isGranted) => {
+      if (isGranted) {
+        // Proceed with device orientation event listeners
+        orientation_supported = true;
+      } else {
+        console.log("Permission to access device orientation was denied.");
+      }
+})}, 1000); // Wait for 1 second before checking
 };
 
 // Ball properties
@@ -570,12 +571,11 @@ screen.orientation.addEventListener("change", (event) => {
 function isMobile() {
   const userAgent = navigator.userAgent;
   // Check for mobile devices based on the user agent (Android, iPhone, iPad, etc.)
-  return true;
-  //return /Mobi|Android|iPhone|iPad|iPod/i.test(userAgent);
+  return /Mobi|Android|iPhone|iPad|iPod/i.test(userAgent);
 }
 
 function supportsOrientation() {
-  if (true && isMobile()) {
+  if (typeof DeviceOrientationEvent !== 'undefined' && isMobile()) {
     // For iOS 13+ devices, check if we need to request permission
     if (typeof DeviceOrientationEvent.requestPermission === 'function') {
       // iOS devices require user interaction to request permission
