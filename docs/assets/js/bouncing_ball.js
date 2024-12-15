@@ -9,6 +9,8 @@ let referenceGamma = 0;
 let beta = 0;
 let fingerDownDragging = false;
 let mirror = false;
+let screen_angle = 0;
+let orientation_supported = supportsOrientation();
 
 // Ball properties
 const ball = {
@@ -302,10 +304,26 @@ function drawBall() {
 function updateBall() {
   if (!ball.isDragging) {
 
-    let gravityX = Math.sin((gamma-referenceGamma) * Math.PI / 180); // Gravity effect on X-axis based on gamma
-    let gravityY = Math.sin(beta * Math.PI / 180); // Gravity effect on Y-axis based on beta
+    if (screen_angle == 0 || screen_angle == 180) {
+      if (screen_angle == 0) {
+        let gravityX = Math.sin((gamma) * Math.PI / 180); // Gravity effect on X-axis based on gamma
+        let gravityY = Math.sin(beta * Math.PI / 180); // Gravity effect on Y-axis based on beta
+      } else if (screen_angle == 180) {
+        let gravityX = -Math.sin((gamma) * Math.PI / 180); // Gravity effect on X-axis based on gamma
+        let gravityY = -Math.sin(beta * Math.PI / 180); // Gravity effect on Y-axis based on beta
+      }
+    } else if (screen_angle == 90 || screen_angle == 270) {
+      if (screen_angle == 90) {
+        let gravityX = Math.sin((beta) * Math.PI / 180); // Gravity effect on X-axis based on gamma
+        let gravityY = -Math.sin(gamma * Math.PI / 180); // Gravity effect on Y-axis based on beta
+      }
+      else if (screen_angle == 270) {
+        let gravityX = -Math.sin((beta) * Math.PI / 180); // Gravity effect on X-axis based on gamma
+        let gravityY = Math.sin(gamma * Math.PI / 180); // Gravity effect on Y-axis based on beta
+      }
+    }
 
-    if (!isMobile()) {
+    if (!orientation_supported) {
       gravityX = 0;
       gravityY = 1;
     }
@@ -512,10 +530,10 @@ canvas.addEventListener('mouseleave', function () {
 window.addEventListener('deviceorientation', function(event) {
   // Get the gamma value (side-to-side tilt)
 // Side-to-side tilt (-90 to 90)
-if (((gamma > 70 && event.gamma < -70) || (gamma < -70 && event.gamma > 70)) && !mirror) {
+if (((gamma > 45 && event.gamma < -45) || (gamma < -45 && event.gamma > 45)) && !mirror) {
   mirror = true;
 }
-else if (((gamma < -70 && event.gamma < -70) || (gamma > 70 && event.gamma > 70)) && mirror) {
+else if (((gamma < -45 && event.gamma < -45) || (gamma > 45 && event.gamma > 45)) && mirror) {
   mirror = false;
 }
 if (mirror) {
@@ -527,31 +545,28 @@ beta = event.beta;
 }
 )
 
-if (isMobile())
+if (orientation_supported)
 {
-window.addEventListener('orientationchange', () => {
 
-  // Check the current screen orientation using screen.orientation.type
-  const orientationType = screen.orientation.type;
+screen.orientation.addEventListener("change", (event) => {
+  screen_angle = event.target.angle;
+}
+)
+}
 
-  // Re-calibrate reference gamma based on the new device orientation
-  if (orientationType === 'portrait-primary' || orientationType === 'portrait-secondary') {
-    referenceGamma = 0; // Portrait mode, set referenceGamma to 0 (no tilt)
-  } else if (orientationType === 'landscape-primary') {
-    referenceGamma = 0; // Landscape mode, rotated 90° to the right (set referenceGamma to 90)
-  } else if (orientationType === 'landscape-secondary') {
-    referenceGamma = 0; // Landscape mode, rotated 90° to the left (set referenceGamma to -90)
+function supportsOrientation() {
+  if (typeof DeviceOrientationEvent !== 'undefined') {
+    // iOS 13+ permission handling
+    if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+      // iOS requires explicit permission for orientation events
+      return DeviceOrientationEvent.requestPermission();
+    }
+    return true;  // For other browsers and older iOS versions, orientation is supported
   }
-
-  console.log('Reference Gamma reset to:', referenceGamma);
-});
+  return false;
 }
 
-function isMobile() {
-  return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-}
-
-if (isMobile()){
+if (orientation_supported) {
 
 window.addEventListener('load', () => {
   // Set initial reference gamma based on initial phone position (tilt zero)
