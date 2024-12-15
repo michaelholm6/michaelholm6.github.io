@@ -532,10 +532,9 @@ function animate() {
   drawName();
   updateBall();
   drawBall();
-  requestAnimationFrame(animate);
 }
 
-animate();
+setInterval(animate, 1000 / 30);
 
 function resizeCanvas() {
   //   Update canvas dimensions
