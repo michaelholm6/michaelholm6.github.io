@@ -16,7 +16,6 @@ window.onload = () => {
   supportsOrientation().then((isGranted) => {
     if (isGranted) {
       // Proceed with device orientation event listeners
-      window.addEventListener('deviceorientation', handleOrientation);
       orientation_supported = true;
     } else {
       console.log("Permission to access device orientation was denied.");
@@ -571,7 +570,8 @@ screen.orientation.addEventListener("change", (event) => {
 function isMobile() {
   const userAgent = navigator.userAgent;
   // Check for mobile devices based on the user agent (Android, iPhone, iPad, etc.)
-  return /Mobi|Android|iPhone|iPad|iPod/i.test(userAgent);
+  return true;
+  //return /Mobi|Android|iPhone|iPad|iPod/i.test(userAgent);
 }
 
 function supportsOrientation() {
