@@ -433,22 +433,22 @@ canvas.addEventListener('mousedown', function (event) {
   }
 });
 
-canvas.addEventListener('touchstart', function (event) {
-  // Prevent the default action (like scrolling)
-  const touch = event.touches[0]; // Get the first touch point
-  const touchX = touch.clientX - canvas.offsetLeft;
-  const touchY = touch.clientY - canvas.offsetTop;
+// canvas.addEventListener('touchstart', function (event) {
+//   // Prevent the default action (like scrolling)
+//   const touch = event.touches[0]; // Get the first touch point
+//   const touchX = touch.clientX - canvas.offsetLeft;
+//   const touchY = touch.clientY - canvas.offsetTop;
   
-  // Check if the touch is inside the ball
-  if (touchX >= ball.x - ball.radius && touchX <= ball.x + ball.radius &&
-      touchY >= ball.y - ball.radius && touchY <= ball.y + ball.radius) {
-        event.preventDefault();
-    fingerDownDragging = true;
-    ball.previousX = ball.x;
-    ball.previousY = ball.y;
-    ball.isDragging = true; // Start dragging
-  }
-});
+//   // Check if the touch is inside the ball
+//   if (touchX >= ball.x - ball.radius && touchX <= ball.x + ball.radius &&
+//       touchY >= ball.y - ball.radius && touchY <= ball.y + ball.radius) {
+//         event.preventDefault();
+//     fingerDownDragging = true;
+//     ball.previousX = ball.x;
+//     ball.previousY = ball.y;
+//     ball.isDragging = true; // Start dragging
+//   }
+// });
 
 canvas.addEventListener('mousemove', function (event) {
   if (fingerDownDragging){
@@ -491,46 +491,46 @@ canvas.addEventListener('mousemove', function (event) {
   }
 });
 
-canvas.addEventListener('touchmove', function (event) {
-  if (fingerDownDragging) {
-    event.preventDefault();
-  }
-  if (ball.isDragging) { // Prevent default touch actions like scrolling
+// canvas.addEventListener('touchmove', function (event) {
+//   if (fingerDownDragging) {
+//     event.preventDefault();
+//   }
+//   if (ball.isDragging) { // Prevent default touch actions like scrolling
 
-    // Get the first touch point
-    const touch = event.touches[0]; // Use the first touch point
-    const touchX = touch.clientX - canvas.offsetLeft;
-    const touchY = touch.clientY - canvas.offsetTop;
+//     // Get the first touch point
+//     const touch = event.touches[0]; // Use the first touch point
+//     const touchX = touch.clientX - canvas.offsetLeft;
+//     const touchY = touch.clientY - canvas.offsetTop;
 
-    // Save previous position for collision check
-    ball.previousX = ball.x;
-    ball.previousY = ball.y;
+//     // Save previous position for collision check
+//     ball.previousX = ball.x;
+//     ball.previousY = ball.y;
 
-    // Check for collision with text (assuming you have the same function)
-    const isColliding = isClippingThroughLetters(ball, touchX, touchY, ball.radius, letterBoxes);
+//     // Check for collision with text (assuming you have the same function)
+//     const isColliding = isClippingThroughLetters(ball, touchX, touchY, ball.radius, letterBoxes);
 
-    if (!isColliding) {
-      // Only update position if there is no collision
-      ball.x = touchX;
-      ball.y = touchY;
-    }
+//     if (!isColliding) {
+//       // Only update position if there is no collision
+//       ball.x = touchX;
+//       ball.y = touchY;
+//     }
 
-    if (isColliding) {
-      ball.x = ball.previousX;
-      ball.y = ball.previousY;
-    }
+//     if (isColliding) {
+//       ball.x = ball.previousX;
+//       ball.y = ball.previousY;
+//     }
 
-    // Stop dragging if the touch is outside the ball
-    if (
-      touchX < ball.x - ball.radius ||
-      touchX > ball.x + ball.radius ||
-      touchY < ball.y - ball.radius ||
-      touchY > ball.y + ball.radius
-    ) {
-      ball.isDragging = false; // Stop dragging if the touch is outside the ball
-    }
-  }
-});
+//     // Stop dragging if the touch is outside the ball
+//     if (
+//       touchX < ball.x - ball.radius ||
+//       touchX > ball.x + ball.radius ||
+//       touchY < ball.y - ball.radius ||
+//       touchY > ball.y + ball.radius
+//     ) {
+//       ball.isDragging = false; // Stop dragging if the touch is outside the ball
+//     }
+//   }
+// });
 
 canvas.addEventListener('mouseup', () => {
   ball.isDragging = false;
@@ -552,7 +552,7 @@ function animate() {
   requestAnimationFrame(animate);
 }
 
-animate();
+setTimeout(animate(), 250);
 
 function resizeCanvas() {
   //   Update canvas dimensions
