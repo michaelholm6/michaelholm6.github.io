@@ -575,7 +575,7 @@ function isMobile() {
 }
 
 function supportsOrientation() {
-  if (typeof DeviceOrientationEvent !== 'undefined' && isMobile()) {
+  if (true && isMobile()) {
     // For iOS 13+ devices, check if we need to request permission
     if (typeof DeviceOrientationEvent.requestPermission === 'function') {
       // iOS devices require user interaction to request permission
