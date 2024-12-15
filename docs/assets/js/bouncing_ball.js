@@ -23,6 +23,23 @@ window.onload = () => {
         screen.orientation.addEventListener("change", (event) => {
           screen_orientation = event.target.type;
         });
+        window.addEventListener('deviceorientation', function(event) {
+          // Get the gamma value (side-to-side tilt)
+        // Side-to-side tilt (-90 to 90)
+        if (((gamma > 45 && event.gamma < -45) || (gamma < -45 && event.gamma > 45)) && !mirror) {
+          mirror = true;
+        }
+        else if (((gamma < -45 && event.gamma < -45) || (gamma > 45 && event.gamma > 45)) && mirror) {
+          mirror = false;
+        }
+        if (mirror) {
+          gamma = -event.gamma ;
+        } else {
+          gamma = event.gamma;
+        }
+        beta = event.beta;
+        }
+        );
       } else {
         console.log("Permission to access device orientation was denied.");
       }
@@ -532,9 +549,10 @@ function animate() {
   drawName();
   updateBall();
   drawBall();
+  requestAnimationFrame(animate);
 }
 
-setInterval(animate, 1000 / 60);
+animate();
 
 function resizeCanvas() {
   //   Update canvas dimensions
@@ -562,23 +580,7 @@ canvas.addEventListener('mouseleave', function () {
 
 });
 
-window.addEventListener('deviceorientation', function(event) {
-  // Get the gamma value (side-to-side tilt)
-// Side-to-side tilt (-90 to 90)
-if (((gamma > 45 && event.gamma < -45) || (gamma < -45 && event.gamma > 45)) && !mirror) {
-  mirror = true;
-}
-else if (((gamma < -45 && event.gamma < -45) || (gamma > 45 && event.gamma > 45)) && mirror) {
-  mirror = false;
-}
-if (mirror) {
-  gamma = -event.gamma ;
-} else {
-  gamma = event.gamma;
-}
-beta = event.beta;
-}
-)
+
 
 function isMobile() {
   const userAgent = navigator.userAgent;
