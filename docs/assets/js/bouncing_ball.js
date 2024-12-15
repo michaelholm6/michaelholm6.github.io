@@ -9,19 +9,19 @@ let referenceGamma = 0;
 let beta = 0;
 let fingerDownDragging = false;
 let mirror = false;
-let screen_angle = 0;
+let screen_orientation = 'portrait-primary';
 let orientation_supported = false;
 
 window.onload = () => {
-  localStorage.removeItem('orientationPermission');
-  document.cookie = "orientationPermission=; max-age=0";
   setTimeout(() => {
+    localStorage.removeItem('orientationPermission');
+    document.cookie = "orientationPermission=; max-age=0";
     supportsOrientation().then((isGranted) => {
       if (isGranted) {
         // Proceed with device orientation event listeners
         orientation_supported = true;
         screen.orientation.addEventListener("change", (event) => {
-          screen_angle = event.target.angle;
+          screen_orientation = event.target.type;
         });
       } else {
         console.log("Permission to access device orientation was denied.");
@@ -323,24 +323,41 @@ function updateBall() {
     let gravityX = 0;
     let gravityY = 0;
 
-    if (screen_angle == 0 || screen_angle == 180) {
-      if (screen_angle == 0) {
+    if (screen_orientation == 'portrait-primary' || screen_orientation == 'portrait-secondary') {
+      if (screen_orientation == 'portrait-primary') {
         gravityX = Math.sin((gamma) * Math.PI / 180); // Gravity effect on X-axis based on gamma
         gravityY = Math.sin(beta * Math.PI / 180); // Gravity effect on Y-axis based on beta
-      } else if (screen_angle == 180) {
+      } else if (screen_orientation == 'portrait-secondary') {
         gravityX = -Math.sin((gamma) * Math.PI / 180); // Gravity effect on X-axis based on gamma
         gravityY = -Math.sin(beta * Math.PI / 180); // Gravity effect on Y-axis based on beta
       }
-    } else if (screen_angle == 90 || screen_angle == 270) {
-      if (screen_angle == 90) {
+    } else if (screen_orientation == 'landscape-primary' || screen_orientation == 'landscape-secondary') {
+      if (screen_orientation == 'landscape-primary') {
         gravityX = Math.sin((beta) * Math.PI / 180); // Gravity effect on X-axis based on gamma
         gravityY = -Math.sin(gamma * Math.PI / 180); // Gravity effect on Y-axis based on beta
-      }
-      else if (screen_angle == 270) {
+      } else if (screen_orientation == 'landscape-secondary') {
         gravityX = -Math.sin((beta) * Math.PI / 180); // Gravity effect on X-axis based on gamma
         gravityY = Math.sin(gamma * Math.PI / 180); // Gravity effect on Y-axis based on beta
       }
     }
+    // if (screen_angle == 0 || screen_angle == 180) {
+    //   if (screen_angle == 0) {
+    //     gravityX = Math.sin((gamma) * Math.PI / 180); // Gravity effect on X-axis based on gamma
+    //     gravityY = Math.sin(beta * Math.PI / 180); // Gravity effect on Y-axis based on beta
+    //   } else if (screen_angle == 180) {
+    //     gravityX = -Math.sin((gamma) * Math.PI / 180); // Gravity effect on X-axis based on gamma
+    //     gravityY = -Math.sin(beta * Math.PI / 180); // Gravity effect on Y-axis based on beta
+    //   }
+    // } else if (screen_angle == 90 || screen_angle == 270) {
+    //   if (screen_angle == 90) {
+    //     gravityX = Math.sin((beta) * Math.PI / 180); // Gravity effect on X-axis based on gamma
+    //     gravityY = -Math.sin(gamma * Math.PI / 180); // Gravity effect on Y-axis based on beta
+    //   }
+    //   else if (screen_angle == 270) {
+    //     gravityX = -Math.sin((beta) * Math.PI / 180); // Gravity effect on X-axis based on gamma
+    //     gravityY = Math.sin(gamma * Math.PI / 180); // Gravity effect on Y-axis based on beta
+    //   }
+    // }
 
     if (!orientation_supported) {
       gravityX = 0;
