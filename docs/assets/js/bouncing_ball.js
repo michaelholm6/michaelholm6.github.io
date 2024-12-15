@@ -564,14 +564,34 @@ function isMobile() {
 
 function supportsOrientation() {
   if (typeof DeviceOrientationEvent !== 'undefined' && isMobile()) {
-    // iOS 13+ permission handling
+    // For iOS 13+ devices, check if we need to request permission
     if (typeof DeviceOrientationEvent.requestPermission === 'function') {
-      // iOS requires explicit permission for orientation events
-      return DeviceOrientationEvent.requestPermission();
+      // iOS devices require user interaction to request permission
+      return new Promise((resolve, reject) => {
+        // Add an event listener to request permission on user interaction (click or touch)
+        const interactionListener = (event) => {
+          DeviceOrientationEvent.requestPermission()
+            .then(response => {
+              // Resolve the promise based on permission response
+              resolve(response === 'granted');
+              // Clean up the listener once permission is requested
+              document.removeEventListener('click', interactionListener);
+              document.removeEventListener('touchstart', interactionListener);
+            })
+            .catch(reject);
+        };
+
+        // Listen for user interaction
+        document.addEventListener('click', interactionListener);
+        document.addEventListener('touchstart', interactionListener);
+      });
     }
-    return true;  // For other browsers and older iOS versions, orientation is supported
+
+    // If requestPermission is not needed (e.g., for other mobile browsers)
+    return Promise.resolve(true); // Orientation is supported on other mobile browsers
   }
-  return false;
+
+  return Promise.resolve(false); // Not supported on desktops or non-mobile devices
 }
 
 if (orientation_supported) {
