@@ -14,11 +14,15 @@ let orientation_supported = false;
 
 window.onload = () => {
   localStorage.removeItem('orientationPermission');
+  document.cookie = "orientationPermission=; max-age=0";
   setTimeout(() => {
     supportsOrientation().then((isGranted) => {
       if (isGranted) {
         // Proceed with device orientation event listeners
         orientation_supported = true;
+        screen.orientation.addEventListener("change", (event) => {
+          screen_angle = event.target.angle;
+        });
       } else {
         console.log("Permission to access device orientation was denied.");
       }
@@ -605,23 +609,6 @@ function supportsOrientation() {
   }
 
   return Promise.resolve(false); // Not supported on desktops or non-mobile devices
-}
-
-if (orientation_supported) {
-
-window.addEventListener('load', () => {
-  // Set initial reference gamma based on initial phone position (tilt zero)
-  const orientationType = screen.orientation.type;
-
-  if (orientationType === 'portrait-primary' || orientationType === 'portrait-secondary') {
-    referenceGamma = 0; // Start with no tilt if in portrait mode
-  } else if (orientationType === 'landscape-primary') {
-    referenceGamma = 0; // Start with tilt to the right (clockwise) if in landscape-primary
-  } else if (orientationType === 'landscape-secondary') {
-    referenceGamma = 0; // Start with tilt to the left (counterclockwise) if in landscape-secondary
-  }
-});
-
 }
 
 function colorLetterBoxes(letterBoxes) {
