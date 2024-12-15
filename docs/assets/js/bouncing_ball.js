@@ -534,7 +534,7 @@ function animate() {
   drawBall();
 }
 
-setInterval(animate, 1000 / 30);
+setInterval(animate, 1000 / 60);
 
 function resizeCanvas() {
   //   Update canvas dimensions
@@ -580,15 +580,6 @@ beta = event.beta;
 }
 )
 
-if (orientation_supported)
-{
-
-screen.orientation.addEventListener("change", (event) => {
-  screen_angle = event.target.angle;
-}
-)
-}
-
 function isMobile() {
   const userAgent = navigator.userAgent;
   // Check for mobile devices based on the user agent (Android, iPhone, iPad, etc.)
@@ -610,6 +601,7 @@ function supportsOrientation() {
               // Clean up the listener once permission is requested
               document.removeEventListener('click', interactionListener);
               document.removeEventListener('touchstart', interactionListener);
+              document.removeEventListener('touchmove', interactionListener);
             })
             .catch(reject);
         };
@@ -617,6 +609,7 @@ function supportsOrientation() {
         // Listen for user interaction
         document.addEventListener('click', interactionListener);
         document.addEventListener('touchstart', interactionListener);
+        document.addEventListener('touchmove', interactionListener);
       });
     }
 
