@@ -13,6 +13,7 @@ let screen_angle = 0;
 let orientation_supported = false;
 
 window.onload = () => {
+  localStorage.removeItem('orientationPermission');
   setTimeout(() => {
     supportsOrientation().then((isGranted) => {
       if (isGranted) {
@@ -21,7 +22,7 @@ window.onload = () => {
       } else {
         console.log("Permission to access device orientation was denied.");
       }
-})}, 1000); // Wait for 1 second before checking
+})}, 500); // Wait for 1 second before checking
 };
 
 // Ball properties
