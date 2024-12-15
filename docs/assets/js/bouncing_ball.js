@@ -303,23 +303,25 @@ function drawBall() {
 // Update ball position and handle collisions
 function updateBall() {
   if (!ball.isDragging) {
+    let gravityX = 0;
+    let gravityY = 0;
 
     if (screen_angle == 0 || screen_angle == 180) {
       if (screen_angle == 0) {
-        let gravityX = Math.sin((gamma) * Math.PI / 180); // Gravity effect on X-axis based on gamma
-        let gravityY = Math.sin(beta * Math.PI / 180); // Gravity effect on Y-axis based on beta
+        gravityX = Math.sin((gamma) * Math.PI / 180); // Gravity effect on X-axis based on gamma
+        gravityY = Math.sin(beta * Math.PI / 180); // Gravity effect on Y-axis based on beta
       } else if (screen_angle == 180) {
-        let gravityX = -Math.sin((gamma) * Math.PI / 180); // Gravity effect on X-axis based on gamma
-        let gravityY = -Math.sin(beta * Math.PI / 180); // Gravity effect on Y-axis based on beta
+        gravityX = -Math.sin((gamma) * Math.PI / 180); // Gravity effect on X-axis based on gamma
+        gravityY = -Math.sin(beta * Math.PI / 180); // Gravity effect on Y-axis based on beta
       }
     } else if (screen_angle == 90 || screen_angle == 270) {
       if (screen_angle == 90) {
-        let gravityX = Math.sin((beta) * Math.PI / 180); // Gravity effect on X-axis based on gamma
-        let gravityY = -Math.sin(gamma * Math.PI / 180); // Gravity effect on Y-axis based on beta
+        gravityX = Math.sin((beta) * Math.PI / 180); // Gravity effect on X-axis based on gamma
+        gravityY = -Math.sin(gamma * Math.PI / 180); // Gravity effect on Y-axis based on beta
       }
       else if (screen_angle == 270) {
-        let gravityX = -Math.sin((beta) * Math.PI / 180); // Gravity effect on X-axis based on gamma
-        let gravityY = Math.sin(gamma * Math.PI / 180); // Gravity effect on Y-axis based on beta
+        gravityX = -Math.sin((beta) * Math.PI / 180); // Gravity effect on X-axis based on gamma
+        gravityY = Math.sin(gamma * Math.PI / 180); // Gravity effect on Y-axis based on beta
       }
     }
 
@@ -554,8 +556,14 @@ screen.orientation.addEventListener("change", (event) => {
 )
 }
 
+function isMobile() {
+  const userAgent = navigator.userAgent;
+  // Check for mobile devices based on the user agent (Android, iPhone, iPad, etc.)
+  return /Mobi|Android|iPhone|iPad|iPod/i.test(userAgent);
+}
+
 function supportsOrientation() {
-  if (typeof DeviceOrientationEvent !== 'undefined') {
+  if (typeof DeviceOrientationEvent !== 'undefined' && isMobile()) {
     // iOS 13+ permission handling
     if (typeof DeviceOrientationEvent.requestPermission === 'function') {
       // iOS requires explicit permission for orientation events
