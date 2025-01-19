@@ -458,6 +458,10 @@ canvas.addEventListener('touchend', () => {
   fingerDownDragging = false;
 });
 
+canvas.addEventListener('mouseleave', () => {
+  ball.isDragging = false;
+});
+
 // Animation loop
 function animate() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -477,7 +481,7 @@ function animate() {
   requestAnimationFrame(animate);
 }
 
-setTimeout(animate(), 750);
+setTimeout(animate(), 1000);
 
 function resizeCanvas() {
   //   Update canvas dimensions
