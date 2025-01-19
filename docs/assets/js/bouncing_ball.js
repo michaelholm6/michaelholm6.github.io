@@ -256,8 +256,8 @@ function drawBall() {
 
   }
   ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
-  ctx.fillStyle = ball.color;
-  //ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
+  //ctx.fillStyle = ball.color;
+  ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
   ctx.fill();
   ctx.closePath();
 }
@@ -420,6 +420,8 @@ canvas.addEventListener('touchmove', function (event) {
     // Save previous position for collision check
     ball.previousX = ball.x;
     ball.previousY = ball.y;
+    ball.dx = (touchX - ball.x)*50;
+    ball.dy = (touchY - ball.y)*50;
 
     // Check for collision with text (assuming you have the same function)
     const isColliding = isClippingThroughLetters(ball, touchX, touchY, ball.radius, letterBoxes);
