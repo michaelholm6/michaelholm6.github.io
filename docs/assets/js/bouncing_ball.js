@@ -10,16 +10,14 @@ let beta = 0;
 let fingerDownDragging = false;
 let mirror = false;
 let screen_orientation = 'portrait-primary';
-let orientation_supported = false;
+let orientation_supported = 'undefined';
 
 window.onload = () => {
   setTimeout(() => {
-    localStorage.removeItem('orientationPermission');
-    document.cookie = "orientationPermission=; max-age=0";
     supportsOrientation().then((isGranted) => {
       if (isGranted) {
         // Proceed with device orientation event listeners
-        orientation_supported = true;
+        orientation_supported = 'true';
         screen.orientation.addEventListener("change", (event) => {
           screen_orientation = event.target.type;
         });
@@ -41,7 +39,12 @@ window.onload = () => {
         }
         );
       } else {
+        if (!isMobile()) {
+          orientation_supported = 'is not mobile';
+        } else {
+        orientation_supported = 'false';
         console.log("Permission to access device orientation was denied.");
+        }
       }
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 })}, 500); // Wait for 1 second before checking
@@ -290,7 +293,7 @@ function updateBall() {
       }
     }
 
-    if (!orientation_supported) {
+    if (orientation_supported == 'false') {
       gravityX = 0;
       gravityY = 1;
     }
@@ -460,8 +463,11 @@ function animate() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   //const letterBoxes = getLetterBoundingBoxes(nameText, canvas.width - 20);
   //colorLetterBoxes(letterBoxes);
-  if (!orientation_supported) {
+  if (orientation_supported == 'undefined') {
     drawName('Touch Here to Enable Ball Minigame');
+  }
+  else if (orientation_supported == 'false') {
+    drawName(nameText);
   }
   else{
   drawName(nameText);
