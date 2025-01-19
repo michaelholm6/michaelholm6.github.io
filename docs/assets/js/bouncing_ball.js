@@ -58,13 +58,13 @@ const ball = {
   color: '#FF5733',
   dx: 0,
   dy: 0,
-  gravity: 1000,
+  gravity: 1500,
   bounce: 0.8,
   drag: 0.98,
   isDragging: false,
   previousX: 0,
   previousY: 0,
-  maxSpeed: 7000
+  maxSpeed: 4000
 };
 
 // Name properties
@@ -167,8 +167,8 @@ function lineIntersectsLine(p1, p2, q1, q2) {
 function resolveCollision(lineDir, ball) {
   ball.isDragging = false; // Stop dragging the ball
   direction = Math.atan2(lineDir.y, lineDir.x); // Get the angle of the line
-  ball.dx = -10 * Math.cos(direction); // Reverse horizontal velocity (you can customize this)
-  ball.dy = -10 * Math.sin(direction); // Reverse vertical velocity (you can customize this)
+  ball.dx = -50 * Math.cos(direction); // Reverse horizontal velocity (you can customize this)
+  ball.dy = -50 * Math.sin(direction); // Reverse vertical velocity (you can customize this)
 }
 
 function isCollidingWithText(x, y, r) {
@@ -264,6 +264,9 @@ function drawBall() {
 
 // Update ball position and handle collisions
 function updateBall(frameTime) {
+  if (frameTime > 0.1) {
+    frameTime = .1;
+  }
   if (!ball.isDragging) {
     let gravityX = 0;
     let gravityY = 0;
@@ -370,6 +373,8 @@ canvas.addEventListener('mousemove', function (event) {
     const mouseY = event.offsetY;
     ball.previousX = ball.x;
     ball.previousY = ball.y;
+    ball.dx = (mouseX - ball.x)*50;
+    ball.dy = (mouseY - ball.y)*50;
 
 
     // Get bounding boxes for letters
