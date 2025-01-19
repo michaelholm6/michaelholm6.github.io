@@ -307,8 +307,8 @@ function updateBall(frameTime) {
     ball.dx = Math.max(-ball.maxSpeed, Math.min(ball.dx, ball.maxSpeed));
     ball.dy = Math.max(-ball.maxSpeed, Math.min(ball.dy, ball.maxSpeed));
 
-    ball.dx *= Math.pow((frameTime/(1/30)), 2);
-    ball.dy *= Math.pow((frameTime/(1/30)), 2);
+    ball.dx *= Math.pow((frameTime/(1/30)), 1);
+    ball.dy *= Math.pow((frameTime/(1/30)), 1);
 
     ball.x += ball.dx;
     ball.y += ball.dy;
