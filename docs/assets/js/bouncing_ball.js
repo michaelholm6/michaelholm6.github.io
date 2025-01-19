@@ -481,7 +481,7 @@ function animate() {
   requestAnimationFrame(animate);
 }
 
-setTimeout(animate(), 1000);
+setTimeout(animate(), 5000);
 
 function resizeCanvas() {
   //   Update canvas dimensions
