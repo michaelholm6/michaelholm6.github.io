@@ -491,12 +491,10 @@ function resizeCanvas(name) {
   drawName(name);
 }
 
-// Resize the canvas initially and when the window is resized
-window.addEventListener('resize', resizeCanvas);
-resizeCanvas(nameText);
-
 // Listen for the resize event
-window.addEventListener('resize', resizeCanvas);
+window.addEventListener('resize', (event) => {
+  resizeCanvas(nameText);  // Pass the custom argument
+});
 
 // Call resizeCanvas on load to set the initial size
 resizeCanvas(nameText);
