@@ -89,75 +89,6 @@ function getTextAsecentandDescent(text, font) {
   return [metrics.actualBoundingBoxAscent, metrics.actualBoundingBoxDescent]; // More accurate height
 }
 
-// function getLetterBoundingBoxes(text, maxWidth) {
-//   const letterBoxes = [];
-//   ctx.font = '60px Arial'; // Ensure the font is set correctly
-//   ctx.textAlign = 'center'; // Center the text
-//   const lineHeight = 60; // Adjust line height if needed (typically same as font size)
-//   let currentX = 0; // Start position for each letter
-//   let currentY = 0; // Start vertical position
-//   let line = ''; // Track the current line of text
-
-//   const words = text.split(' '); // Split text into words
-
-//   words.forEach((word, wordIndex) => {
-//       // Check if adding this word would exceed the max width
-//       const testLine = line + word + (wordIndex < words.length - 1 ? ' ' : ''); // Add a space for spacing except for the last word
-//       const testWidth = ctx.measureText(testLine).width;
-
-//       if (testWidth > maxWidth && line) {
-//           // If the line is full, draw the current line and reset currentX
-//           // Draw the line of text
-//           for (let i = 0; i < line.length; i++) {
-//               const letter = line[i];
-//               const letterWidth = ctx.measureText(letter).width;
-//               const [ascent, descent] = getTextAsecentandDescent(letter, '60px Arial'); // Get ascent and descent
-
-//               // Create a bounding box for the letter
-//               letterBoxes.push({
-//                   x: currentX,
-//                   width: letterWidth,
-//                   top: currentY - ascent,
-//                   bottom: currentY + descent,
-//               });
-
-//               // Move currentX to the right for the next letter
-//               currentX += letterWidth;
-//           }
-
-//           // Move to the next line
-//           currentY += lineHeight; // Move down for the next line
-//           currentX = canvas.width/2 - ctx.measureText(line).width/2;; // Reset X to start position
-//           line = word + ' '; // Start a new line with the current word
-//       } else {
-//           line = testLine; // Otherwise, continue building the line
-//       }
-//   });
-
-//   //Handle the last line of text
-//   if (line) {
-//       for (let i = 0; i < line.length; i++) {
-//           const letter = line[i];
-//           const letterWidth = ctx.measureText(letter).width;
-//           const [ascent, descent] = getTextAsecentandDescent(letter, '60px Arial');
-
-//           // Create a bounding box for the letter
-//           letterBoxes.push({
-//               x: currentX,
-//               width: letterWidth,
-//               top: currentY - ascent,
-//               bottom: currentY + descent,
-//           });
-
-//           // Move currentX to the right for the next letter
-//           currentX += letterWidth;
-//       }
-//   }
-
-//   return letterBoxes; // Return the array of letter bounding boxes
-// }
-
-
 
 function isClippingThroughLetters(ball, ballX, ballY, ballRadius, letterBoxes) {
   const futureX = ballX; // Calculate future x position of the ball
@@ -328,8 +259,14 @@ function drawBall() {
     ball.dy = ball.y - ball.previousY;
 
   }
+  if (fingerDownDragging){
+    ctx.fillStyle = '#FFFFFFF';
+  }
+  else{
+    ctx.fillStyle = '#FF5733';
+  }
   ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
-  ctx.fillStyle = ball.color;
+  //ctx.fillStyle = ball.color;
   ctx.fill();
   ctx.closePath();
 }
@@ -357,24 +294,6 @@ function updateBall() {
         gravityY = Math.sin(gamma * Math.PI / 180); // Gravity effect on Y-axis based on beta
       }
     }
-    // if (screen_angle == 0 || screen_angle == 180) {
-    //   if (screen_angle == 0) {
-    //     gravityX = Math.sin((gamma) * Math.PI / 180); // Gravity effect on X-axis based on gamma
-    //     gravityY = Math.sin(beta * Math.PI / 180); // Gravity effect on Y-axis based on beta
-    //   } else if (screen_angle == 180) {
-    //     gravityX = -Math.sin((gamma) * Math.PI / 180); // Gravity effect on X-axis based on gamma
-    //     gravityY = -Math.sin(beta * Math.PI / 180); // Gravity effect on Y-axis based on beta
-    //   }
-    // } else if (screen_angle == 90 || screen_angle == 270) {
-    //   if (screen_angle == 90) {
-    //     gravityX = Math.sin((beta) * Math.PI / 180); // Gravity effect on X-axis based on gamma
-    //     gravityY = -Math.sin(gamma * Math.PI / 180); // Gravity effect on Y-axis based on beta
-    //   }
-    //   else if (screen_angle == 270) {
-    //     gravityX = -Math.sin((beta) * Math.PI / 180); // Gravity effect on X-axis based on gamma
-    //     gravityY = Math.sin(gamma * Math.PI / 180); // Gravity effect on Y-axis based on beta
-    //   }
-    // }
 
     if (!orientation_supported) {
       gravityX = 0;
@@ -433,22 +352,22 @@ canvas.addEventListener('mousedown', function (event) {
   }
 });
 
-// canvas.addEventListener('touchstart', function (event) {
-//   // Prevent the default action (like scrolling)
-//   const touch = event.touches[0]; // Get the first touch point
-//   const touchX = touch.clientX - canvas.offsetLeft;
-//   const touchY = touch.clientY - canvas.offsetTop;
+canvas.addEventListener('touchstart', function (event) {
+  // Prevent the default action (like scrolling)
+  const touch = event.touches[0]; // Get the first touch point
+  const touchX = touch.clientX - canvas.offsetLeft;
+  const touchY = touch.clientY - canvas.offsetTop;
   
-//   // Check if the touch is inside the ball
-//   if (touchX >= ball.x - ball.radius && touchX <= ball.x + ball.radius &&
-//       touchY >= ball.y - ball.radius && touchY <= ball.y + ball.radius) {
-//         event.preventDefault();
-//     fingerDownDragging = true;
-//     ball.previousX = ball.x;
-//     ball.previousY = ball.y;
-//     ball.isDragging = true; // Start dragging
-//   }
-// });
+  // Check if the touch is inside the ball
+  if (touchX >= ball.x - ball.radius && touchX <= ball.x + ball.radius &&
+      touchY >= ball.y - ball.radius && touchY <= ball.y + ball.radius) {
+        event.preventDefault();
+    fingerDownDragging = true;
+    ball.previousX = ball.x;
+    ball.previousY = ball.y;
+    ball.isDragging = true; // Start dragging
+  }
+});
 
 canvas.addEventListener('mousemove', function (event) {
   if (fingerDownDragging){
@@ -491,46 +410,46 @@ canvas.addEventListener('mousemove', function (event) {
   }
 });
 
-// canvas.addEventListener('touchmove', function (event) {
-//   if (fingerDownDragging) {
-//     event.preventDefault();
-//   }
-//   if (ball.isDragging) { // Prevent default touch actions like scrolling
+canvas.addEventListener('touchmove', function (event) {
+  if (fingerDownDragging) {
+    event.preventDefault();
+  }
+  if (ball.isDragging) { // Prevent default touch actions like scrolling
 
-//     // Get the first touch point
-//     const touch = event.touches[0]; // Use the first touch point
-//     const touchX = touch.clientX - canvas.offsetLeft;
-//     const touchY = touch.clientY - canvas.offsetTop;
+    // Get the first touch point
+    const touch = event.touches[0]; // Use the first touch point
+    const touchX = touch.clientX - canvas.offsetLeft;
+    const touchY = touch.clientY - canvas.offsetTop;
 
-//     // Save previous position for collision check
-//     ball.previousX = ball.x;
-//     ball.previousY = ball.y;
+    // Save previous position for collision check
+    ball.previousX = ball.x;
+    ball.previousY = ball.y;
 
-//     // Check for collision with text (assuming you have the same function)
-//     const isColliding = isClippingThroughLetters(ball, touchX, touchY, ball.radius, letterBoxes);
+    // Check for collision with text (assuming you have the same function)
+    const isColliding = isClippingThroughLetters(ball, touchX, touchY, ball.radius, letterBoxes);
 
-//     if (!isColliding) {
-//       // Only update position if there is no collision
-//       ball.x = touchX;
-//       ball.y = touchY;
-//     }
+    if (!isColliding) {
+      // Only update position if there is no collision
+      ball.x = touchX;
+      ball.y = touchY;
+    }
 
-//     if (isColliding) {
-//       ball.x = ball.previousX;
-//       ball.y = ball.previousY;
-//     }
+    if (isColliding) {
+      ball.x = ball.previousX;
+      ball.y = ball.previousY;
+    }
 
-//     // Stop dragging if the touch is outside the ball
-//     if (
-//       touchX < ball.x - ball.radius ||
-//       touchX > ball.x + ball.radius ||
-//       touchY < ball.y - ball.radius ||
-//       touchY > ball.y + ball.radius
-//     ) {
-//       ball.isDragging = false; // Stop dragging if the touch is outside the ball
-//     }
-//   }
-// });
+    // Stop dragging if the touch is outside the ball
+    if (
+      touchX < ball.x - ball.radius ||
+      touchX > ball.x + ball.radius ||
+      touchY < ball.y - ball.radius ||
+      touchY > ball.y + ball.radius
+    ) {
+      ball.isDragging = false; // Stop dragging if the touch is outside the ball
+    }
+  }
+});
 
 canvas.addEventListener('mouseup', () => {
   ball.isDragging = false;
@@ -602,16 +521,12 @@ function supportsOrientation() {
               resolve(response === 'granted');
               // Clean up the listener once permission is requested
               document.removeEventListener('click', interactionListener);
-              document.removeEventListener('touchstart', interactionListener);
-              document.removeEventListener('touchmove', interactionListener);
             })
             .catch(reject);
         };
 
         // Listen for user interaction
         document.addEventListener('click', interactionListener);
-        document.addEventListener('touchstart', interactionListener);
-        document.addEventListener('touchmove', interactionListener);
       });
     }
 
