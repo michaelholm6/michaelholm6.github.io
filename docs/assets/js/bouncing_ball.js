@@ -64,7 +64,7 @@ const ball = {
   isDragging: false,
   previousX: 0,
   previousY: 0,
-  maxSpeed: 70
+  maxSpeed: 150
 };
 
 // Name properties
