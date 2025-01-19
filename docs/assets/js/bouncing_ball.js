@@ -75,14 +75,6 @@ const textWidth = ctx.measureText(nameText).width;
 let textX = canvas.width / 2;
 let textY = canvas.height / 2;
 
-function resizeCanvas() {
-  // Set the canvas size to the window's width
-  canvas.width = window.innerWidth * 0.9; // 90% of the window width
-  canvas.height = canvas.offsetHeight; // You can adjust the height based on your needs
-
-  drawName();
-}
-
 function getTextAsecentandDescent(text, font) {
   // Create a temporary canvas context
   var canvas = document.createElement('canvas');
@@ -488,7 +480,7 @@ function animate() {
 
 setTimeout(animate, 300);
 
-function resizeCanvas() {
+function resizeCanvas(name) {
   //   Update canvas dimensions
   canvas.width = canvas.offsetWidth;
   canvas.height = canvas.offsetHeight;
@@ -496,18 +488,18 @@ function resizeCanvas() {
   textY = canvas.height / 2;
 
   //   Redraw the static elements after resizing
-  drawName();
+  drawName(name);
 }
 
 // Resize the canvas initially and when the window is resized
 window.addEventListener('resize', resizeCanvas);
-resizeCanvas();
+resizeCanvas(nameText);
 
 // Listen for the resize event
 window.addEventListener('resize', resizeCanvas);
 
 // Call resizeCanvas on load to set the initial size
-resizeCanvas();
+resizeCanvas(nameText);
 
 canvas.addEventListener('mouseleave', function () {
   ball.isDragging = false; // Stop dragging when the mouse leaves the canvas
