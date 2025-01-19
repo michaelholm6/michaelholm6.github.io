@@ -261,7 +261,7 @@ function drawBall() {
 
   }
   ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
-  //ctx.fillStyle = ball.color;
+  ctx.fillStyle = ball.color;
   ctx.fill();
   ctx.closePath();
 }
@@ -461,7 +461,7 @@ function animate() {
   //const letterBoxes = getLetterBoundingBoxes(nameText, canvas.width - 20);
   //colorLetterBoxes(letterBoxes);
   if (!orientation_supported) {
-    drawName('Touch Here');
+    drawName('Touch Here to Enable Ball Minigame');
   }
   else{
   drawName(nameText);
