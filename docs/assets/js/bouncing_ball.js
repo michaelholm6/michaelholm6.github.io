@@ -299,8 +299,8 @@ function updateBall(frameTime) {
     ball.dx = Math.max(-ball.maxSpeed, Math.min(ball.dx, ball.maxSpeed));
     ball.dy = Math.max(-ball.maxSpeed, Math.min(ball.dy, ball.maxSpeed));
 
-    ball.x += ball.dx*frameTime/(1/30);
-    ball.y += ball.dy*frameTime/(1/30);
+    ball.x += ball.dx*frameTime/(1/20);
+    ball.y += ball.dy*frameTime/(1/20);
 
 
     // Bounce off canvas edges
