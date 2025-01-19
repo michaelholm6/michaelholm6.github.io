@@ -465,7 +465,7 @@ canvas.addEventListener('mouseleave', () => {
 // Animation loop
 
 let lastTime = 0;  // Store the time of the last frame
-const fps = 30;     // Desired FPS (30 frames per second)
+const fps = 60;     // Desired FPS (30 frames per second)
 const interval = 1000 / fps;
 
 function animate() {
