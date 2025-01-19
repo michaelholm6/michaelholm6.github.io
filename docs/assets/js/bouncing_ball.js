@@ -47,7 +47,7 @@ window.onload = () => {
         }
       }
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-})}, 500); // Wait for 1 second before checking
+})}, 250); // Wait for 1 second before checking
 };
 
 // Ball properties
@@ -481,7 +481,7 @@ function animate() {
   requestAnimationFrame(animate);
 }
 
-setTimeout(animate, 750);
+setTimeout(animate, 300);
 
 function resizeCanvas() {
   //   Update canvas dimensions
