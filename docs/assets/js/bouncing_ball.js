@@ -307,11 +307,8 @@ function updateBall(frameTime) {
     ball.dx = Math.max(-ball.maxSpeed, Math.min(ball.dx, ball.maxSpeed));
     ball.dy = Math.max(-ball.maxSpeed, Math.min(ball.dy, ball.maxSpeed));
 
-    ball.dx *= (frameTime/(1/20));
-    ball.dy *= (frameTime/(1/20));
-
-    ball.x += ball.dx;
-    ball.y += ball.dy;
+    ball.x += ball.dx*frameTime/(1/30);
+    ball.y += ball.dy*frameTime/(1/30);
 
 
     // Bounce off canvas edges
@@ -469,7 +466,7 @@ let lastTime = performance.now();
 
 // Animation loop
 function animate() {
-  time = performance.now();
+  let time = performance.now();
   frameTime = (time - lastTime) / 1000;
   lastTime = time;
   ctx.clearRect(0, 0, canvas.width, canvas.height);
