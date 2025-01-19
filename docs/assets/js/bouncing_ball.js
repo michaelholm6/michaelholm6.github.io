@@ -463,21 +463,38 @@ canvas.addEventListener('mouseleave', () => {
 });
 
 // Animation loop
+
+let lastTime = 0;  // Store the time of the last frame
+const fps = 30;     // Desired FPS (30 frames per second)
+const interval = 1000 / fps;
+
 function animate() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  //const letterBoxes = getLetterBoundingBoxes(nameText, canvas.width - 20);
-  //colorLetterBoxes(letterBoxes);
-  if (orientation_supported == 'undefined') {
-    drawName('Touch Here to Enable Ball Minigame');
+  const now = performance.now();  // Get current time (high precision)
+  const deltaTime = now - lastTime;  // Calculate the time since the last frame
+
+  if (deltaTime >= interval) {
+    // If enough time has passed for 30 FPS, proceed with the animation logic
+
+    lastTime = now - (deltaTime % interval);  // Update lastTime, avoiding drift
+
+    // Clear the canvas
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Handle different cases based on orientation support
+    if (orientation_supported == 'undefined') {
+      drawName('Touch Here to Enable Ball Minigame');
+    }
+    else if (orientation_supported == 'false') {
+      drawName(nameText);
+    }
+    else {
+      drawName(nameText);
+      updateBall();
+      drawBall();
+    }
   }
-  else if (orientation_supported == 'false') {
-    drawName(nameText);
-  }
-  else{
-  drawName(nameText);
-  updateBall();
-  drawBall();
-  }
+
+  // Request the next animation frame
   requestAnimationFrame(animate);
 }
 
