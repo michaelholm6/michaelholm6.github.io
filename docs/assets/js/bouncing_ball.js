@@ -293,7 +293,7 @@ function updateBall() {
       }
     }
 
-    if (orientation_supported == 'false') {
+    if (orientation_supported == 'is not mobile') {
       gravityX = 0;
       gravityY = 1;
     }
