@@ -43,6 +43,7 @@ window.onload = () => {
       } else {
         console.log("Permission to access device orientation was denied.");
       }
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
 })}, 500); // Wait for 1 second before checking
 };
 
@@ -186,7 +187,7 @@ function isCollidingWithText(x, y, r) {
 
 
 // Draw the name
-function drawName() {
+function drawName(name) {
   letterBoxes = [];
   const lineHeight = 60;
   const padding = 10;
@@ -199,7 +200,7 @@ function drawName() {
   x = canvas.width / 2;
 
   // Split text into words
-  const words = nameText.split(' ');
+  const words = name.split(' ');
   let line = '';
 
   words.forEach(word => {
@@ -258,12 +259,6 @@ function drawBall() {
     ball.dx = ball.x - ball.previousX;
     ball.dy = ball.y - ball.previousY;
 
-  }
-  if (fingerDownDragging){
-    ctx.fillStyle = '#FFFFFFF';
-  }
-  else{
-    ctx.fillStyle = '#FF5733';
   }
   ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
   //ctx.fillStyle = ball.color;
@@ -465,9 +460,14 @@ function animate() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   //const letterBoxes = getLetterBoundingBoxes(nameText, canvas.width - 20);
   //colorLetterBoxes(letterBoxes);
-  drawName();
+  if (!orientation_supported) {
+    drawName('Touch Here');
+  }
+  else{
+  drawName(nameText);
   updateBall();
   drawBall();
+  }
   requestAnimationFrame(animate);
 }
 
