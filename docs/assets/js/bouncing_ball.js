@@ -58,7 +58,7 @@ const ball = {
   color: '#FF5733',
   dx: 0,
   dy: 0,
-  gravity: 0.5,
+  gravity: 1,
   bounce: 0.8,
   drag: 0.98,
   isDragging: false,
@@ -299,8 +299,8 @@ function updateBall(frameTime) {
     ball.dx = Math.max(-ball.maxSpeed, Math.min(ball.dx, ball.maxSpeed));
     ball.dy = Math.max(-ball.maxSpeed, Math.min(ball.dy, ball.maxSpeed));
 
-    ball.x += ball.dx*frameTime/(1/20);
-    ball.y += ball.dy*frameTime/(1/20);
+    ball.x += ball.dx*frameTime/(1/30);
+    ball.y += ball.dy*frameTime/(1/30);
 
 
     // Bounce off canvas edges
