@@ -291,15 +291,11 @@ function updateBall(frameTime) {
         gravityX = -Math.sin((beta) * Math.PI / 180); // Gravity effect on X-axis based on gamma
         gravityY = Math.sin(gamma * Math.PI / 180); // Gravity effect on Y-axis based on beta
       }
-      gravityX = gravityX * (frameTime/(1/30));
-      gravityY = gravityY * (frameTime/(1/30));
     }
 
     if (orientation_supported == 'is not mobile') {
       gravityX = 0;
       gravityY = 1;
-      gravityX = gravityX * (frameTime/(1/30));
-      gravityY = gravityY * (frameTime/(1/30));
     }
 
     ball.dx += gravityX * ball.gravity;
@@ -310,6 +306,9 @@ function updateBall(frameTime) {
 
     ball.dx = Math.max(-ball.maxSpeed, Math.min(ball.dx, ball.maxSpeed));
     ball.dy = Math.max(-ball.maxSpeed, Math.min(ball.dy, ball.maxSpeed));
+
+    ball.dx *= (frameTime/(1/30));
+    ball.dy *= (frameTime/(1/30));
 
     ball.x += ball.dx;
     ball.y += ball.dy;
