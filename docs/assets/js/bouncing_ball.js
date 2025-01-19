@@ -320,8 +320,8 @@ function updateBall(frameTime) {
 
     // Bounce off text
     if (isCollidingWithText(ball.x, ball.y, ball.radius)) {
-      ball.x -= ball.dx;
-      ball.y -= ball.dy;
+      ball.x -= ball.dx * frameTime;
+      ball.y -= ball.dy * frameTime;
       ball.dy *= -ball.bounce;
       ball.dx *= -ball.bounce;
 
