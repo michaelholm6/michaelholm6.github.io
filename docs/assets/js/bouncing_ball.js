@@ -270,7 +270,7 @@ function drawBall() {
 }
 
 // Update ball position and handle collisions
-function updateBall() {
+function updateBall(frameTime) {
   if (!ball.isDragging) {
     let gravityX = 0;
     let gravityY = 0;
@@ -291,11 +291,15 @@ function updateBall() {
         gravityX = -Math.sin((beta) * Math.PI / 180); // Gravity effect on X-axis based on gamma
         gravityY = Math.sin(gamma * Math.PI / 180); // Gravity effect on Y-axis based on beta
       }
+      gravityX = gravityX * (frameTime/(1/30));
+      gravityY = gravityY * (frameTime/(1/30));
     }
 
     if (orientation_supported == 'is not mobile') {
       gravityX = 0;
       gravityY = 1;
+      gravityX = gravityX * (frameTime/(1/30));
+      gravityY = gravityY * (frameTime/(1/30));
     }
 
     ball.dx += gravityX * ball.gravity;
@@ -462,39 +466,27 @@ canvas.addEventListener('mouseleave', () => {
   ball.isDragging = false;
 });
 
+let lastTime = performance.now();
+
 // Animation loop
-
-let lastTime = 0;  // Store the time of the last frame
-const fps = 120;     // Desired FPS (30 frames per second)
-const interval = 1000 / fps;
-
 function animate() {
-  const now = performance.now();  // Get current time (high precision)
-  const deltaTime = now - lastTime;  // Calculate the time since the last frame
-
-  if (deltaTime >= interval) {
-    // If enough time has passed for 30 FPS, proceed with the animation logic
-
-    lastTime = now - (deltaTime % interval);  // Update lastTime, avoiding drift
-
-    // Clear the canvas
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    // Handle different cases based on orientation support
-    if (orientation_supported == 'undefined') {
-      drawName('Touch Here to Enable Ball Minigame');
-    }
-    else if (orientation_supported == 'false') {
-      drawName(nameText);
-    }
-    else {
-      drawName(nameText);
-      updateBall();
-      drawBall();
-    }
+  let time = performance.now();
+  frameTime = (time - lastTime) / 1000;
+  lastTime = time;
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  //const letterBoxes = getLetterBoundingBoxes(nameText, canvas.width - 20);
+  //colorLetterBoxes(letterBoxes);
+  if (orientation_supported == 'undefined') {
+    drawName('Touch Here to Enable Ball Minigame');
   }
-
-  // Request the next animation frame
+  else if (orientation_supported == 'false') {
+    drawName(nameText);
+  }
+  else{
+  drawName(nameText);
+  updateBall(frameTime);
+  drawBall();
+  }
   requestAnimationFrame(animate);
 }
 
