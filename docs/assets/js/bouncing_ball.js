@@ -58,13 +58,13 @@ const ball = {
   color: '#FF5733',
   dx: 0,
   dy: 0,
-  gravity: 100,
+  gravity: 1000,
   bounce: 0.8,
   drag: 0.98,
   isDragging: false,
   previousX: 0,
   previousY: 0,
-  maxSpeed: 70
+  maxSpeed: 7000
 };
 
 // Name properties
@@ -256,8 +256,8 @@ function drawBall() {
 
   }
   ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
-  //ctx.fillStyle = ball.color;
-  ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
+  ctx.fillStyle = ball.color;
+  //ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
   ctx.fill();
   ctx.closePath();
 }
