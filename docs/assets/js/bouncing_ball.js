@@ -58,7 +58,7 @@ const ball = {
   color: '#FF5733',
   dx: 0,
   dy: 0,
-  gravity: 0.5,
+  gravity: 100,
   bounce: 0.8,
   drag: 0.98,
   isDragging: false,
@@ -256,7 +256,8 @@ function drawBall() {
 
   }
   ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
-  ctx.fillStyle = ball.color;
+  //ctx.fillStyle = ball.color;
+  ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
   ctx.fill();
   ctx.closePath();
 }
@@ -290,14 +291,17 @@ function updateBall(frameTime) {
       gravityY = 1;
     }
 
-    ball.dx += gravityX * ball.gravity;
-    ball.dy += gravityY * ball.gravity;
+    ball.dx += gravityX * ball.gravity * frameTime;
+    ball.dy += gravityY * ball.gravity * frameTime;
 
-    ball.dy *= ball.drag;
-    ball.dx *= ball.drag;
+    ball.dy -= ball.drag * ball.dy * frameTime;
+    ball.dx -= ball.drag * ball.dx * frameTime;
 
     ball.dx = Math.max(-ball.maxSpeed, Math.min(ball.dx, ball.maxSpeed));
     ball.dy = Math.max(-ball.maxSpeed, Math.min(ball.dy, ball.maxSpeed));
+
+    ball.x += ball.dx * frameTime;
+    ball.y += ball.dy * frameTime;
 
 
     // Bounce off canvas edges
