@@ -96,7 +96,7 @@ function isClippingThroughLetters(ball, ballX, ballY, ballRadius, letterBoxes) {
 
     if (lineIntersectsBox({ x: ball.x, y: ball.y }, { x: futureX, y: futureY }, box)) {
       // Collision detected, bounce the ball off the letter
-      resolveCollision(lineDir, ball); // Pass velocity to handle bouncing
+      //resolveCollision(lineDir, ball); // Pass velocity to handle bouncing
      
       return true; // Collision detected
     }
@@ -373,8 +373,8 @@ canvas.addEventListener('mousemove', function (event) {
     const mouseY = event.offsetY;
     ball.previousX = ball.x;
     ball.previousY = ball.y;
-    ball.dx = (mouseX - ball.x)*50;
-    ball.dy = (mouseY - ball.y)*50;
+    ball.dx = (mouseX - ball.x)*25;
+    ball.dy = (mouseY - ball.y)*25;
 
 
     // Get bounding boxes for letters
@@ -420,8 +420,8 @@ canvas.addEventListener('touchmove', function (event) {
     // Save previous position for collision check
     ball.previousX = ball.x;
     ball.previousY = ball.y;
-    ball.dx = (touchX - ball.x)*50;
-    ball.dy = (touchY - ball.y)*50;
+    ball.dx = (touchX - ball.x)*25;
+    ball.dy = (touchY - ball.y)*25;
 
     // Check for collision with text (assuming you have the same function)
     const isColliding = isClippingThroughLetters(ball, touchX, touchY, ball.radius, letterBoxes);
