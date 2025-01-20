@@ -24,10 +24,10 @@ window.onload = () => {
         window.addEventListener('deviceorientation', function(event) {
           // Get the gamma value (side-to-side tilt)
         // Side-to-side tilt (-90 to 90)
-        if (((gamma > 45 && event.gamma < -45) || (gamma < -45 && event.gamma > 45)) && !mirror) {
+        if (((gamma > 60 && event.gamma < -60) || (gamma < -60 && event.gamma > 60)) && !mirror) {
           mirror = true;
         }
-        else if (((gamma < -45 && event.gamma < -45) || (gamma > 45 && event.gamma > 45)) && mirror) {
+        else if (((gamma < -60 && event.gamma < -60) || (gamma > 60 && event.gamma > 60)) && mirror) {
           mirror = false;
         }
         if (mirror) {
