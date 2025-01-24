@@ -174,10 +174,38 @@ function resolveCollision(lineDir, ball) {
 function isCollidingWithText(x, y, r) {
   const imageData = ctx.getImageData(x - r, y - r, r * 2, r * 2);
   const pixels = imageData.data;
+  let collision = false;
+  const edges = {
+    top: false,
+    bottom: false,
+    left: false,
+    right: false
+  };
+
+  // Loop through the pixel data
   for (let i = 0; i < pixels.length; i += 4) {
-    if (pixels[i + 3] > 0) return true;
+    const px = (i / 4) % (r * 2); // X position of pixel in the square
+    const py = Math.floor((i / 4) / (r * 2)); // Y position of pixel in the square
+    
+    const alpha = pixels[i + 3];  // Alpha channel (4th element in the array)
+    
+    // If the alpha is greater than 0, check for collision and edge positions
+    if (alpha > 0) {
+      collision = true;
+
+      // Check if the pixel is on any of the edges
+      if (py === 0) edges.top = true;       // Top edge (y == 0)
+      if (py === r * 2 - 1) edges.bottom = true; // Bottom edge (y == height-1)
+      if (px === 0) edges.left = true;      // Left edge (x == 0)
+      if (px === r * 2 - 1) edges.right = true; // Right edge (x == width-1)
+    }
   }
-  return false;
+
+  // Return an object with the collision status and edge information
+  return {
+    collision: collision,
+    edges: edges
+  };
 }
 
 
@@ -322,12 +350,27 @@ function updateBall(frameTime) {
     }
 
     // Bounce off text
-    if (isCollidingWithText(ball.x, ball.y, ball.radius)) {
+    isCollidingWithTextResults = isCollidingWithText(ball.x, ball.y, ball.radius);
+    if (isCollidingWithTextResults.collision) {
       ball.x -= ball.dx * frameTime;
       ball.y -= ball.dy * frameTime;
-      ball.dy *= -ball.bounce;
-      ball.dx *= -ball.bounce;
-
+      if (isCollidingWithTextResults.edges.top) {
+        ball.dy *= -ball.bounce;
+        ball.dx *= ball.bounce;
+      }
+      if (isCollidingWithTextResults.edges.bottom) {
+        ball.dy *= -ball.bounce;
+        ball.dx *= ball.bounce;
+      }
+      if (isCollidingWithTextResults.edges.left) {
+        ball.dx *= -ball.bounce;
+        ball.dy *= ball.bounce;
+      }
+      if (isCollidingWithTextResults.edges.right) {
+        ball.dx *= -ball.bounce;
+        ball.dy *= ball.bounce;
+      }
+      
     }
   }
 }
