@@ -7,6 +7,18 @@
   <link rel="stylesheet" href="{{ '/assets/css/index.css' | relative_url }}">
 </head>
 <body>
+
+<div id="overlay" onclick="closeNav()"></div>
+
+<div id="mySidenav" class="sidenav">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+  <a href="#">About</a>
+  <a href="#">Services</a>
+  <a href="#">Clients</a>
+  <a href="#">Contact</a>
+</div>
+
+<div id="main">
   <header>
     <div class="banner" style = "height: 350px;">
       <canvas id="bannerCanvas" style = "height: 350px;"></canvas>
@@ -18,8 +30,10 @@
   <footer>
     <p>&copy; {{ site.time | date: "%Y" }} {{ "Michael Holm" }}</p>
   </footer>
+</div>
 
 <script src = 'assets/js/bouncing_ball.js' defer></script>
+<script src = 'assets/js/side_nav.js' defer></script>
 </body>
 </html>
 

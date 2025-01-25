@@ -53,7 +53,7 @@ window.onload = () => {
 // Ball properties
 const ball = {
   x: canvas.width / 2,
-  y: 50,
+  y: canvas.height - 50,
   radius: 20,
   color: '#FF5733',
   dx: 0,
@@ -273,6 +273,13 @@ function drawName(name) {
               });
               startingX += letterWidth;
           };
+}
+
+function drawPhoneAngles() {
+  ctx.fillStyle = '#FFFFFF';
+  ctx.font = '20px Arial';
+  ctx.fillText(`Gamma: ${gamma.toFixed(2)}`, 100, 20);
+  ctx.fillText(`Beta: ${beta.toFixed(2)}`, 100, 40);
 }
 
 // Draw the ball
@@ -525,6 +532,7 @@ function animate() {
   drawName(nameText);
   updateBall(frameTime);
   drawBall();
+  drawPhoneAngles();
   }
   requestAnimationFrame(animate);
 }
