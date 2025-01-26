@@ -11,9 +11,9 @@ let fingerDownDragging = false;
 let mirror = false;
 let screen_orientation = 'portrait-primary';
 let orientation_supported = 'undefined';
-haltBallInteractionBool = false;
-gravityX = 0;
-gravityY = 0;
+let haltBallInteractionBool = false;
+let gravityX = 0;
+let gravityY = 0;
 
 window.onload = () => {
   setTimeout(() => {
