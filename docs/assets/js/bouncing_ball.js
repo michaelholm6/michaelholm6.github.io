@@ -532,7 +532,7 @@ function animate() {
   drawName(nameText);
   updateBall(frameTime);
   drawBall();
-  drawPhoneAngles();
+  //drawPhoneAngles();
   }
   requestAnimationFrame(animate);
 }
