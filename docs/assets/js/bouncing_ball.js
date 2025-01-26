@@ -11,6 +11,9 @@ let fingerDownDragging = false;
 let mirror = false;
 let screen_orientation = 'portrait-primary';
 let orientation_supported = 'undefined';
+haltBallInteractionBool = false;
+gravityX = 0;
+gravityY = 0;
 
 window.onload = () => {
   setTimeout(() => {
@@ -60,7 +63,7 @@ const ball = {
   dy: 0,
   gravity: 1500,
   bounce: 0.8,
-  drag: 0.98,
+  drag: 0.8,
   isDragging: false,
   previousX: 0,
   previousY: 0,
@@ -139,6 +142,14 @@ function lineIntersectsBox(lineStart, lineEnd, box) {
     lineIntersectsLine(lineStart, lineEnd, bottomRight, bottomLeft) || // Bottom edge
     lineIntersectsLine(lineStart, lineEnd, bottomLeft, topLeft) // Left edge
   );
+}
+
+function haltBallInteraction() {
+  haltBallInteractionBool = true;
+}
+
+function resumeBallInteraction() {
+  haltBallInteractionBool = false;
 }
 
 // Helper function to check if two line segments intersect
@@ -302,9 +313,9 @@ function updateBall(frameTime) {
   if (frameTime > 0.1) {
     frameTime = .1;
   }
-  if (!ball.isDragging) {
-    let gravityX = 0;
-    let gravityY = 0;
+  if (!ball.isDragging && !haltBallInteractionBool) {
+    gravityX = 0;
+    gravityY = 0;
 
     if (screen_orientation == 'portrait-primary' || screen_orientation == 'portrait-secondary') {
       if (screen_orientation == 'portrait-primary') {
@@ -328,6 +339,7 @@ function updateBall(frameTime) {
       gravityX = 0;
       gravityY = 1;
     }
+  }
 
     ball.dx += gravityX * ball.gravity * frameTime;
     ball.dy += gravityY * ball.gravity * frameTime;
@@ -380,7 +392,6 @@ function updateBall(frameTime) {
       
     }
   }
-}
 
 // Mouse controls
 canvas.addEventListener('mousedown', function (event) {
