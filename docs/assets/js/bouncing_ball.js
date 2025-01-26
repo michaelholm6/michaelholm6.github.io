@@ -428,7 +428,7 @@ canvas.addEventListener('mousemove', function (event) {
   if (fingerDownDragging){
     event.preventDefault();
   }
-  if (ball.isDragging) {
+  if (ball.isDragging && !haltBallInteractionBool) {
     // Get mouse coordinates
     const mouseX = event.offsetX;
     const mouseY = event.offsetY;
@@ -471,7 +471,7 @@ canvas.addEventListener('touchmove', function (event) {
   if (fingerDownDragging) {
     event.preventDefault();
   }
-  if (ball.isDragging) { // Prevent default touch actions like scrolling
+  if (ball.isDragging && !haltBallInteractionBool) { // Prevent default touch actions like scrolling
 
     // Get the first touch point
     const touch = event.touches[0]; // Use the first touch point
