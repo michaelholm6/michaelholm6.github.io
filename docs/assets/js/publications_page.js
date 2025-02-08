@@ -1,30 +1,79 @@
-const pdfFiles = [
-    "/assets/publications/first author/IITSEC_2021.pdf",
-    "/assets/publications/first author/LIM_2024.pdf",
-    "/assets/publications/first author/JIST_2024.pdf"
+const leadPdfFiles = [
+    { url: "/assets/publications/first author/IITSEC_2021.pdf", caption: "Published in Interservice/Industry Training, Simulation and Education Conference 2022 proceedings" },
+    { url: "/assets/publications/first author/LIM_2024.pdf", caption: "Published in Londong Imaging Meeting 2024 proceedings" },
+    { url: "/assets/publications/first author/JIST_2024.pdf", caption: "Published in Journal of Imaging Science and Technology 2024" },
+    { url: "/assets/publications/first author/Masters_Thesis.pdf", caption: "Master's Thesis" },
 ];
 
-function generateFlexGrid() {
-    const grid = document.getElementById("flex-grid");
+coPdfFiles = [
+    { url: "/assets/publications/co-author/ASME_2020.pdf", caption: "Published in Proceedings of the ASME 2020 International Design Engineering Technical Conferences and Computers and Information in Engineering Conference" },
+];
+
+function isMobile() {
+    const userAgent = navigator.userAgent;
+    // Check for mobile devices based on the user agent (Android, iPhone, iPad, etc.)
+    return /Mobi|Android|iPhone|iPad|iPod/i.test(userAgent);
+  }
+
+function generateFlexGrid(flex_grid_name, pdfFiles) {
+    const grid = document.getElementById(flex_grid_name);
     grid.innerHTML = ""; // Clear old items
 
-    pdfFiles.forEach(pdfUrl => {
+    const isTouchDevice = isMobile();
+
+    pdfFiles.forEach(pdf => {
         const item = document.createElement("div");
         item.classList.add("flex-item");
 
-        const canvas = document.createElement("canvas");
-        item.appendChild(canvas);
+        // Create container for preview (for hover effect)
+        const previewContainer = document.createElement("div");
+        previewContainer.classList.add("pdf-preview-container");
 
+        // Create canvas for PDF preview
+        const canvas = document.createElement("canvas");
+        previewContainer.appendChild(canvas);
+
+        // Create download button
+        const downloadBtn = document.createElement("a");
+        downloadBtn.classList.add("pdf-download-btn");
+        downloadBtn.href = pdf.url;
+        downloadBtn.download = pdf.url.split('/').pop(); // Extract filename
+        downloadBtn.target = "_blank"; // Open in new tab
+
+        // Add SVG download icon
+        downloadBtn.innerHTML = `
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+        `;
+
+        downloadBtn.addEventListener("click", (event) => {
+            event.stopPropagation(); // Stops the click from reaching the parent
+        });
+
+        if (isTouchDevice) {
+            downloadBtn.classList.add("always-visible");
+        }
+
+        previewContainer.appendChild(downloadBtn);
+        item.appendChild(previewContainer);
+
+        // Create title
         const title = document.createElement("div");
         title.classList.add("pdf-title");
-        title.textContent = pdfUrl.split('/').pop();
+        title.textContent = pdf.caption;
         item.appendChild(title);
 
+        // Append item to grid
         grid.appendChild(item);
 
-        renderPDF(pdfUrl, canvas);
+        // Render PDF preview
+        renderPDF(pdf.url, canvas);
 
-        item.addEventListener("click", () => openPDF(pdfUrl));
+        // Click event to open full PDF
+        item.addEventListener("click", () => openPDF(pdf.url));
     });
 }
 
@@ -42,7 +91,8 @@ async function renderPDF(url, canvas) {
     await page.render(renderContext).promise;
 }
 
-window.addEventListener("load", generateFlexGrid);
+window.addEventListener("load", generateFlexGrid("flex-grid-first-author", leadPdfFiles));
+window.addEventListener("load", generateFlexGrid("flex-grid-co-author", coPdfFiles));
 
 let pdfDoc = null;
     let currentPage = 1;
