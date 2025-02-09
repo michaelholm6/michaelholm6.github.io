@@ -175,6 +175,10 @@ body {
   font-size: 20px;
 }
 
+@media screen and (max-height: 450px) {
+  .dropdown-content a {font-size: 12px;}
+}
+
 .dropdown-content a:hover {
   color: white;
 }
