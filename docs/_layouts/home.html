@@ -12,8 +12,20 @@
 
 <div id="mySidenav" class="sidenav">
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav(), resumeBallInteraction()">&times;</a>
+  <a href="/">Home</a>
   <a href="/publications">Publications</a>
-  <a href="#">Astrophotography</a>
+
+  <!-- Photography Menu Item with Expand Arrow -->
+  <div class="dropdown">
+    <a href="javascript:void(0)" class="dropdown-btn" onclick="toggleSubMenu()">
+      <span class="arrow">▶</span> Photography
+    </a>
+    <div class="dropdown-content" id="photography-submenu">
+      <a href="#">Astrophotography</a>
+      <a href="#">Wildlife</a>
+    </div>
+  </div>
+
   <a href="#">Hiking</a>
   <a href="#">CV</a>
 </div>
@@ -22,6 +34,7 @@
   <header>
     <div class="banner" style = "height: 350px;">
       <canvas id="bannerCanvas" style = "height: 350px;"></canvas>
+      <button id="menu-button" onclick="openNav()">☰</button>
     </div>
   </header>
   <main>

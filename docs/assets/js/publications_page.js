@@ -1,12 +1,12 @@
 const leadPdfFiles = [
-    { url: "/assets/publications/first author/IITSEC_2021.pdf", caption: "Published in Interservice/Industry Training, Simulation and Education Conference 2022 proceedings" },
-    { url: "/assets/publications/first author/LIM_2024.pdf", caption: "Published in Londong Imaging Meeting 2024 proceedings" },
-    { url: "/assets/publications/first author/JIST_2024.pdf", caption: "Published in Journal of Imaging Science and Technology 2024" },
-    { url: "/assets/publications/first author/Masters_Thesis.pdf", caption: "Master's Thesis" },
+    { url: "/assets/publications/first author/Masters_Thesis.pdf", caption: "Master's Thesis", publication_site: "https://dr.lib.iastate.edu/entities/publication/7e99883f-c98b-40e7-ad56-55601966e091" },
+    { url: "/assets/publications/first author/JIST_2024.pdf", caption: "Published in Journal of Imaging Science and Technology 2024", publication_site:  "https://library.imaging.org/jist/articles/68/6/060506"},
+    { url: "/assets/publications/first author/LIM_2024.pdf", caption: "Published in Londong Imaging Meeting 2024 Proceedings", publication_site:  "https://library.imaging.org/lim/articles/5/1/16"}, 
+    { url: "/assets/publications/first author/IITSEC_2021.pdf", caption: "Published in Interservice/Industry Training, Simulation and Education Conference 2022 Proceedings", publication_site:  "https://www.xcdsystem.com/iitsec/proceedings/index.cfm?Year=2022&AbID=112413&CID=944#View"},
 ];
 
 coPdfFiles = [
-    { url: "/assets/publications/co-author/ASME_2020.pdf", caption: "Published in Proceedings of the ASME 2020 International Design Engineering Technical Conferences and Computers and Information in Engineering Conference" },
+    { url: "/assets/publications/co-author/ASME_2020.pdf", caption: "Published in Proceedings of the ASME 2020 International Design Engineering Technical Conferences and Computers and Information in Engineering Conference", publication_site: "https://asmedigitalcollection.asme.org/IDETC-CIE/proceedings-abstract/IDETC-CIE2020/V009T09A065/1090065"},
 ];
 
 function isMobile() {
@@ -61,10 +61,16 @@ function generateFlexGrid(flex_grid_name, pdfFiles) {
         item.appendChild(previewContainer);
 
         // Create title
-        const title = document.createElement("div");
+        const title = document.createElement("a");
         title.classList.add("pdf-title");
+        title.href = pdf.publication_site;
         title.textContent = pdf.caption;
+        title.target = "_blank"; // Open in a new tab
+        title.rel = "noopener noreferrer"; // Security best practice
         item.appendChild(title);
+        title.addEventListener("click", (event) => {
+            event.stopPropagation(); // Stops the click from reaching the parent
+        });
 
         // Append item to grid
         grid.appendChild(item);
@@ -100,6 +106,7 @@ let pdfDoc = null;
 
     async function openPDF(pdfUrl) {
         document.getElementById("pdf-modal").style.display = "flex";
+        document.body.style.overflow = "hidden";
         const pdfContainer = document.getElementById("pdf-container");
         pdfContainer.innerHTML = ""; // Clear previous content
 
@@ -136,5 +143,6 @@ let pdfDoc = null;
         // If clicked outside the content area, close the modal
         if (event.target.id === "pdf-modal" || event.target.classList.contains("close-btn")) {
             document.getElementById("pdf-modal").style.display = "none";
+            document.body.style.overflow = "auto";
         }
     }

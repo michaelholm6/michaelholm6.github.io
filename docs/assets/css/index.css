@@ -65,6 +65,8 @@ body {
   overflow-x: hidden; /* Disable horizontal scroll */
   padding-top: 60px; /* Place content 60px from the top */
   transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+  overflow-x: hidden; /* Prevent horizontal overflow */
+  white-space: nowrap; /* Prevent text from wrapping */
 }
 
 /* The navigation menu links */
@@ -117,3 +119,72 @@ body {
   cursor: pointer;
 }
 
+#menu-button {
+  position: absolute; /* Position it relative to the banner */
+  top: 10px;
+  left: 10px;
+  width: 40px;
+  height: 40px;
+  background-color: rgba(0, 0, 0, 0.7); /* Dark semi-transparent background */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 24px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#menu-button:hover {
+  background-color: rgba(0, 0, 0, 0.9); /* Darker on hover */
+}
+
+.dropdown {
+  display: block;
+}
+
+.dropdown-btn {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  gap: 8px; /* Adds spacing between arrow and text */
+}
+
+/* Style for the arrow */
+.arrow {
+  display: inline-block;
+  transition: transform 0.3s ease;
+  font-size: 16px;
+}
+
+.dropdown-content {
+  display: none;
+  padding-left: 20px; /* Indent the submenu */
+}
+
+.dropdown-content a {
+  display: block;
+  padding: 8px 0;
+  color: #818181;
+  text-decoration: none;
+  padding-left: 40px; /* Additional indentation */
+  font-size: 20px;
+}
+
+.dropdown-content a:hover {
+  color: white;
+}
+
+/* Show submenu when active */
+.dropdown-content.show {
+  display: block;
+}
+
+/* Rotate the arrow when the menu is open */
+.arrow.rotate {
+  transform: rotate(90deg); /* Rotates to point down */
+}
