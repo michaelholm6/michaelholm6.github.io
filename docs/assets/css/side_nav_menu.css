@@ -106,7 +106,7 @@
     display: inline-block;
     transition: transform 0.3s ease;
     font-size: 16px;
-    font-family: Arial, sans-serif; /* Avoid system emoji font */
+    font-family: "Helvetica Neue", Arial, sans-serif; /* Avoid system emoji font */
   }
   
   .dropdown-content {

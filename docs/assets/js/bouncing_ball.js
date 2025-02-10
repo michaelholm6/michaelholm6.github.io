@@ -59,7 +59,7 @@ const ball = {
   x: canvas.width / 2,
   y: canvas.height - 50,
   radius: 20,
-  color: '#FFF555',
+  color: '#FF5733',
   dx: 0,
   dy: 0,
   gravity: 1500,
