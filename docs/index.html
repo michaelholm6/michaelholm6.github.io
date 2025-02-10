@@ -1,27 +1,78 @@
 ---
-layout: home
-title: "Welcome to My Site"
+title: "Home"
 ---
 
-<section id="hero">
-  <h1>Welcome to {{ site.title }}</h1>
-  <h3>About me</h3>
-  <p style="max-width: 1000px; margin: 0 auto">I'm currently a Mechanical Engineering Ph.D. student at Purdue University, studying dynamic system identification through machine learning using neural operators.
-    Specifically, I'm developing ways to effectivley make the Laplace Neural Operator <a href="https://arxiv.org/abs/2303.10528" target="_blank">[1]</a> robust to noise
-    and sparse data measurement. I'm also investigating the effects of hydrogen isotope irradiation on tungsten in fusion reactors, and how machine vision and neural operators
-    can be used to predict this behavior.
-  </p>
-  <br>
-  <p style="max-width: 1000px; margin: 0 auto">
-    Along with being a Ph.D. student, I work at Sandia National Labaratories as an R&D intern. I work there part time during the school year, and have spent the past two summers in New Mexico working there full time.
-    While there, I have gotten additional experience in machine learning, neural networks, and data analysis.
-  </p>
-  <br>
-  <p style="max-width: 1000px; margin: 0 auto">
-    In my free time, I enjoy running, lifting, astrophotography, playing the piano, and hiking. I'm currently planning a backpacking trip to Yellowstone National Park, and have
-    hiked in the Grand Canyon, many different national forests, some of the Appalachian Trail, and in the Rocky Mountains.
-  </p>
-  <br>
-  <a onclick="openNav(), haltBallInteraction()" class="btn">Open Portfolio</a>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ page.title }} - {{ site.title }}</title>
+  <link rel="stylesheet" href="{{ '/assets/css/index.css' | relative_url }}">
+  <link rel="stylesheet" href="/assets/css/side_nav_menu.css">
+</head>
+<body>
+
+<div id="overlay" onclick="closeNav(), resumeBallInteraction()"></div>
+
+<div id="mySidenav" class="sidenav">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav(), resumeBallInteraction()">&times;</a>
+  <a href="/">Home</a>
+  <a href="/publications">Publications</a>
+
+  <!-- Photography Menu Item with Expand Arrow -->
+  <div class="dropdown">
+    <a href="javascript:void(0)" class="dropdown-btn" onclick="toggleSubMenu()">
+      <span class="arrow">▶</span> Photography
+    </a>
+    <div class="dropdown-content" id="photography-submenu">
+      <a href="#">Astrophotography</a>
+      <a href="#">Wildlife</a>
+    </div>
+  </div>
+
+  <a href="#">Hiking</a>
+  <a href="#">CV</a>
 </div>
-</section>
+
+<div id="main">
+  <header>
+    <div class="banner" style = "height: 350px;">
+      <canvas id="bannerCanvas" style = "height: 350px;"></canvas>
+      <button id="menu-button" onclick="openNav()">☰</button>
+    </div>
+  </header>
+  <main>
+    <section id="hero">
+      <h1>Welcome to {{ site.title }}</h1>
+      <h3>About me</h3>
+      <p style="max-width: 1000px; margin: 0 auto">I'm currently a Mechanical Engineering Ph.D. student at Purdue University, studying dynamic system identification through machine learning using neural operators.
+        Specifically, I'm developing ways to effectivley make the Laplace Neural Operator <a href="https://arxiv.org/abs/2303.10528" target="_blank">[1]</a> robust to noise
+        and sparse data measurement. I'm also investigating the effects of hydrogen isotope irradiation on tungsten in fusion reactors, and how machine vision and neural operators
+        can be used to predict this behavior.
+      </p>
+      <br>
+      <p style="max-width: 1000px; margin: 0 auto">
+        Along with being a Ph.D. student, I work at Sandia National Labaratories as an R&D intern. I work there part time during the school year, and have spent the past two summers in New Mexico working there full time.
+        While there, I have gotten additional experience in machine learning, neural networks, and data analysis.
+      </p>
+      <br>
+      <p style="max-width: 1000px; margin: 0 auto">
+        In my free time, I enjoy running, lifting, astrophotography, playing the piano, and hiking. I'm currently planning a backpacking trip to Yellowstone National Park, and have
+        hiked in the Grand Canyon, many different national forests, some of the Appalachian Trail, and in the Rocky Mountains.
+      </p>
+      <br>
+      <a onclick="openNav(), haltBallInteraction()" class="btn">Open Portfolio</a>
+    </div>
+    </section> <!-- This is where the content of index.md or other pages will be inserted -->
+  </main>
+  <footer>
+    <p>&copy; {{ site.time | date: "%Y" }} {{ "Michael Holm" }}</p>
+  </footer>
+</div>
+
+<script src = 'assets/js/bouncing_ball.js' defer></script>
+<script src = 'assets/js/side_nav.js' defer></script>
+</body>
+</html>
+

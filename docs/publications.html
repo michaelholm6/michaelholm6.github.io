@@ -1,6 +1,69 @@
 ---
-layout: publications
-title: "Welcome to My Site"
+title: "Publications"
 ---
 
-test
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ page.title }} - {{ site.title }}</title>
+  <link rel="stylesheet" href="/assets/css/publications.css">
+  <link rel="stylesheet" href="/assets/css/side_nav_menu.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+</head>
+
+<div id="pdf-modal" class="pdf-modal" onclick="closePDF(event)">
+  <span class="close-btn" onclick="closePDF(event)">&times;</span>
+  <div class="pdf-modal-content" onclick="event.stopPropagation();">
+      <div id="pdf-container"></div>
+  </div>
+</div>
+
+<div id="overlay" onclick="closeNav(), resumeBallInteraction()"></div>
+
+<div id="mySidenav" class="sidenav">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav(), resumeBallInteraction()">&times;</a>
+  <a href="/">Home</a>
+  <a href="/publications">Publications</a>
+
+  <!-- Photography Menu Item with Expand Arrow -->
+  <div class="dropdown">
+    <a href="javascript:void(0)" class="dropdown-btn" onclick="toggleSubMenu()">
+      <span class="arrow">▶</span> Photography
+    </a>
+    <div class="dropdown-content" id="photography-submenu">
+      <a href="#">Astrophotography</a>
+      <a href="#">Wildlife</a>
+    </div>
+  </div>
+
+  <a href="#">Hiking</a>
+  <a href="#">CV</a>
+</div>
+
+<div class="banner">
+    <div class="banner-content">
+      <h1>Publications</h1>
+    </div>
+    <button id="menu-button" onclick="openNav()">☰</button>
+</div>
+
+<body>
+  <header>
+    <h1>Lead Author Publications</h1>
+  </header>
+  <div class="flex-container" id="flex-grid-first-author"></div>
+  <header>
+    <h1>Co-Author Publications</h1>
+  </header>
+  <div class="flex-container" id="flex-grid-co-author"></div>
+  <footer>
+    <p>&copy; {{ site.time | date: "%Y" }} {{ site.title }}</p>
+  </footer>
+
+  <script src="/assets/js/publications_page.js" defer></script>
+  <script src="/assets/js/side_nav.js" defer></script>
+
+</body>
+</html>
