@@ -1,11 +1,11 @@
 // Canvas setup
 const canvas = document.getElementById('bannerCanvas');
 const ctx = canvas.getContext('2d');
-canvas.width = window.innerWidth * .9;
-canvas.height = canvas.offsetHeight;
 let letterBoxes = [];
 let gamma = 0;
 let referenceGamma = 0; 
+canvas.width = window.innerWidth * .9;
+canvas.height = canvas.offsetHeight;
 let beta = 0;
 let fingerDownDragging = false;
 let mirror = false;
@@ -16,6 +16,7 @@ let gravityX = 0;
 let gravityY = 0;
 
 window.onload = () => {
+  
   setTimeout(() => {
     supportsOrientation().then((isGranted) => {
       if (isGranted) {
@@ -539,7 +540,7 @@ function animate() {
   else if (orientation_supported == 'false') {
     drawName(nameText);
   }
-  else{
+  else if (orientation_supported == 'true' || orientation_supported == 'is not mobile') {
   drawName(nameText);
   updateBall(frameTime);
   drawBall();

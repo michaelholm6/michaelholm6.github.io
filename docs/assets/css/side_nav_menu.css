@@ -106,6 +106,9 @@
     display: inline-block;
     transition: transform 0.3s ease;
     font-size: 16px;
+    .arrow {
+    font-family: Arial, sans-serif; /* Avoid system emoji font */
+    }
   }
   
   .dropdown-content {
