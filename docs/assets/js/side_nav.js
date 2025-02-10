@@ -29,10 +29,8 @@ function toggleSubMenu() {
   if (submenu.classList.contains("show")) {
       submenu.classList.remove("show");
       arrow.classList.remove("rotate");
-      arrow.innerHTML = "▶"; // Point right
   } else {
       submenu.classList.add("show");
       arrow.classList.add("rotate");
-      arrow.innerHTML = "▶"; // Point down
   }
 }
