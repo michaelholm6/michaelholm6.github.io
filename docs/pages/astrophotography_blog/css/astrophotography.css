@@ -1,0 +1,129 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+  }
+  
+  .banner {
+    position: relative;
+    height: 300px; /* Adjust the height to suit your design */
+    background-image: url(/pages/astrophotography_blog/images/eclipse.JPG); /* Replace with your image URL */
+    background-size: 30%; /* Ensures the image covers the entire banner area */
+    background-position: center; /* Keeps the image centered */
+    background-repeat: no-repeat; /* Prevents repeating of the image */
+    background-color: #070707; /* Fallback background color */
+    color: white; /* Text color for contrast */
+  }
+  
+  .banner-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .banner h1 {
+    font-size: 3rem; /* Adjust the size as needed */
+    margin: 0;
+    text-shadow: 2px 2px 4px black;
+  }
+  
+  .banner p {
+    font-size: 1.2rem; /* Adjust the size as needed */
+  }
+  
+  @media (max-width: 768px) {
+    .banner {
+      height: 200px; /* Adjust height for smaller screens */
+    }
+  
+    .banner h1 {
+      font-size: 2rem; /* Reduce font size on smaller screens */
+    }
+  
+    .banner p {
+      font-size: 1rem; /* Reduce font size on smaller screens */
+    }
+  }
+
+  body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #1a1a1a;
+    color: white;
+    text-align: center;
+  }
+  
+  .blog-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+  }
+  
+  .blog-posts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    max-width: 1000px;
+    margin: auto;
+    cursor: pointer;
+  }
+  
+  .post {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 20px;
+    transition: transform 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .post:hover {
+    transform: scale(1.05);
+  }
+  
+  .post img {
+    width: 100%;
+    height: 200px;
+    object-fit: 50%;
+    border-radius: 15px;
+    margin-bottom: 10px;
+  }
+  
+  .post a {
+    color: #ffcc00;
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  
+  
+  footer {
+    margin-top: 40px;
+    padding: 10px;
+    background-color: #1a1a1a;
+    text-align: left;
+  }
+
+  .post {
+    cursor: pointer; /* Makes it look like a button */
+    transition: background-color 0.2s ease-in-out;
+}
+
+.post:hover {
+    background-color: #565656; /* Light gray background on hover */
+}
+
+h2 a {
+    text-decoration: underline;
+    color: blue;
+}
+
+h2 a:visited {
+    color: purple;
+}
+  

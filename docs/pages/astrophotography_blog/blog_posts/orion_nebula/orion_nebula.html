@@ -1,0 +1,97 @@
+---
+title: "Capturing the Orion Nebula"
+layout: default
+date: 2025-03-05
+author: "Michael Holm"
+tags: astrophotography, nebula, photography
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ page.title }} - {{ site.title }}</title>
+  <link rel="stylesheet" href="/pages/astrophotography_blog/blog_posts/orion_nebula/css/side_nav_menu.css">
+  <link rel="stylesheet" href="/pages/astrophotography_blog/blog_posts/orion_nebula/css/astrophotography.css">
+</head>
+
+<body>
+  <div id="overlay" onclick="closeNav(), resumeBallInteraction()"></div>
+
+  <!-- Sidebar Navigation -->
+  <div id="mySidenav" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav(), resumeBallInteraction()">&times;</a>
+    <a href="/">Home</a>
+    <a href="/pages/publications/publications.html">Publications</a>
+    <div class="dropdown">
+      <a href="javascript:void(0)" class="dropdown-btn" onclick="toggleSubMenu()">
+        <span class="arrow">&#9654;&#xFE0E;</span> Photography
+      </a>
+      <div class="dropdown-content" id="photography-submenu">
+        <a href="/pages/astrophotography_blog/astrophotography.html">Astrophotography</a>
+        <a href="/pages/wildlife_photography_blog/wildlife_photography.html">Wildlife</a>
+      </div>
+    </div>
+    <a href="#">Hiking</a>
+    <a href="#">CV</a>
+  </div>
+
+  <button id="menu-button" onclick="openNav()">☰</button>
+
+  <!-- Blog Post Banner -->
+  <div class="banner">
+    <div class="banner-content">
+      <h1>{{ page.title }}</h1>
+      <p>By {{ page.author }} | {{ page.date | date: "%B %d, %Y" }}</p>
+    </div>
+  </div>
+
+  <!-- Blog Content -->
+  <main class="blog-container">
+    <article class="blog-post">
+      <p>
+        I recently had the opportunity to capture the Orion Nebula using my mirrorless micro 4/3 camera and my star tracker. 
+        This image was created by taking 100 30 second exposures, and stacking them using DeepSkyStacker. The focal length was
+        300mm full-frame equivalent. 
+      </p>
+
+      <h2>Equipment Used</h2>
+      <ul>
+        <li>Camera: Olympus OM-D EM1 MK3</li>
+        <li>Star Tracker: iOptron Skyguider Pro</li>
+        <li>Stacking Software: DeepSkyStacker</li>
+        <li>Post-Processing Software: Gimp</li>
+      </ul>
+
+      <h2>Challenges and Learnings</h2>
+      <p>
+        I had to make several attempts at creating this image, over several nights. The biggest challenge I had was making sure the background
+        stars were in absolutely perfect focus. This is necessary because DeepSkyStacker is pretty bad at dealing with stars that are even 
+        slightly out of focus. I also had to set up my sky tracker in such a way so as to mitigate the effects of wind moving the camera around.
+        
+        I learned that refocusing your camera throughout the night is necessary, because the temperature changes through the night can cause
+        the focus to shift. This is caused by the lens elements expanding and contracting due to the temperature changes.
+      </p>
+
+      <h2>Final Image</h2>
+      <figure>
+        <img src="/pages/astrophotography_blog/blog_posts/orion_nebula/images/Orion_stacked.jpg" alt="Final Orion Nebula Image">
+        <figcaption>Final processed image of the Orion Nebula.</figcaption>
+      </figure>
+
+      <h2>Conclusion</h2>
+      <p>
+        This was my first truly successful astrophotography attempt, and it makes me so excited to see what I'll be able to capture in the future. 
+      </p>
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; {{ site.time | date: '%Y' }} - {{ site.title }}. All rights reserved.</p>
+  </footer>
+
+  <script src="/pages/astrophotography_blog/blog_posts/orion_nebula/js/side_nav.js" defer></script>
+</body>
+</html>

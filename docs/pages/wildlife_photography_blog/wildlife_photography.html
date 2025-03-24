@@ -1,0 +1,59 @@
+---
+title: "Wildlife Photography"
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ page.title }} - {{ site.title }}</title>
+  <link rel="stylesheet" href="/pages/wildlife_photography_blog/css/wildlife_photography.css">
+  <link rel="stylesheet" href="/pages/wildlife_photography_blog/css/side_nav_menu.css">
+</head>
+<body>
+  <div id="overlay" onclick="closeNav(), resumeBallInteraction()"></div>
+
+  <div id="mySidenav" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav(), resumeBallInteraction()">&times;</a>
+    <a href="/">Home</a>
+    <a href="/pages/publications/publications.html">Publications</a>
+    <div class="dropdown">
+      <a href="javascript:void(0)" class="dropdown-btn" onclick="toggleSubMenu()">
+        <span class="arrow">&#9654;&#xFE0E;</span> Photography
+      </a>
+      <div class="dropdown-content" id="photography-submenu">
+        <a href="/pages/astrophotography_blog/astrophotography.html">Astrophotography</a>
+        <a href="/pages/wildlife_photography_blog/wildlife_photography.html">Wildlife</a>
+      </div>
+    </div>
+    <a href="#">Hiking</a>
+    <a href="#">CV</a>
+  </div>
+
+  <button id="menu-button" onclick="openNav()">☰</button>
+
+  <div class="banner">
+    <img src="/pages/wildlife_photography_blog/images/Hummingbird_on_chain.jpg" alt="Hummingbird">
+    <div class="banner-content">
+        <h1>Wildlife Photography</h1>
+    </div>
+</div>
+
+  <main class="blog-container">
+    <section class="blog-posts">
+        <article class="post" onclick="window.location.href='/pages/wildlife_photography_blog/blog_posts/costa_rica/costa_rica.html'">
+            <img src="/pages/wildlife_photography_blog/images/Toucan_catching_fruit.jpg" alt="Night Sky">
+            <h2><a href="/pages/wildlife_photography_blog/blog_posts/">Costa Rica</a></h2>
+            <p>A trip in photos.</p>
+        </article>
+    </section>
+</main>
+
+  <footer>
+    <p>&copy; {{ site.time | date: '%Y' }} - {{ site.title }}. All rights reserved.</p>
+  </footer>
+
+  <script src="/pages/wildlife_photography_blog/js/side_nav.js" defer></script>
+</body>
+</html>

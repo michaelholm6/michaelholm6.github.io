@@ -1,0 +1,134 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #2a3b1e; /* Deep forest green */
+  color: #f5f5dc; /* Soft beige */
+  text-align: center;
+}
+
+.banner {
+  position: relative;
+  height: 300px; /* Adjust height as needed */
+  background-color: #2a3b1e; /* Same as the body background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden; /* Prevents the image from overflowing */
+  border-radius: 20px; /* Rounded edges */
+  margin: 20px auto; /* Adds spacing around the banner */
+  width: 50%; /* Adjust to fit within the page */
+  max-width: 1200px; /* Prevents stretching too wide */
+}
+
+.banner img {
+  width: 100%; /* Ensures the image fills the banner */
+  height: 100%; /* Makes the image fit the banner */
+  object-fit: cover; /* Ensures the image covers the full area */
+  border-radius: 20px; /* Applies rounded corners to the image */
+}
+
+.banner-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  padding: 20px;
+  z-index: 1; /* Ensures text is on top of the image */
+  border-radius: 10px;
+}
+
+.banner h1 {
+  font-size: 3rem;
+  margin: 0;
+  text-shadow: 2px 2px 4px #2a1a10; /* Dark brown shadow for contrast */
+}
+
+.banner p {
+  font-size: 1.2rem;
+}
+
+@media (max-width: 768px) {
+  .banner {
+      height: 200px;
+  }
+
+  .banner h1 {
+      font-size: 2rem;
+  }
+
+  .banner p {
+      font-size: 1rem;
+  }
+}
+
+.blog-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.blog-posts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  max-width: 1000px;
+  margin: auto;
+  cursor: pointer;
+}
+
+.post {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 20px;
+  transition: transform 0.3s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.post:hover {
+  transform: scale(1.05);
+  background-color: #4d6835; /* Deep green tint on hover */
+}
+
+.post img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 15px;
+  margin-bottom: 10px;
+}
+
+.post a {
+  color: #e07b39; /* Warm autumn orange */
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+footer {
+  margin-top: 40px;
+  padding: 10px;
+  background-color: #2a3b1e; /* Dark brown */
+  text-align: left;
+}
+
+.post {
+  cursor: pointer; /* Makes it look like a button */
+  transition: background-color 0.2s ease-in-out;
+}
+
+.post:hover {
+  background-color: #4d6835; /* Deep green background on hover */
+}
+
+h2 a {
+  text-decoration: underline;
+  color: #8b5e3c; /* Earthy brown for links */
+}
+
+h2 a:visited {
+  color: #5a3a1b; /* Muted brown for visited links */
+}

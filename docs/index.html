@@ -8,8 +8,8 @@ title: "Home"
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{ page.title }} - {{ site.title }}</title>
-  <link rel="stylesheet" href="{{ '/assets/css/index.css' | relative_url }}">
-  <link rel="stylesheet" href="/assets/css/side_nav_menu.css">
+  <link rel="stylesheet" href="{{ '/pages/index/css/index.css' | relative_url }}">
+  <link rel="stylesheet" href="/pages/index/css/side_nav_menu.css">
 </head>
 <body>
 
@@ -18,7 +18,7 @@ title: "Home"
 <div id="mySidenav" class="sidenav">
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav(), resumeBallInteraction()">&times;</a>
   <a href="/">Home</a>
-  <a href="/publications">Publications</a>
+  <a href="/pages/publications/publications.html">Publications</a>
 
   <!-- Photography Menu Item with Expand Arrow -->
   <div class="dropdown">
@@ -26,8 +26,8 @@ title: "Home"
       <span class="arrow">&#9654;&#xFE0E;</span> Photography
     </a>
     <div class="dropdown-content" id="photography-submenu">
-      <a href="#">Astrophotography</a>
-      <a href="#">Wildlife</a>
+      <a href="/pages/astrophotography_blog/astrophotography.html">Astrophotography</a>
+      <a href="/pages/wildlife_photography_blog/wildlife_photography.html">Wildlife</a>
     </div>
   </div>
 
@@ -73,8 +73,8 @@ title: "Home"
   </footer>
 </div>
 
-<script src = 'assets/js/bouncing_ball.js' defer></script>
-<script src = 'assets/js/side_nav.js' defer></script>
+<script src = '/pages/index/js/bouncing_ball.js' defer></script>
+<script src = '/pages/index/js/side_nav.js' defer></script>
 </body>
 </html>
 
