@@ -1,5 +1,4 @@
 // Canvas setup
-document.addEventListener('DOMContentLoaded', function () {
 
 const canvas = document.getElementById('bannerCanvas');
 const ctx = canvas.getContext('2d');
@@ -61,8 +60,8 @@ const ball = {
   x: canvas.width / 2,
   y: canvas.height,
   radius: 20,
-  //color: '#FF5733',
-  color: 'black',
+  color: '#FF5733',
+  //color: 'black',
   dx: 0,
   dy: 500,
   gravity: 1500,
@@ -531,6 +530,9 @@ let lastTime = performance.now();
 
 // Animation loop
 function animate() {
+  canvas.style.display = 'none'; // Hide canvas
+void canvas.offsetHeight; // Access offsetHeight to trigger reflow
+canvas.style.display = 'block'; // Show canvas again
   let time = performance.now();
   frameTime = (time - lastTime) / 1000;
   lastTime = time;
@@ -538,6 +540,8 @@ function animate() {
   ctx.font = `${Math.floor(canvas.width / 20)}px sans-serif`;
   //const letterBoxes = getLetterBoundingBoxes(nameText, canvas.width - 20);
   //colorLetterBoxes(letterBoxes);
+
+
   if (orientation_supported == 'undefined') {
     drawName('Touch Here to Enable Ball Minigame');
   }
@@ -552,6 +556,7 @@ function animate() {
   }
   requestAnimationFrame(animate);
 }
+
 
 setTimeout(animate, 300);
 
@@ -623,4 +628,3 @@ function colorLetterBoxes(letterBoxes) {
       ctx.fillRect(box.x, box.top, box.width, box.bottom - box.top);
   });
 }
-});
