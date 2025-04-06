@@ -4,9 +4,11 @@ const ctx = canvas.getContext('2d');
 let letterBoxes = [];
 let gamma = 0;
 let referenceGamma = 0; 
-canvas.width = window.innerWidth * .9;
-canvas.height = canvas.offsetHeight;
+canvas.width = window.innerWidth * 0.9; // 90% of the window width
+canvas.height = window.innerHeight * 0.5; // Adjust to desired height (e.g., 50% of the window height)
+
 setTimeout(() => {
+  // Force reflow after resizing
   canvas.style.display = 'none';
   void canvas.offsetHeight; // force reflow
   canvas.style.display = 'block';
@@ -62,11 +64,12 @@ window.onload = () => {
 // Ball properties
 const ball = {
   x: canvas.width / 2,
-  y: canvas.height - 50,
+  y: canvas.height,
   radius: 20,
-  color: '#FF5733',
+  //color: '#FF5733',
+  color: 'black',
   dx: 0,
-  dy: 0,
+  dy: 500,
   gravity: 1500,
   bounce: 0.8,
   drag: 0.8,
