@@ -7,8 +7,9 @@ let referenceGamma = 0;
 canvas.width = window.innerWidth * .9;
 canvas.height = canvas.offsetHeight;
 setTimeout(() => {
-  window.scrollBy(0, 1); // scrolls 1px to trigger reflow
-  window.scrollBy(0, -1); // back to original position
+  canvas.style.display = 'none';
+  void canvas.offsetHeight; // force reflow
+  canvas.style.display = 'block';
 }, 100);
 let beta = 0;
 let fingerDownDragging = false;
