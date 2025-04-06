@@ -4,15 +4,14 @@ const ctx = canvas.getContext('2d');
 let letterBoxes = [];
 let gamma = 0;
 let referenceGamma = 0; 
-canvas.width = window.innerWidth * 0.9; // 90% of the window width
-canvas.height = window.innerHeight * 0.5; // Adjust to desired height (e.g., 50% of the window height)
+const pixelRatio = window.devicePixelRatio || 1;
 
-setTimeout(() => {
-  // Force reflow after resizing
-  canvas.style.display = 'none';
-  void canvas.offsetHeight; // force reflow
-  canvas.style.display = 'block';
-}, 100);
+// Set the canvas width and height based on the window size, adjusting for pixel density
+canvas.width = window.innerWidth * 0.9 * pixelRatio; // Adjust for device pixel ratio
+canvas.height = window.innerHeight * 0.5 * pixelRatio; // Adjust for device pixel ratio
+
+// Scale the canvas context to ensure correct rendering on high-DPI displays
+ctx.scale(pixelRatio, pixelRatio);
 let beta = 0;
 let fingerDownDragging = false;
 let mirror = false;
@@ -66,8 +65,8 @@ const ball = {
   x: canvas.width / 2,
   y: canvas.height,
   radius: 20,
-  //color: '#FF5733',
-  color: 'black',
+  color: '#FF5733',
+  //color: 'black',
   dx: 0,
   dy: 500,
   gravity: 1500,
