@@ -16,13 +16,13 @@ body {
   overflow: hidden; /* Prevents the image from overflowing */
   border-radius: 20px; /* Rounded edges */
   margin: 20px auto; /* Adds spacing around the banner */
-  width: 50%; /* Adjust to fit within the page */
+  width: 100%; /* Adjust to fit within the page */
   max-width: 1200px; /* Prevents stretching too wide */
-  min-width: 400px;
+  min-width: 300px;
 }
 
 .banner img {
-  width: 100%; /* Ensures the image fills the banner */
+  width: 80%; /* Ensures the image fills the banner */
   height: 100%; /* Makes the image fit the banner */
   object-fit: cover; /* Ensures the image covers the full area */
   border-radius: 20px; /* Applies rounded corners to the image */
