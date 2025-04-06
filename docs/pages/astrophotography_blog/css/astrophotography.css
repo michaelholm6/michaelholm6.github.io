@@ -5,13 +5,20 @@ body {
   
   .banner {
     position: relative;
-    height: 300px; /* Adjust the height to suit your design */
-    background-image: url(/pages/astrophotography_blog/images/eclipse.JPG); /* Replace with your image URL */
-    background-size: 30%; /* Ensures the image covers the entire banner area */
-    background-position: center; /* Keeps the image centered */
-    background-repeat: no-repeat; /* Prevents repeating of the image */
-    background-color: #070707; /* Fallback background color */
-    color: white; /* Text color for contrast */
+    height: 300px;
+    background-image: url(/pages/astrophotography_blog/images/eclipse.JPG);
+    background-size: 30%; /* fills the container without stretching */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #070707;
+    color: white;
+  }
+
+  @media (max-width: 600px) {
+    .banner {
+      height: 200px; /* shorter on phones */
+      background-size: cover;
+    }
   }
   
   .banner-content {

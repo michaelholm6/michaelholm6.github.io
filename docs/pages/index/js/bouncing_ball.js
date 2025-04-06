@@ -6,6 +6,10 @@ let gamma = 0;
 let referenceGamma = 0; 
 canvas.width = window.innerWidth * .9;
 canvas.height = canvas.offsetHeight;
+setTimeout(() => {
+  window.scrollBy(0, 1); // scrolls 1px to trigger reflow
+  window.scrollBy(0, -1); // back to original position
+}, 100);
 let beta = 0;
 let fingerDownDragging = false;
 let mirror = false;
@@ -532,6 +536,7 @@ function animate() {
   frameTime = (time - lastTime) / 1000;
   lastTime = time;
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.font = `${Math.floor(canvas.width / 20)}px sans-serif`;
   //const letterBoxes = getLetterBoundingBoxes(nameText, canvas.width - 20);
   //colorLetterBoxes(letterBoxes);
   if (orientation_supported == 'undefined') {

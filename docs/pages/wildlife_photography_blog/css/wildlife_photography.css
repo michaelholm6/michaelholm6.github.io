@@ -18,6 +18,7 @@ body {
   margin: 20px auto; /* Adds spacing around the banner */
   width: 50%; /* Adjust to fit within the page */
   max-width: 1200px; /* Prevents stretching too wide */
+  min-width: 400px;
 }
 
 .banner img {
