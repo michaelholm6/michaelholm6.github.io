@@ -1,17 +1,13 @@
 // Canvas setup
+document.addEventListener('DOMContentLoaded', function () {
+
 const canvas = document.getElementById('bannerCanvas');
 const ctx = canvas.getContext('2d');
 let letterBoxes = [];
 let gamma = 0;
 let referenceGamma = 0; 
-const pixelRatio = window.devicePixelRatio || 1;
-
-// Set the canvas width and height based on the window size, adjusting for pixel density
-canvas.width = window.innerWidth * 0.9 * pixelRatio; // Adjust for device pixel ratio
-canvas.height = window.innerHeight * 0.5 * pixelRatio; // Adjust for device pixel ratio
-
-// Scale the canvas context to ensure correct rendering on high-DPI displays
-ctx.scale(pixelRatio, pixelRatio);
+canvas.width = window.innerWidth * .9;
+canvas.height = canvas.offsetHeight;
 let beta = 0;
 let fingerDownDragging = false;
 let mirror = false;
@@ -65,8 +61,8 @@ const ball = {
   x: canvas.width / 2,
   y: canvas.height,
   radius: 20,
-  color: '#FF5733',
-  //color: 'black',
+  //color: '#FF5733',
+  color: 'black',
   dx: 0,
   dy: 500,
   gravity: 1500,
@@ -627,3 +623,4 @@ function colorLetterBoxes(letterBoxes) {
       ctx.fillRect(box.x, box.top, box.width, box.bottom - box.top);
   });
 }
+});
