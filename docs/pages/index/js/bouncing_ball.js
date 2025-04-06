@@ -5,7 +5,7 @@ const ctx = canvas.getContext('2d');
 let letterBoxes = [];
 let gamma = 0;
 let referenceGamma = 0; 
-canvas.width = window.innerWidth * .9;
+canvas.width = window.innerWidth;
 canvas.height = canvas.offsetHeight;
 let beta = 0;
 let fingerDownDragging = false;
@@ -60,8 +60,8 @@ const ball = {
   x: canvas.width / 2,
   y: canvas.height,
   radius: 20,
-  color: '#FF5733',
-  //color: 'black',
+  //color: '#FF5733',
+  color: 'black',
   dx: 0,
   dy: 500,
   gravity: 1500,
@@ -530,9 +530,6 @@ let lastTime = performance.now();
 
 // Animation loop
 function animate() {
-  canvas.style.display = 'none'; // Hide canvas
-void canvas.offsetHeight; // Access offsetHeight to trigger reflow
-canvas.style.display = 'block'; // Show canvas again
   let time = performance.now();
   frameTime = (time - lastTime) / 1000;
   lastTime = time;
