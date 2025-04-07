@@ -313,6 +313,8 @@ function drawBall() {
 
 // Update ball position and handle collisions
 function updateBall(frameTime) {
+  gravityX = 0;
+  gravityY = 0;
   if (frameTime > 0.1) {
     frameTime = .1;
   }
@@ -342,7 +344,6 @@ function updateBall(frameTime) {
       gravityX = 0;
       gravityY = 1;
     }
-  }
 
     ball.dx += gravityX * ball.gravity * frameTime;
     ball.dy += gravityY * ball.gravity * frameTime;
@@ -355,6 +356,10 @@ function updateBall(frameTime) {
 
     ball.x += ball.dx * frameTime;
     ball.y += ball.dy * frameTime;
+
+  }
+
+    
 
 
     // Bounce off canvas edges
@@ -484,8 +489,8 @@ canvas.addEventListener('touchmove', function (event) {
     // Save previous position for collision check
     ball.previousX = ball.x;
     ball.previousY = ball.y;
-    ball.dx = (touchX - ball.x)*25;
-    ball.dy = (touchY - ball.y)*25;
+    ball.dx = (touchX - ball.x)*100;
+    ball.dy = (touchY - ball.y)*100;
 
     // Check for collision with text (assuming you have the same function)
     const isColliding = isClippingThroughLetters(ball, touchX, touchY, ball.radius, letterBoxes);
