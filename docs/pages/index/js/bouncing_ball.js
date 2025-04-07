@@ -64,6 +64,8 @@ const ball = {
   color: 'black',
   dx: 0,
   dy: 500,
+  dx_list: [0, 0, 0, 0, 0],
+  dy_list: [0, 0, 0, 0, 0],
   gravity: 1500,
   bounce: 0.8,
   drag: 0.8,
@@ -489,8 +491,14 @@ canvas.addEventListener('touchmove', function (event) {
     // Save previous position for collision check
     ball.previousX = ball.x;
     ball.previousY = ball.y;
-    ball.dx = (touchX - ball.x)*100;
-    ball.dy = (touchY - ball.y)*100;
+    ball.dx = (touchX - ball.x)*25;
+    ball.dy = (touchY - ball.y)*25;
+    ball.dx_list.push(ball.dx);
+    ball.dx_list.shift();
+    ball.dy_list.push(ball.dy);
+    ball.dy_list.shift();
+    ball.dx = ball.dx_list.reduce((a, b) => a + b, 0) / ball.dx_list.length;
+    ball.dy = ball.dy_list.reduce((a, b) => a + b, 0) / ball.dy_list.length;
 
     // Check for collision with text (assuming you have the same function)
     const isColliding = isClippingThroughLetters(ball, touchX, touchY, ball.radius, letterBoxes);
