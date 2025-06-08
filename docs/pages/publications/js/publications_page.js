@@ -8,7 +8,8 @@ const leadPdfFiles = [
 
 
 coPdfFiles = [
-    { url: "/pages/publications/publication_pdfs/co-author/ASME_2020.pdf", caption: "Published in Proceedings of the ASME 2020 International Design Engineering Technical Conferences and Computers and Information in Engineering Conference", publication_site: "https://asmedigitalcollection.asme.org/IDETC-CIE/proceedings-abstract/IDETC-CIE2020/V009T09A065/1090065"},
+    {url: "/pages/publications/publication_pdfs/co-author/SoftwareX_2025.pdf", caption: "Published in SoftwareX Volume 31", publication_site: "https://www.sciencedirect.com/science/article/pii/S2352711025001876"},
+    { url: "/pages/publications/publication_pdfs/co-author/ASME_2020.pdf", caption: "Published in Proceedings of the ASME 2020 International Design Engineering Technical Conferences and Computers and Information in Engineering Conference", publication_site: "https://asmedigitalcollection.asme.org/IDETC-CIE/proceedings-abstract/IDETC-CIE2020/V009T09A065/1090065"}
 ];
 
 function isMobile() {
