@@ -1,0 +1,125 @@
+---
+title: "Photos from Costa Rica"
+layout: default
+date: 2025-03-05
+author: "Michael Holm"
+tags: wildlife photography, costa rica, photography
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ page.title }} - {{ site.title }}</title>
+  <link rel="stylesheet" href="/pages/wildlife_photography_blog/blog_posts/Costa_rica/css/side_nav_menu.css">
+  <link rel="stylesheet" href="/pages/wildlife_photography_blog/blog_posts/Costa_rica/css/costa_rica.css">
+</head>
+
+<body>
+  <div id="overlay" onclick="closeNav(), resumeBallInteraction()"></div>
+
+  <!-- Sidebar Navigation -->
+  <div id="mySidenav" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav(), resumeBallInteraction()">&times;</a>
+    <a href="/">Home</a>
+    <a href="/pages/publications/publications.html">Publications</a>
+    <div class="dropdown">
+      <a href="javascript:void(0)" class="dropdown-btn" onclick="toggleSubMenu()">
+        <span class="arrow">&#9654;&#xFE0E;</span> Photography
+      </a>
+      <div class="dropdown-content" id="photography-submenu">
+        <a href="/pages/astrophotography_blog/astrophotography.html">Astrophotography</a>
+        <a href="#">Wildlife</a>
+      </div>
+    </div>
+    <a href="#">Hiking</a>
+    <a href="/pages/CV/CV.html">CV</a>
+  </div>
+
+  <button id="menu-button" onclick="openNav()">☰</button>
+
+  <!-- Blog Post Banner -->
+  <div class="banner">
+    <div class="banner-content">
+      <h1>{{ page.title }}</h1>
+      <p>By {{ page.author }} | {{ page.date | date: "%B %d, %Y" }}</p>
+    </div>
+  </div>
+
+  <!-- Blog Content -->
+  <main class="blog-container">
+    <article class="blog-post">
+      <p>
+        My mom's side of the family had a thanksgiving family reunion in Costa Rica in 2022, and I was lucky enough to be able to attend. On this trip
+        I brought my camera and took a lot of photos of the wildlife I saw. I was able to capture some amazing moments, so here's a collection of
+        some of my favorite photos from the trip.
+      </p>
+
+      <h2>Equipment Used</h2>
+      <ul>
+        <li>Camera: Olympus OM-D EM1 MK3</li>
+        <li>Lenses: M.Zuiko ED 100-400mm and Olympus M. Zuiko 12-45mm</li>
+      </ul>
+
+      <h2>Photo Gallery</h2>
+        <figure>
+          <img src="/pages/wildlife_photography_blog/blog_posts/Costa_rica/images/Hummingbird_on_chain.jpg" alt="Hummingbird on a Chain">
+          <figcaption>Hummingbird sitting on a chain fence</figcaption>
+        </figure>
+        <figure>
+          <img src="/pages/wildlife_photography_blog/blog_posts/Costa_rica/images/Toucan_catching_fruit.jpg" alt="Toucan catching fruit">
+          <figcaption>Toucan catching a piece of fruit in its mouth</figcaption>
+        </figure>
+        <figure>
+          <img src="/pages/wildlife_photography_blog/blog_posts/Costa_rica/images/Monkey_laying.jpg" alt="Monkey laying on a branch">
+          <figcaption>Monkey laying on a branch</figcaption>
+        </figure>
+        <figure>
+          <img src="/pages/wildlife_photography_blog/blog_posts/Costa_rica/images/Monkey_tongue.jpg" alt="Monkey sticking out its tongue">
+          <figcaption>Monkey sticking out its tongue</figcaption>
+        </figure>
+        <figure>
+          <img src="/pages/wildlife_photography_blog/blog_posts/Costa_rica/images/Moth.jpg" alt="A moth on a leaf">
+          <figcaption>A moth resting on a leaf</figcaption>
+        </figure>
+        <figure>
+          <img src="/pages/wildlife_photography_blog/blog_posts/Costa_rica/images/Owl.jpg" alt="A pygmy owl">
+          <figcaption>A pygmy owl interested in the camera</figcaption>
+        </figure>
+        <figure>
+          <img src="/pages/wildlife_photography_blog/blog_posts/Costa_rica/images/Snake.jpg" alt="A tiny snake">
+          <figcaption>A tiny snake on a leaf</figcaption>
+        </figure>
+        <figure>
+          <img src="/pages/wildlife_photography_blog/blog_posts/Costa_rica/images/Iguana.jpg" alt="An iguana sitting on a rock">
+          <figcaption>An iguana sitting on a rock</figcaption>
+        </figure>
+
+
+      <h2>Lessons Learned</h2>
+      <p>
+        While capturing these photos, I learned a lot about patience and the importance of being in the right place at the right time. 
+        Wildlife photography seems to reward those who are willing to sit still for long periods of time while pointing 
+        a camera at an animal. I started to find it relaxing after a while, just watching these animals go about their lives,
+        and waiting for the perfect moment to capture a photo. I ended up printing a couple of these photos and hanging them
+        up around my room, so I could remember this amazing trip.
+      </p>
+
+      <h2>Conclusion</h2>
+      <p>
+        This trip to Costa Rica was an incredible experience, and I am grateful for the opportunity to capture these moments.
+        I got a lot of experience taking photos of wildlife, and I learned a lot about good techniques for capturing these types of photos.
+        Thanks for reading :)
+      </p>
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; {{ site.time | date: '%Y' }} - {{ site.title }}. All rights reserved.</p>
+  </footer>
+
+  <script src="/pages/wildlife_photography_blog/blog_posts/Costa_rica/js/side_nav.js" defer></script>
+</body>
+</html>
