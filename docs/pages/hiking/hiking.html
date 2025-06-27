@@ -1,0 +1,59 @@
+---
+title: "Backpacking"
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ page.title }} - {{ site.title }}</title>
+  <link rel="stylesheet" href="/pages/hiking/css/hiking.css">
+  <link rel="stylesheet" href="/pages/hiking/css/side_nav_menu.css">
+</head>
+<body>
+  <div id="overlay" onclick="closeNav(), resumeBallInteraction()"></div>
+
+  <div id="mySidenav" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav(), resumeBallInteraction()">&times;</a>
+    <a href="/">Home</a>
+    <a href="/pages/publications/publications.html">Publications</a>
+    <div class="dropdown">
+      <a href="javascript:void(0)" class="dropdown-btn" onclick="toggleSubMenu()">
+        <span class="arrow">&#9654;&#xFE0E;</span> Photography
+      </a>
+      <div class="dropdown-content" id="photography-submenu">
+        <a href="/pages/astrophotography_blog/astrophotography.html">Astrophotography</a>
+        <a href="/pages/wildlife_photography_blog/wildlife_photography.html">Wildlife</a>
+      </div>
+    </div>
+    <a href="/pages/hiking/hiking.html">Hiking</a>
+    <a href="/pages/CV/CV.html">CV</a>
+  </div>
+
+  <button id="menu-button" onclick="openNav()">☰</button>
+
+  <div class="banner">
+    <img src="/pages/hiking/images/hiking.jpg" alt="Image of a hiker in a forest">
+    <div class="banner-content">
+      <h1>Hiking</h1>
+    </div>
+  </div>
+
+  <main class="blog-container">
+    <section class="blog-posts">
+        <article class="post" onclick="window.location.href='/pages/hiking/blog_posts/grand_canyon/grand_canyon.html'">
+            <img src="/pages/hiking/images/grand_canyon.jpg" alt="Night Sky">
+            <h2><a href="/pages/hiking/blog_posts/grand_canyon/grand_canyon.html">Backpacking the Grand Canyon</a></h2>
+            <p>A trip report on backpacking in the Grand Canyon.</p>
+        </article>
+    </section>
+</main>
+
+  <footer>
+    <p>&copy; {{ site.time | date: '%Y' }} - {{ site.title }}. All rights reserved.</p>
+  </footer>
+
+  <script src="/pages/hiking/js/side_nav.js" defer></script>
+</body>
+</html>

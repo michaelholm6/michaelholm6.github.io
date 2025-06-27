@@ -1,0 +1,136 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #374925; /* Deeper earthy green */
+  color: #f0e6d2; /* Warm light beige (like sand or trail dust) */
+  text-align: center;
+}
+
+.banner {
+  position: relative;
+  height: 300px;
+  background-color: #374925; /* Match body */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  border-radius: 20px;
+  margin: 20px auto;
+  width: 100%;
+  max-width: 1200px;
+  min-width: 300px;
+}
+
+.banner img {
+  width: 80%;
+  height: 100%;
+  object-fit: cover;
+  object-position: bottom center;
+  border-radius: 20px;
+}
+
+.banner-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  padding: 20px;
+  z-index: 1;
+  border-radius: 10px;
+}
+
+.banner h1 {
+  font-size: 3rem;
+  margin: 0;
+  text-shadow: 2px 2px 4px #2d1b0f; /* Deep brown shadow for contrast */
+}
+
+.banner p {
+  font-size: 1.2rem;
+}
+
+@media (max-width: 768px) {
+  .banner {
+      height: 200px;
+  }
+
+  .banner h1 {
+      font-size: 2rem;
+  }
+
+  .banner p {
+      font-size: 1rem;
+  }
+}
+
+.blog-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.blog-posts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  max-width: 1000px;
+  margin: auto;
+  cursor: pointer;
+}
+
+.post {
+  background: rgba(255, 255, 255, 0.08); /* Slightly more subtle transparent layer */
+  border-radius: 10px;
+  padding: 20px;
+  transition: transform 0.3s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.post:hover {
+  transform: scale(1.05);
+  background-color: #5c7a3f; /* Mossy green on hover */
+}
+
+.post img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 15px;
+  margin-bottom: 10px;
+}
+
+.post a {
+  color: #d9853b; /* Warm earthy orange (like sunset) */
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+footer {
+  margin-top: 40px;
+  padding: 10px;
+  background-color: #2f3a1d; /* Very dark olive green */
+  text-align: left;
+}
+
+.post {
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.post:hover {
+  background-color: #5c7a3f; /* Same mossy green on hover */
+}
+
+h2 a {
+  text-decoration: underline;
+  color: #d38550; /* Rich bark-like brown */
+}
+
+h2 a:visited {
+  color: #9b7045; /* Darker earthy brown for visited links */
+}

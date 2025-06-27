@@ -437,6 +437,22 @@ canvas.addEventListener('mousemove', function (event) {
   if (fingerDownDragging){
     event.preventDefault();
   }
+
+  const mouseX = event.offsetX;
+  const mouseY = event.offsetY;
+
+  const insideBall = 
+    mouseX >= ball.x - ball.radius &&
+    mouseX <= ball.x + ball.radius &&
+    mouseY >= ball.y - ball.radius &&
+    mouseY <= ball.y + ball.radius;
+
+  if (insideBall) {
+    canvas.style.cursor = 'grab';
+  } else {
+    canvas.style.cursor = 'default';
+  }
+
   if (ball.isDragging && !haltBallInteractionBool) {
     // Get mouse coordinates
     const mouseX = event.offsetX;
