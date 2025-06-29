@@ -75,7 +75,7 @@ const ball = {
 };
 
 // Name properties
-const nameText = "Michael's Workshop"; // Change "Your Name" to your name
+const nameText = "Michael's Workbench"; // Change "Your Name" to your name
 const fontSize = 60;
 ctx.font = `${fontSize}px Arial`;
 const textWidth = ctx.measureText(nameText).width;
