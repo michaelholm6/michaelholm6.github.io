@@ -11,29 +11,27 @@ title: "Home"
   <link rel="stylesheet" href="{{ '/pages/index/css/index.css' | relative_url }}">
   <link rel="stylesheet" href="/pages/index/css/side_nav_menu.css">
 </head>
+
 <body>
+  <div id="overlay" onclick="closeNav(), resumeBallInteraction()"></div>
 
-<div id="overlay" onclick="closeNav(), resumeBallInteraction()"></div>
-
-<div id="mySidenav" class="sidenav">
-  <a href="javascript:void(0)" class="closebtn" onclick="closeNav(), resumeBallInteraction()">&times;</a>
-  <a href="/">Home</a>
-  <a href="/pages/publications/publications.html">Publications</a>
-
-  <!-- Photography Menu Item with Expand Arrow -->
-  <div class="dropdown">
-    <a href="javascript:void(0)" class="dropdown-btn" onclick="toggleSubMenu()">
-      <span class="arrow">&#9654;&#xFE0E;</span> Photography
-    </a>
-    <div class="dropdown-content" id="photography-submenu">
-      <a href="/pages/astrophotography_blog/astrophotography.html">Astrophotography</a>
-      <a href="/pages/wildlife_photography_blog/wildlife_photography.html">Wildlife</a>
+  <!-- Sidebar Navigation -->
+  <div id="mySidenav" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav(), resumeBallInteraction()">&times;</a>
+    <a href="/">Home</a>
+    <a href="/pages/publications/publications.html">Publications</a>
+    <div class="dropdown">
+      <a href="javascript:void(0)" class="dropdown-btn" onclick="toggleSubMenu()">
+        <span class="arrow">&#9654;&#xFE0E;</span> Photography
+      </a>
+      <div class="dropdown-content" id="photography-submenu">
+        <a href="/pages/astrophotography_blog/astrophotography.html">Astrophotography</a>
+        <a href="/pages/wildlife_photography_blog/wildlife_photography.html">Wildlife</a>
+      </div>
     </div>
+    <a href="/pages/hiking/hiking.html">Hiking</a>
+    <a href="/pages/CV/CV.html">CV</a>
   </div>
-
-  <a href="/pages/hiking/hiking.html">Hiking</a>
-  <a href="/pages/CV/CV.html">CV</a>
-</div>
 
 <button id="menu-button" onclick="openNav()">☰</button>
 
@@ -77,4 +75,3 @@ title: "Home"
 <script src = '/pages/index/js/side_nav.js' defer></script>
 </body>
 </html>
-

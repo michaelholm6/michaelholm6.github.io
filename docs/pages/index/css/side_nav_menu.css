@@ -24,6 +24,7 @@
     display: block;
     transition: 0.3s;
     text-align: left;
+    line-height: 1;
   }
   
   /* When you mouse over the navigation links, change their color */
