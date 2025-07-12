@@ -69,32 +69,35 @@ canvas.addEventListener('click', function (e) {
       clickX >= promptX - promptMaxWidth / 2 && clickX <= promptX + promptMaxWidth / 2 &&
       clickY >= promptY && clickY <= promptY + totalHeight
     ) {
-      if (orientation_supported === 'undefined') {
-        DeviceOrientationEvent.requestPermission()
-          .then(response => {
-            if (response === 'granted') {
-              orientation_supported = 'true';
-              screen.orientation.addEventListener("change", (event) => {
-                screen_orientation = event.target.type;
-              });
-              window.addEventListener('deviceorientation', function(event) {
-                if (((gamma > 60 && event.gamma < -60) || (gamma < -60 && event.gamma > 60)) && !mirror) {
-                  mirror = true;
-                } else if (((gamma < -60 && event.gamma < -60) || (gamma > 60 && event.gamma > 60)) && mirror) {
-                  mirror = false;
-                }
-                if (mirror) {
-                  gamma = -event.gamma;
-                } else {
-                  gamma = event.gamma;
-                }
-                beta = event.beta;
-              });
-              ballEnabled = true;
-              showStartPrompt = false;
-            } else {
-              console.log("Permission denied.");
-            }
+          if (orientation_supported === 'undefined') {
+            DeviceOrientationEvent.requestPermission()
+              .then(response => {
+                if (response === 'granted') {
+      orientation_supported = 'true';
+      screen.orientation.addEventListener("change", (event) => {
+        screen_orientation = event.target.type;
+      });
+      window.addEventListener('deviceorientation', function(event) {
+        if (((gamma > 60 && event.gamma < -60) || (gamma < -60 && event.gamma > 60)) && !mirror) {
+          mirror = true;
+        } else if (((gamma < -60 && event.gamma < -60) || (gamma > 60 && event.gamma > 60)) && mirror) {
+          mirror = false;
+        }
+        if (mirror) {
+          gamma = -event.gamma;
+        } else {
+          gamma = event.gamma;
+        }
+        beta = event.beta;
+      });
+      ballEnabled = true;
+      showStartPrompt = false;
+      promptText = "";
+    } else {
+      console.log("Permission denied.");
+      showStartPrompt = false;
+      promptText = "";
+    }
           })
           .catch(console.error);
       } else {
