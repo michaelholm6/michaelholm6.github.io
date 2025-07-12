@@ -55,24 +55,40 @@ window.onload = () => {
 
 canvas.addEventListener('click', function (e) {
   if (showStartPrompt && !ballEnabled) {
-    // Get click coordinates
     const rect = canvas.getBoundingClientRect();
     const clickX = e.clientX - rect.left;
     const clickY = e.clientY - rect.top;
 
-    // Calculate text bounding box (adjust if needed)
     const promptFontSize = 20;
     ctx.font = `${promptFontSize}px Arial`;
     const promptText = "Lay your phone on a flat surface, facing up, then tap here to enable ball game";
-    const promptWidth = ctx.measureText(promptText).width;
-    const promptX = canvas.width / 2 - promptWidth / 2;
-    const promptY = canvas.height / 2 + 50; // Below main text
+    const maxPromptWidth = canvas.width * 0.8;
+    const lineHeight = 26;
+    const promptX = canvas.width / 2;
+    let promptY = canvas.height / 2 + 100;
+
+    // Estimate number of lines
+    const words = promptText.split(' ');
+    let line = '';
+    let lines = [];
+    for (let n = 0; n < words.length; n++) {
+      let testLine = line + words[n] + ' ';
+      let testWidth = ctx.measureText(testLine).width;
+      if (testWidth > maxPromptWidth && n > 0) {
+        lines.push(line);
+        line = words[n] + ' ';
+      } else {
+        line = testLine;
+      }
+    }
+    lines.push(line);
+
+    const totalHeight = lines.length * lineHeight;
 
     if (
-      clickX >= promptX && clickX <= promptX + promptWidth &&
-      clickY >= promptY - promptFontSize && clickY <= promptY
+      clickX >= promptX - maxPromptWidth / 2 && clickX <= promptX + maxPromptWidth / 2 &&
+      clickY >= promptY && clickY <= promptY + totalHeight
     ) {
-      // User clicked the prompt
       ballEnabled = true;
       showStartPrompt = false;
     }
@@ -565,6 +581,24 @@ canvas.addEventListener('touchmove', function (event) {
   }
 });
 
+function drawWrappedText(ctx, text, x, y, maxWidth, lineHeight) {
+  const words = text.split(' ');
+  let line = '';
+  for (let n = 0; n < words.length; n++) {
+    let testLine = line + words[n] + ' ';
+    let metrics = ctx.measureText(testLine);
+    let testWidth = metrics.width;
+    if (testWidth > maxWidth && n > 0) {
+      ctx.fillText(line, x, y);
+      line = words[n] + ' ';
+      y += lineHeight;
+    } else {
+      line = testLine;
+    }
+  }
+  ctx.fillText(line, x, y);
+}
+
 canvas.addEventListener('mouseup', () => {
   ball.isDragging = false;
 });
@@ -597,15 +631,20 @@ function animate() {
     drawName(nameText);
 
     if (showStartPrompt && !ballEnabled) {
-      // Draw prompt text
       ctx.fillStyle = '#FFFFFF';
-      ctx.font = '20px Arial';
+      const promptFontSize = 20;
+      ctx.font = `${promptFontSize}px Arial`;
       ctx.textAlign = 'center';
-      ctx.fillText(
-        "Lay your phone on a flat surface, facing up, then tap here to enable ball game",
-        canvas.width / 2,
-        canvas.height / 2 + 50
-      );
+      ctx.textBaseline = 'top';
+
+      const promptText = "Lay your phone on a flat surface, facing up, then tap here to enable ball game";
+      const maxPromptWidth = canvas.width * 0.8; // 80% of canvas width
+      const lineHeight = 26; // Slightly larger than font size
+
+      const promptX = canvas.width / 2;
+      const promptY = canvas.height / 2 + 100; // Move further down
+
+      drawWrappedText(ctx, promptText, promptX, promptY, maxPromptWidth, lineHeight);
     }
 
     if (ballEnabled || orientation_supported == 'is not mobile') {
