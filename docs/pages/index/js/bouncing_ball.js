@@ -656,7 +656,7 @@ else if (orientation_supported == 'true' || orientation_supported == 'undefined'
   promptMaxWidth = canvas.width * 0.8;
   promptLineHeight = 26;
   promptX = canvas.width / 2;
-  promptY = canvas.height / 2 + 100;
+  promptY = canvas.height / 2 + 75;
 
   drawWrappedText(ctx, promptText, promptX, promptY, promptMaxWidth, promptLineHeight);
 }
