@@ -667,7 +667,7 @@ function animate() {
       const lineHeight = 26; // Slightly larger than font size
 
       const promptX = canvas.width / 2;
-      const promptY = canvas.height / 2 + 100; // Move further down
+      const promptY = canvas.height / 2 + 60; // Move further down
 
       drawWrappedText(ctx, promptText, promptX, promptY, maxPromptWidth, lineHeight);
     }
