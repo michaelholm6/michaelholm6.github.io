@@ -15,45 +15,69 @@ let orientation_supported = 'undefined';
 let haltBallInteractionBool = false;
 let gravityX = 0;
 let gravityY = 0;
+let showStartPrompt = false;
+let ballEnabled = false;
 
 window.onload = () => {
-  
   setTimeout(() => {
     supportsOrientation().then((isGranted) => {
       if (isGranted) {
-        // Proceed with device orientation event listeners
         orientation_supported = 'true';
+        showStartPrompt = true;  // Show prompt text before enabling the ball
         screen.orientation.addEventListener("change", (event) => {
           screen_orientation = event.target.type;
         });
         window.addEventListener('deviceorientation', function(event) {
-          // Get the gamma value (side-to-side tilt)
-        // Side-to-side tilt (-90 to 90)
-        if (((gamma > 60 && event.gamma < -60) || (gamma < -60 && event.gamma > 60)) && !mirror) {
-          mirror = true;
-        }
-        else if (((gamma < -60 && event.gamma < -60) || (gamma > 60 && event.gamma > 60)) && mirror) {
-          mirror = false;
-        }
-        if (mirror) {
-          gamma = -event.gamma ;
-        } else {
-          gamma = event.gamma;
-        }
-        beta = event.beta;
-        }
-        );
+          if (((gamma > 60 && event.gamma < -60) || (gamma < -60 && event.gamma > 60)) && !mirror) {
+            mirror = true;
+          } else if (((gamma < -60 && event.gamma < -60) || (gamma > 60 && event.gamma > 60)) && mirror) {
+            mirror = false;
+          }
+          if (mirror) {
+            gamma = -event.gamma;
+          } else {
+            gamma = event.gamma;
+          }
+          beta = event.beta;
+        });
       } else {
         if (!isMobile()) {
           orientation_supported = 'is not mobile';
         } else {
-        orientation_supported = 'false';
-        console.log("Permission to access device orientation was denied.");
+          orientation_supported = 'false';
+          console.log("Permission to access device orientation was denied.");
         }
       }
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-})}, 250); // Wait for 1 second before checking
+    });
+  }, 250);
 };
+
+canvas.addEventListener('click', function (e) {
+  if (showStartPrompt && !ballEnabled) {
+    // Get click coordinates
+    const rect = canvas.getBoundingClientRect();
+    const clickX = e.clientX - rect.left;
+    const clickY = e.clientY - rect.top;
+
+    // Calculate text bounding box (adjust if needed)
+    const promptFontSize = 20;
+    ctx.font = `${promptFontSize}px Arial`;
+    const promptText = "Lay your phone on a flat surface, facing up, then tap here to enable ball game";
+    const promptWidth = ctx.measureText(promptText).width;
+    const promptX = canvas.width / 2 - promptWidth / 2;
+    const promptY = canvas.height / 2 + 50; // Below main text
+
+    if (
+      clickX >= promptX && clickX <= promptX + promptWidth &&
+      clickY >= promptY - promptFontSize && clickY <= promptY
+    ) {
+      // User clicked the prompt
+      ballEnabled = true;
+      showStartPrompt = false;
+    }
+  }
+});
 
 // Ball properties
 const ball = {
@@ -562,10 +586,6 @@ function animate() {
   frameTime = (time - lastTime) / 1000;
   lastTime = time;
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.font = `${Math.floor(canvas.width / 20)}px sans-serif`;
-  //const letterBoxes = getLetterBoundingBoxes(nameText, canvas.width - 20);
-  //colorLetterBoxes(letterBoxes);
-
 
   if (orientation_supported == 'undefined') {
     drawName('Touch Here to Enable Ball Minigame');
@@ -574,11 +594,26 @@ function animate() {
     drawName(nameText);
   }
   else if (orientation_supported == 'true' || orientation_supported == 'is not mobile') {
-  drawName(nameText);
-  updateBall(frameTime);
-  drawBall();
-  //drawPhoneAngles();
+    drawName(nameText);
+
+    if (showStartPrompt && !ballEnabled) {
+      // Draw prompt text
+      ctx.fillStyle = '#FFFFFF';
+      ctx.font = '20px Arial';
+      ctx.textAlign = 'center';
+      ctx.fillText(
+        "Lay your phone on a flat surface, facing up, then tap here to enable ball game",
+        canvas.width / 2,
+        canvas.height / 2 + 50
+      );
+    }
+
+    if (ballEnabled || orientation_supported == 'is not mobile') {
+      updateBall(frameTime);
+      drawBall();
+    }
   }
+
   requestAnimationFrame(animate);
 }
 
