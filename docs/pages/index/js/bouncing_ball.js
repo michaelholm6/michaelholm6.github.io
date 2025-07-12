@@ -65,7 +65,7 @@ canvas.addEventListener('click', function (e) {
     const maxPromptWidth = canvas.width * 0.8;
     const lineHeight = 26;
     const promptX = canvas.width / 2;
-    let promptY = canvas.height / 2 + 100;
+    let promptY = canvas.height / 2 + 80;
 
     // Estimate number of lines
     const words = promptText.split(' ');
