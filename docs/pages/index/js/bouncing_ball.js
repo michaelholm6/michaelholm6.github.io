@@ -17,39 +17,38 @@ let gravityX = 0;
 let gravityY = 0;
 let showStartPrompt = false;
 let ballEnabled = false;
+let promptText = "";
 
 window.onload = () => {
   setTimeout(() => {
-    supportsOrientation().then((isGranted) => {
-      if (isGranted) {
-        orientation_supported = 'true';
-        showStartPrompt = true;  // Show prompt text before enabling the ball
-        screen.orientation.addEventListener("change", (event) => {
-          screen_orientation = event.target.type;
-        });
-        window.addEventListener('deviceorientation', function(event) {
-          if (((gamma > 60 && event.gamma < -60) || (gamma < -60 && event.gamma > 60)) && !mirror) {
-            mirror = true;
-          } else if (((gamma < -60 && event.gamma < -60) || (gamma > 60 && event.gamma > 60)) && mirror) {
-            mirror = false;
-          }
-          if (mirror) {
-            gamma = -event.gamma;
-          } else {
-            gamma = event.gamma;
-          }
-          beta = event.beta;
-        });
-      } else {
-        if (!isMobile()) {
-          orientation_supported = 'is not mobile';
-        } else {
-          orientation_supported = 'false';
-          console.log("Permission to access device orientation was denied.");
+    if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function' && isMobile()) {
+      orientation_supported = 'undefined';
+      showStartPrompt = true;
+      promptText = "Lay your phone flat with the screen facing up, and touch here to enable ball game";
+    } else if (typeof DeviceOrientationEvent !== 'undefined' && isMobile()) {
+      orientation_supported = 'true';
+      showStartPrompt = true;
+      promptText = "Lay your phone on a flat surface, facing up, then tap here to enable ball game";
+      screen.orientation.addEventListener("change", (event) => {
+        screen_orientation = event.target.type;
+      });
+      window.addEventListener('deviceorientation', function(event) {
+        if (((gamma > 60 && event.gamma < -60) || (gamma < -60 && event.gamma > 60)) && !mirror) {
+          mirror = true;
+        } else if (((gamma < -60 && event.gamma < -60) || (gamma > 60 && event.gamma > 60)) && mirror) {
+          mirror = false;
         }
-      }
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-    });
+        if (mirror) {
+          gamma = -event.gamma;
+        } else {
+          gamma = event.gamma;
+        }
+        beta = event.beta;
+      });
+    } else {
+      orientation_supported = 'is not mobile';
+    }
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
   }, 250);
 };
 
@@ -61,13 +60,11 @@ canvas.addEventListener('click', function (e) {
 
     const promptFontSize = 20;
     ctx.font = `${promptFontSize}px Arial`;
-    const promptText = "Lay your phone on a flat surface, facing up, then tap here to enable ball game";
     const maxPromptWidth = canvas.width * 0.8;
     const lineHeight = 26;
     const promptX = canvas.width / 2;
-    let promptY = canvas.height / 2 + 80;
+    let promptY = canvas.height / 2 + 100;
 
-    // Estimate number of lines
     const words = promptText.split(' ');
     let line = '';
     let lines = [];
@@ -82,15 +79,44 @@ canvas.addEventListener('click', function (e) {
       }
     }
     lines.push(line);
-
     const totalHeight = lines.length * lineHeight;
 
     if (
       clickX >= promptX - maxPromptWidth / 2 && clickX <= promptX + maxPromptWidth / 2 &&
       clickY >= promptY && clickY <= promptY + totalHeight
     ) {
-      ballEnabled = true;
-      showStartPrompt = false;
+      if (orientation_supported === 'undefined') {
+        DeviceOrientationEvent.requestPermission()
+          .then(response => {
+            if (response === 'granted') {
+              orientation_supported = 'true';
+              screen.orientation.addEventListener("change", (event) => {
+                screen_orientation = event.target.type;
+              });
+              window.addEventListener('deviceorientation', function(event) {
+                if (((gamma > 60 && event.gamma < -60) || (gamma < -60 && event.gamma > 60)) && !mirror) {
+                  mirror = true;
+                } else if (((gamma < -60 && event.gamma < -60) || (gamma > 60 && event.gamma > 60)) && mirror) {
+                  mirror = false;
+                }
+                if (mirror) {
+                  gamma = -event.gamma;
+                } else {
+                  gamma = event.gamma;
+                }
+                beta = event.beta;
+              });
+              ballEnabled = true;
+              showStartPrompt = false;
+            } else {
+              console.log("Permission denied.");
+            }
+          })
+          .catch(console.error);
+      } else {
+        ballEnabled = true;
+        showStartPrompt = false;
+      }
     }
   }
 });
@@ -637,7 +663,6 @@ function animate() {
       ctx.textAlign = 'center';
       ctx.textBaseline = 'top';
 
-      const promptText = "Lay your phone on a flat surface, facing up, then tap here to enable ball game";
       const maxPromptWidth = canvas.width * 0.8; // 80% of canvas width
       const lineHeight = 26; // Slightly larger than font size
 
