@@ -23,7 +23,7 @@ let promptX = 0;
 let promptY = 0;
 let promptLineHeight = 26;
 let promptMaxWidth = 0;
-document.cookie = "orientationDeclined=false; path=/; max-age=31536000";
+document.cookie = "orientationDeclined; path=/; max-age=31536000";
 
 function getCookie(name) {
   const value = `; ${document.cookie}`;
