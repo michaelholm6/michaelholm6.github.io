@@ -652,7 +652,7 @@ else if (orientation_supported == 'true' || orientation_supported == 'undefined'
   ctx.textBaseline = 'top';
 
   // Set global prompt text
-  promptText = "Lay your phone on a flat surface then tap here to enable ball game";
+  promptText = "Hold your device flat and then tap here to enable ball game";
   promptMaxWidth = canvas.width * 0.8;
   promptLineHeight = 26;
   promptX = canvas.width / 2;
