@@ -23,37 +23,56 @@ let promptX = 0;
 let promptY = 0;
 let promptLineHeight = 26;
 let promptMaxWidth = 0;
+document.cookie = "orientationDeclined=true; path=/; max-age=31536000";
+
+function getCookie(name) {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop().split(';').shift();
+}
 
 window.onload = () => {
+  const previouslyDeclined = getCookie('orientationDeclined') === 'true';
+
+  if (previouslyDeclined) {
+    orientation_supported = 'false';
+    showStartPrompt = false;
+    promptText = "";
+    return; // skip the rest
+  }
+
   setTimeout(() => {
-    if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function' && isMobile()) {
-      orientation_supported = 'undefined';
-      showStartPrompt = true;
-      promptText = "Lay your device flat and touch here to enable ball game";
-    } else if (typeof DeviceOrientationEvent !== 'undefined' && isMobile()) {
-      orientation_supported = 'true';
-      showStartPrompt = true;
-      promptText = "Lay your device flat and tap here to enable ball game";
-      screen.orientation.addEventListener("change", (event) => {
-        screen_orientation = event.target.type;
-      });
-      window.addEventListener('deviceorientation', function(event) {
-        if (((gamma > 60 && event.gamma < -60) || (gamma < -60 && event.gamma > 60)) && !mirror) {
-          mirror = true;
-        } else if (((gamma < -60 && event.gamma < -60) || (gamma > 60 && event.gamma > 60)) && mirror) {
-          mirror = false;
-        }
-        if (mirror) {
-          gamma = -event.gamma;
+    supportsOrientation().then((isGranted) => {
+      if (isGranted) {
+        orientation_supported = 'true';
+        showStartPrompt = true;  // Show prompt text before enabling the ball
+        screen.orientation.addEventListener("change", (event) => {
+          screen_orientation = event.target.type;
+        });
+        window.addEventListener('deviceorientation', function(event) {
+          if (((gamma > 60 && event.gamma < -60) || (gamma < -60 && event.gamma > 60)) && !mirror) {
+            mirror = true;
+          } else if (((gamma < -60 && event.gamma < -60) || (gamma > 60 && event.gamma > 60)) && mirror) {
+            mirror = false;
+          }
+          if (mirror) {
+            gamma = -event.gamma;
+          } else {
+            gamma = event.gamma;
+          }
+          beta = event.beta;
+        });
+      } else {
+        if (!isMobile()) {
+          orientation_supported = 'is not mobile';
         } else {
-          gamma = event.gamma;
+          orientation_supported = 'false';
+          console.log("Permission to access device orientation was denied.");
+          document.cookie = "orientationDeclined=true; path=/; max-age=31536000";
         }
-        beta = event.beta;
-      });
-    } else {
-      orientation_supported = 'is not mobile';
-    }
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+      }
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    });
   }, 250);
 };
 
@@ -95,6 +114,7 @@ canvas.addEventListener('click', function (e) {
       promptText = "";
     } else {
       console.log("Permission denied.");
+      document.cookie = "orientationDeclined=true; path=/; max-age=31536000";
       showStartPrompt = false;
       promptText = "";
     }
