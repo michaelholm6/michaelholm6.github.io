@@ -18,6 +18,11 @@ let gravityY = 0;
 let showStartPrompt = false;
 let ballEnabled = false;
 let promptText = "";
+let promptLines = [];
+let promptX = 0;
+let promptY = 0;
+let promptLineHeight = 26;
+let promptMaxWidth = 0;
 
 window.onload = () => {
   setTimeout(() => {
@@ -58,31 +63,10 @@ canvas.addEventListener('click', function (e) {
     const clickX = e.clientX - rect.left;
     const clickY = e.clientY - rect.top;
 
-    const promptFontSize = 20;
-    ctx.font = `${promptFontSize}px Arial`;
-    const maxPromptWidth = canvas.width * 0.8;
-    const lineHeight = 26;
-    const promptX = canvas.width / 2;
-    let promptY = canvas.height / 2 + 100;
-
-    const words = promptText.split(' ');
-    let line = '';
-    let lines = [];
-    for (let n = 0; n < words.length; n++) {
-      let testLine = line + words[n] + ' ';
-      let testWidth = ctx.measureText(testLine).width;
-      if (testWidth > maxPromptWidth && n > 0) {
-        lines.push(line);
-        line = words[n] + ' ';
-      } else {
-        line = testLine;
-      }
-    }
-    lines.push(line);
-    const totalHeight = lines.length * lineHeight;
+    const totalHeight = promptLines.length * promptLineHeight;
 
     if (
-      clickX >= promptX - maxPromptWidth / 2 && clickX <= promptX + maxPromptWidth / 2 &&
+      clickX >= promptX - promptMaxWidth / 2 && clickX <= promptX + promptMaxWidth / 2 &&
       clickY >= promptY && clickY <= promptY + totalHeight
     ) {
       if (orientation_supported === 'undefined') {
@@ -610,12 +594,15 @@ canvas.addEventListener('touchmove', function (event) {
 function drawWrappedText(ctx, text, x, y, maxWidth, lineHeight) {
   const words = text.split(' ');
   let line = '';
+  promptLines = []; // Store lines globally
+
   for (let n = 0; n < words.length; n++) {
     let testLine = line + words[n] + ' ';
     let metrics = ctx.measureText(testLine);
     let testWidth = metrics.width;
     if (testWidth > maxWidth && n > 0) {
       ctx.fillText(line, x, y);
+      promptLines.push(line);
       line = words[n] + ' ';
       y += lineHeight;
     } else {
@@ -623,8 +610,8 @@ function drawWrappedText(ctx, text, x, y, maxWidth, lineHeight) {
     }
   }
   ctx.fillText(line, x, y);
+  promptLines.push(line);
 }
-
 canvas.addEventListener('mouseup', () => {
   ball.isDragging = false;
 });
@@ -666,7 +653,12 @@ else if (orientation_supported == 'true' || orientation_supported == 'undefined'
     const promptX = canvas.width / 2;
     const promptY = canvas.height / 2 + 75; // Move further down
 
-    drawWrappedText(ctx, promptText, promptX, promptY, maxPromptWidth, lineHeight);
+    promptMaxWidth = canvas.width * 0.8;
+    promptLineHeight = 26;
+    promptX = canvas.width / 2;
+    promptY = canvas.height / 2 + 100;
+
+    drawWrappedText(ctx, promptText, promptX, promptY, promptMaxWidth, promptLineHeight);
   }
 
   if (ballEnabled || orientation_supported == 'is not mobile') {
