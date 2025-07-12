@@ -641,25 +641,21 @@ else if (orientation_supported == 'true' || orientation_supported == 'undefined'
   drawName(nameText);
 
   if (showStartPrompt && !ballEnabled) {
-    ctx.fillStyle = '#FFFFFF';
-    const promptFontSize = 20;
-    ctx.font = `${promptFontSize}px Arial`;
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'top';
+  ctx.fillStyle = '#FFFFFF';
+  const promptFontSize = 20;
+  ctx.font = `${promptFontSize}px Arial`;
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'top';
 
-    const maxPromptWidth = canvas.width * 0.8; // 80% of canvas width
-    const lineHeight = 26; // Slightly larger than font size
+  // Set global prompt text
+  promptText = "Lay your phone on a flat surface, facing up, then tap here to enable ball game";
+  promptMaxWidth = canvas.width * 0.8;
+  promptLineHeight = 26;
+  promptX = canvas.width / 2;
+  promptY = canvas.height / 2 + 100;
 
-    const promptX = canvas.width / 2;
-    const promptY = canvas.height / 2 + 75; // Move further down
-
-    promptMaxWidth = canvas.width * 0.8;
-    promptLineHeight = 26;
-    promptX = canvas.width / 2;
-    promptY = canvas.height / 2 + 100;
-
-    drawWrappedText(ctx, promptText, promptX, promptY, promptMaxWidth, promptLineHeight);
-  }
+  drawWrappedText(ctx, promptText, promptX, promptY, promptMaxWidth, promptLineHeight);
+}
 
   if (ballEnabled || orientation_supported == 'is not mobile') {
     updateBall(frameTime);
