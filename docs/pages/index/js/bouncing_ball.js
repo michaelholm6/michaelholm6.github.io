@@ -647,36 +647,33 @@ function animate() {
   lastTime = time;
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  if (orientation_supported == 'undefined') {
-    drawName('Touch Here to Enable Ball Minigame');
+  if (orientation_supported == 'false') {
+  drawName(nameText);
+}
+else if (orientation_supported == 'true' || orientation_supported == 'undefined' || orientation_supported == 'is not mobile') {
+  drawName(nameText);
+
+  if (showStartPrompt && !ballEnabled) {
+    ctx.fillStyle = '#FFFFFF';
+    const promptFontSize = 20;
+    ctx.font = `${promptFontSize}px Arial`;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'top';
+
+    const maxPromptWidth = canvas.width * 0.8; // 80% of canvas width
+    const lineHeight = 26; // Slightly larger than font size
+
+    const promptX = canvas.width / 2;
+    const promptY = canvas.height / 2 + 100; // Move further down
+
+    drawWrappedText(ctx, promptText, promptX, promptY, maxPromptWidth, lineHeight);
   }
-  else if (orientation_supported == 'false') {
-    drawName(nameText);
+
+  if (ballEnabled || orientation_supported == 'is not mobile') {
+    updateBall(frameTime);
+    drawBall();
   }
-  else if (orientation_supported == 'true' || orientation_supported == 'is not mobile') {
-    drawName(nameText);
-
-    if (showStartPrompt && !ballEnabled) {
-      ctx.fillStyle = '#FFFFFF';
-      const promptFontSize = 20;
-      ctx.font = `${promptFontSize}px Arial`;
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'top';
-
-      const maxPromptWidth = canvas.width * 0.8; // 80% of canvas width
-      const lineHeight = 26; // Slightly larger than font size
-
-      const promptX = canvas.width / 2;
-      const promptY = canvas.height / 2 + 75; // Move further down
-
-      drawWrappedText(ctx, promptText, promptX, promptY, maxPromptWidth, lineHeight);
-    }
-
-    if (ballEnabled || orientation_supported == 'is not mobile') {
-      updateBall(frameTime);
-      drawBall();
-    }
-  }
+}
 
   requestAnimationFrame(animate);
 }
