@@ -46,7 +46,7 @@ window.onload = () => {
     showStartPrompt = true;
   } else {
     orientation_supported = 'is not mobile';
-    showStartPrompt = true;
+    showStartPrompt = false;
   }
 };
 
@@ -63,44 +63,51 @@ canvas.addEventListener('click', function (e) {
       clickY >= promptY && clickY <= promptY + totalHeight
     ) {
           if (orientation_supported === 'undefined') {
-            DeviceOrientationEvent.requestPermission()
-              .then(response => {
-                if (response === 'granted') {
-      orientation_supported = 'true';
-      screen.orientation.addEventListener("change", (event) => {
-        screen_orientation = event.target.type;
-      });
-      window.addEventListener('deviceorientation', function(event) {
-        if (((gamma > 60 && event.gamma < -60) || (gamma < -60 && event.gamma > 60)) && !mirror) {
-          mirror = true;
-        } else if (((gamma < -60 && event.gamma < -60) || (gamma > 60 && event.gamma > 60)) && mirror) {
-          mirror = false;
-        }
-        if (mirror) {
-          gamma = -event.gamma;
+  if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+    // iOS
+    DeviceOrientationEvent.requestPermission()
+      .then(response => {
+        if (response === 'granted') {
+          enableOrientation();
         } else {
-          gamma = event.gamma;
+          console.log("Permission denied.");
+          document.cookie = "orientationDeclined=true; path=/; max-age=31536000";
+          showStartPrompt = false;
+          promptText = "";
         }
-        beta = event.beta;
-      });
-      ballEnabled = true;
-      showStartPrompt = false;
-      promptText = "";
-    } else {
-      console.log("Permission denied.");
-      document.cookie = "orientationDeclined=true; path=/; max-age=31536000";
-      showStartPrompt = false;
-      promptText = "";
-    }
-          })
-          .catch(console.error);
-      } else {
+      })
+      .catch(console.error);
+  } else {
+    // Android or other mobile that doesn't require permission
+    enableOrientation();
+  }
+}
+else {
         ballEnabled = true;
         showStartPrompt = false;
       }
     }
   }
 });
+
+function enableOrientation() {
+  orientation_supported = 'true';
+  screen.orientation.addEventListener("change", (event) => {
+    screen_orientation = event.target.type;
+  });
+  window.addEventListener('deviceorientation', function(event) {
+    if (((gamma > 60 && event.gamma < -60) || (gamma < -60 && event.gamma > 60)) && !mirror) {
+      mirror = true;
+    } else if (((gamma < -60 && event.gamma < -60) || (gamma > 60 && event.gamma > 60)) && mirror) {
+      mirror = false;
+    }
+    gamma = mirror ? -event.gamma : event.gamma;
+    beta = event.beta;
+  });
+  ballEnabled = true;
+  showStartPrompt = false;
+  promptText = "";
+}
 
 // Ball properties
 const ball = {
