@@ -24,11 +24,11 @@ window.onload = () => {
     if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function' && isMobile()) {
       orientation_supported = 'undefined';
       showStartPrompt = true;
-      promptText = "Lay your phone flat with the screen facing up, and touch here to enable ball game";
+      promptText = "Lay your device flat and touch here to enable ball game";
     } else if (typeof DeviceOrientationEvent !== 'undefined' && isMobile()) {
       orientation_supported = 'true';
       showStartPrompt = true;
-      promptText = "Lay your phone on a flat surface, facing up, then tap here to enable ball game";
+      promptText = "Lay your device flat and tap here to enable ball game";
       screen.orientation.addEventListener("change", (event) => {
         screen_orientation = event.target.type;
       });
@@ -664,7 +664,7 @@ else if (orientation_supported == 'true' || orientation_supported == 'undefined'
     const lineHeight = 26; // Slightly larger than font size
 
     const promptX = canvas.width / 2;
-    const promptY = canvas.height / 2 + 100; // Move further down
+    const promptY = canvas.height / 2 + 75; // Move further down
 
     drawWrappedText(ctx, promptText, promptX, promptY, maxPromptWidth, lineHeight);
   }
