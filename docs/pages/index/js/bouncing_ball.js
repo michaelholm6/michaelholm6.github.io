@@ -23,23 +23,23 @@ let promptX = 0;
 let promptY = 0;
 let promptLineHeight = 26;
 let promptMaxWidth = 0;
-//document.cookie = "orientationDeclined=true; path=/; max-age=31536000";
+document.cookie = "orientationDeclined=true; path=/; max-age=31536000";
 
-// function getCookie(name) {
-//   //const value = `; ${document.cookie}`;
-//   const parts = value.split(`; ${name}=`);
-//   if (parts.length === 2) return parts.pop().split(';').shift();
-// }
+function getCookie(name) {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop().split(';').shift();
+}
 
 window.onload = () => {
-  //const previouslyDeclined = getCookie('orientationDeclined') === 'true';
+  const previouslyDeclined = getCookie('orientationDeclined') === 'true';
 
-  // if (previouslyDeclined) {
-  //   orientation_supported = 'false';
-  //   showStartPrompt = false;
-  //   promptText = "";
-  //   return; // skip the rest
-  // }
+  if (previouslyDeclined) {
+    orientation_supported = 'false';
+    showStartPrompt = false;
+    promptText = "";
+    return; // skip the rest
+  }
 
   setTimeout(() => {
     supportsOrientation().then((isGranted) => {
@@ -68,7 +68,7 @@ window.onload = () => {
         } else {
           orientation_supported = 'false';
           console.log("Permission to access device orientation was denied.");
-          //document.cookie = "orientationDeclined=true; path=/; max-age=31536000";
+          document.cookie = "orientationDeclined=true; path=/; max-age=31536000";
         }
       }
       ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -114,7 +114,7 @@ canvas.addEventListener('click', function (e) {
       promptText = "";
     } else {
       console.log("Permission denied.");
-      //document.cookie = "orientationDeclined=true; path=/; max-age=31536000";
+      document.cookie = "orientationDeclined=true; path=/; max-age=31536000";
       showStartPrompt = false;
       promptText = "";
     }
