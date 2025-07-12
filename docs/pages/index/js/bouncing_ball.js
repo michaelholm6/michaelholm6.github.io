@@ -32,7 +32,7 @@ let promptMaxWidth = 0;
 // }
 
 window.onload = () => {
-  const previouslyDeclined = getCookie('orientationDeclined') === 'true';
+  //const previouslyDeclined = getCookie('orientationDeclined') === 'true';
 
   // if (previouslyDeclined) {
   //   orientation_supported = 'false';
