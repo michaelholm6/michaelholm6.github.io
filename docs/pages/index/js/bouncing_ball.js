@@ -38,42 +38,16 @@ window.onload = () => {
     orientation_supported = 'false';
     showStartPrompt = false;
     promptText = "";
-    return; // skip the rest
+    return;
   }
 
-  setTimeout(() => {
-    supportsOrientation().then((isGranted) => {
-      if (isGranted) {
-        orientation_supported = 'true';
-        showStartPrompt = true;  // Show prompt text before enabling the ball
-        screen.orientation.addEventListener("change", (event) => {
-          screen_orientation = event.target.type;
-        });
-        window.addEventListener('deviceorientation', function(event) {
-          if (((gamma > 60 && event.gamma < -60) || (gamma < -60 && event.gamma > 60)) && !mirror) {
-            mirror = true;
-          } else if (((gamma < -60 && event.gamma < -60) || (gamma > 60 && event.gamma > 60)) && mirror) {
-            mirror = false;
-          }
-          if (mirror) {
-            gamma = -event.gamma;
-          } else {
-            gamma = event.gamma;
-          }
-          beta = event.beta;
-        });
-      } else {
-        if (!isMobile()) {
-          orientation_supported = 'is not mobile';
-        } else {
-          orientation_supported = 'false';
-          console.log("Permission to access device orientation was denied.");
-          document.cookie = "orientationDeclined=true; path=/; max-age=31536000";
-        }
-      }
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-    });
-  }, 250);
+  if (typeof DeviceOrientationEvent !== 'undefined' && isMobile()) {
+    orientation_supported = 'undefined'; // Will request on click
+    showStartPrompt = true;
+  } else {
+    orientation_supported = 'is not mobile';
+    showStartPrompt = true;
+  }
 };
 
 canvas.addEventListener('click', function (e) {
