@@ -34,12 +34,12 @@ function getCookie(name) {
 window.onload = () => {
   const previouslyDeclined = getCookie('orientationDeclined') === 'true';
 
-  if (previouslyDeclined) {
-    orientation_supported = 'false';
-    showStartPrompt = false;
-    promptText = "";
-    return; // skip the rest
-  }
+  // if (previouslyDeclined) {
+  //   orientation_supported = 'false';
+  //   showStartPrompt = false;
+  //   promptText = "";
+  //   return; // skip the rest
+  // }
 
   setTimeout(() => {
     supportsOrientation().then((isGranted) => {
