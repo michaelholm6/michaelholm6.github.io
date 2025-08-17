@@ -6,7 +6,7 @@ body {
   .banner {
     position: relative;
     height: 300px; /* Adjust the height to suit your design */
-    background-image: url(/pages/publications/images/publications_banner.jpg); /* Replace with your image URL */
+    background-image: url(/pages/publications/images/publications_banner.jpg), url(/pages/publications/images/publications_banner_hero.webp); /* Replace with your image URL */
     background-size: cover; /* Ensures the image covers the entire banner area */
     background-position: center; /* Keeps the image centered */
     background-repeat: no-repeat; /* Prevents repeating of the image */

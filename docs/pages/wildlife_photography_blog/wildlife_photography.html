@@ -32,9 +32,11 @@ title: "Wildlife Photography"
   </div>
 
   <button id="menu-button" onclick="openNav()">☰</button>
-
-  <div class="banner">
-    <img src="/pages/wildlife_photography_blog/images/Hummingbird.jpg" alt="Hummingbird">
+<div class="banner">
+  <picture class="banner-picture">
+    <source srcset="/pages/wildlife_photography_blog/images/Hummingbird_hero.webp" type="image/webp">
+    <img src="/pages/wildlife_photography_blog/images/Hummingbird.jpg" alt="Wildlife Photography Banner">
+  </picture>
     <div class="banner-content">
         <h1>Wildlife Photography</h1>
     </div>
@@ -43,7 +45,10 @@ title: "Wildlife Photography"
   <main class="blog-container">
     <section class="blog-posts">
         <article class="post" onclick="window.location.href='/pages/wildlife_photography_blog/blog_posts/Costa_rica/costa_rica.html'">
-            <img src="/pages/wildlife_photography_blog/images/Toucan_with_fruit.jpg" alt="Night Sky">
+          <picture>
+            <source srcset="/pages/wildlife_photography_blog/images/Toucan_with_fruit_thumb.webp" type="image/webp">
+            <img src="/pages/wildlife_photography_blog/images/Toucan_with_fruit.jpg" alt="Toucan with Fruit">
+          </picture>
             <h2><a href="/pages/wildlife_photography_blog/blog_posts/">Costa Rica</a></h2>
             <p>Photos from a trip to Costa Rica</p>
         </article>

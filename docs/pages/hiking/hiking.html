@@ -34,7 +34,10 @@ title: "Backpacking"
   <button id="menu-button" onclick="openNav()">☰</button>
 
   <div class="banner">
-    <img src="/pages/hiking/images/hiking.jpg" alt="Image of a hiker in a forest">
+    <picture class="banner-picture">
+      <source srcset="/pages/hiking/images/hiking_hero.webp" type="image/webp">
+      <img src="/pages/hiking/images/hiking.jpg" alt="Image of a hiker in a forest">
+    </picture>
     <div class="banner-content">
       <h1>Hiking</h1>
     </div>
@@ -43,7 +46,10 @@ title: "Backpacking"
   <main class="blog-container">
     <section class="blog-posts">
         <article class="post" onclick="window.location.href='/pages/hiking/blog_posts/grand_canyon/grand_canyon.html'">
+          <picture>
+            <source srcset="/pages/hiking/images/grand_canyon_thumb.webp" type="image/webp">
             <img src="/pages/hiking/images/grand_canyon.jpg" alt="Night Sky">
+          </picture>
             <h2><a href="/pages/hiking/blog_posts/grand_canyon/grand_canyon.html">Backpacking the Grand Canyon</a></h2>
             <p>A trip report on backpacking in the Grand Canyon.</p>
         </article>
