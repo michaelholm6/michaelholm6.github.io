@@ -11,12 +11,13 @@ body {
   height: 300px;
   width: 100%;
   max-width: 1200px;
-  margin: 20px auto;
+  margin: 20px auto;      /* keeps vertical spacing */
+  padding: 0 20px;         /* adds horizontal space on small screens */
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: hidden;       /* clips the picture inside */
-  border-radius: 20px;    /* rounded corners */
+  overflow: hidden;
+  border-radius: 20px;
   background-color: #2a3b1e;
 }
 
