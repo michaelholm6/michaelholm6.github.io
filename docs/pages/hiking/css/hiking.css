@@ -11,14 +11,15 @@ body {
   height: 300px;
   width: 100%;
   max-width: 1200px;
-  margin: 20px auto; 
-  padding: 0 20px; 
+  margin: 20px auto;
+  padding: 0 10px;        /* horizontal space */
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: hidden;       /* clips the picture inside */
-  border-radius: 20px;    /* rounded corners */
+  overflow: hidden;
+  border-radius: 20px;
   background-color: #374925;
+  box-sizing: border-box; /* INCLUDE padding in width */
 }
 
 .banner-picture {

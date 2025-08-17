@@ -19,6 +19,7 @@ body {
   overflow: hidden;
   border-radius: 20px;
   background-color: #2a3b1e;
+  box-sizing: border-box;
 }
 
 .banner-picture {
