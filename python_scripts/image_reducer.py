@@ -2,7 +2,7 @@ from PIL import Image
 import os
 
 # Root folder to start searching in
-TARGET_DIR = "docs"   # change this to your top-level folder
+TARGET_DIR = "docs/pages/hiking/blog_posts/Yellowstone/images"   # change this to your top-level folder
 
 # Max sizes (widths in pixels)
 SIZES = {
