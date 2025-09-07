@@ -161,3 +161,9 @@ h2 a:visited {
   height: auto;         /* keeps correct aspect ratio */
   border-radius: 8px;   /* optional: smooth corners */
 }
+
+@media (max-width: 600px) {
+  .blog-posts {
+    grid-template-columns: 1fr;
+  }
+}
