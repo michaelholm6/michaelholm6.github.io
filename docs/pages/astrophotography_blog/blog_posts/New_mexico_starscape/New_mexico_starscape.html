@@ -1,0 +1,124 @@
+---
+title: "Creating a New Mexico Starscape"
+layout: default
+date: 2025-09-14
+author: "Michael Holm"
+tags: astrophotography, starscape, photography, new mexico
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ page.title }} - {{ site.title }}</title>
+  <link rel="stylesheet" href="/pages/astrophotography_blog/blog_posts/New_mexico_starscape/css/side_nav_menu.css">
+  <link rel="stylesheet" href="/pages/astrophotography_blog/blog_posts/New_mexico_starscape/css/astrophotography.css">
+</head>
+
+<body>
+  <div id="overlay" onclick="closeNav(), resumeBallInteraction()"></div>
+
+  <!-- Sidebar Navigation -->
+  <div id="mySidenav" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav(), resumeBallInteraction()">&times;</a>
+    <a href="/">Home</a>
+    <a href="/pages/publications/publications.html">Publications</a>
+    <div class="dropdown">
+      <a href="javascript:void(0)" class="dropdown-btn" onclick="toggleSubMenu()">
+        <span class="arrow">&#9654;&#xFE0E;</span> Photography
+      </a>
+      <div class="dropdown-content" id="photography-submenu">
+        <a href="/pages/astrophotography_blog/astrophotography.html">Astrophotography</a>
+        <a href="/pages/wildlife_photography_blog/wildlife_photography.html">Wildlife</a>
+      </div>
+    </div>
+    <a href="/pages/hiking/hiking.html">Hiking</a>
+    <a href="/pages/CV/CV.html">CV</a>
+  </div>
+
+  <button id="menu-button" onclick="openNav()">☰</button>
+
+  <!-- Blog Post Banner -->
+  <div class="banner">
+    <div class="banner-content">
+      <h1>{{ page.title }}</h1>
+      <p>By {{ page.author }} | {{ page.date | date: "%B %d, %Y" }}</p>
+    </div>
+  </div>
+
+  <!-- Blog Content -->
+  <main class="blog-container">
+    <article class="blog-post">
+      <p>
+        During Summer 2024, when I was living in New Mexico, I went out to Gila National Forest with a couple friends of mine to do a night of camping. While there,
+        I set up my camera to get a couple good starscape photos. I set up my sleeping pad right next to my camera, and spend the whole night alternating between
+        sleeping and checking on my camera. I ended up getting some good starscape photos. I then used GIMP to do some post processing on the images. I brought
+        the starscape photo into the two photos shown below (one of a car and one of a tent), and set the stars to be the background of the photos. One dirty secret
+        you might not know is that, most of the time, when there's a photo of an incredible starscape, with some foreground element, the starscape is usually
+        actually added in post-processing. This is because, most of the time, a camera moves with the sky to get a long exposure of the stars, and so the foreground
+        of these images is usually blurry and smudged, because the foreground isn't moving with the sky. So, to get around this, photographers will usually take a second
+        photo of the foreground, during the day (or evening), and then add the starscape in post-processing.
+      </p>
+
+      <h2>Equipment Used</h2>
+      <ul>
+        <li>Camera: Olympus OM-D EM1 MK3</li>
+        <li>Lens: Olympus M. Zuiko Digital 12-45mm</li>
+        <li>Star Tracker: iOptron Skyguider Pro</li>
+        <li>Tripod: Peak Design Carbon Fiber Travel Tripod</li>
+        <li>Stacking Software: DeepSkyStacker</li>
+        <li>Post-Processing Software: GIMP</li>
+      </ul>
+
+      <h2>Photo Settings</h2>
+      <ul>
+        <li>ISO: 3200</li>
+        <li>F-stop: f/6.3</li>
+        <li>Exposure: 60 sec.</li>
+        <li>Focal Length: 12mm</li>
+      </ul>
+
+      <h2>Challenges and Learnings</h2>
+      <p>
+        Overall these photos were actually pretty easy to take. The small focal length of 12mm means that I could get away with a 60 second exposure
+        without any star trailing (i.e., motion blur in the stars), so I didn't have to take a ton of photos. I also didn't have to try to get my star
+        tracker perfectly aligned, which is always a huge pain. The only real challenge was figuring out how to post-process these images so it wasn't 
+        incredibly obvous that they were edited. I think I did a pretty good job, but I think I could do better in the future, knowing what I know now. I'd take
+        the foreground photo when there is more light available, so I can just edit the brightness of the foreground down to whatever I want. It's much harder 
+        to try to brighten up a dark foreground photo without introducing a lot of noise.
+      </p>
+
+      <h2>Final Images</h2>
+      <figure>
+        <picture>
+          <source srcset ="/pages/astrophotography_blog/blog_posts/New_mexico_starscape/images/Milky_Way_with_Car_content.webp" type="image/webp">
+          <img src="/pages/astrophotography_blog/blog_posts/New_mexico_starscape/images/Milky_Way_with_Car.jpg" alt="Stars in the background over a car">
+        </picture>
+        <figcaption>Final processed image of the first starscape.</figcaption>
+      </figure>
+
+      <figure>
+        <picture>
+          <source srcset ="/pages/astrophotography_blog/blog_posts/New_mexico_starscape/images/Milky_Way_with_Tent_content.webp" type="image/webp">
+          <img src="/pages/astrophotography_blog/blog_posts/New_mexico_starscape/images/Milky_Way_with_Tent.jpg" alt="Stars in the background over a tent">
+        </picture>
+        <figcaption>Final processed image of the second starscape.</figcaption>
+      </figure>
+
+      <h2>Conclusion</h2>
+      <p>
+        Overall, I think these starscape photos turned out pretty well. I think I could do better in the future, but I'm happy with how these turned out.
+        If you have any questions about how I took these photos, or if you want to see more of my astrophotography work, feel free to reach out to me!
+      </p>
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; {{ site.time | date: '%Y' }} - {{ site.title }}. All rights reserved.</p>
+  </footer>
+
+  <script src="/pages/astrophotography_blog/blog_posts/orion_nebula/js/side_nav.js" defer></script>
+</body>
+</html>
