@@ -2,7 +2,7 @@ from PIL import Image
 import os
 
 # Root folder to start searching in
-TARGET_DIR = r"C:\Users\Michael\OneDrive - purdue.edu\Desktop\Personal Projects\personal-website\docs\pages\astrophotography_blog\blog_posts\New_mexico_starscape\images"   # change this to your top-level folder
+TARGET_DIR = r"C:\Users\Michael\OneDrive - purdue.edu\Desktop\Personal Projects\personal-website\docs\pages\wildlife_photography_blog\blog_posts\Colorado\images"   # change this to your top-level folder
 
 # Max sizes (widths in pixels)
 SIZES = {

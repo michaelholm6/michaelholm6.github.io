@@ -2,7 +2,7 @@ body {
   font-family: 'Arial', sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #1a1a1a;
+  background-color: #2a3b1e;
   color: white;
   line-height: 1.6;
 }
@@ -114,7 +114,7 @@ img {
 }
 
 figcaption {
-  font-size: 0.8rem;
+  font-size: 1.2rem;
   color: #ddd;
   text-align: center;
 }
@@ -122,7 +122,7 @@ figcaption {
 figure {
   display: flex;
   flex-direction: column;
-  justify-content: center; /* Center vertically */
-  align-items: center; /* Center horizontally */
-  margin: 0; /* Remove default margins */
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0; /* Add some reasonable spacing */
 }

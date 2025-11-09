@@ -1,0 +1,177 @@
+---
+title: "Photos from Rocky Mountain National Park"
+layout: default
+date: 2025-11-09
+author: "Michael Holm"
+tags: wildlife photography, Colorado, photography
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ page.title }} - {{ site.title }}</title>
+  <link rel="stylesheet" href="/pages/wildlife_photography_blog/blog_posts/Colorado/css/side_nav_menu.css">
+  <link rel="stylesheet" href="/pages/wildlife_photography_blog/blog_posts/Colorado/css/Colorado.css">
+</head>
+
+<body>
+  <div id="overlay" onclick="closeNav(), resumeBallInteraction()"></div>
+
+  <!-- Sidebar Navigation -->
+  <div id="mySidenav" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav(), resumeBallInteraction()">&times;</a>
+    <a href="/">Home</a>
+    <a href="/pages/publications/publications.html">Publications</a>
+    <div class="dropdown">
+      <a href="javascript:void(0)" class="dropdown-btn" onclick="toggleSubMenu()">
+        <span class="arrow">&#9654;&#xFE0E;</span> Photography
+      </a>
+      <div class="dropdown-content" id="photography-submenu">
+        <a href="/pages/astrophotography_blog/astrophotography.html">Astrophotography</a>
+        <a href="/pages/wildlife_photography_blog/wildlife_photography.html">Wildlife</a>
+      </div>
+    </div>
+    <a href="/pages/hiking/hiking.html">Hiking</a>
+    <a href="/pages/CV/CV.html">CV</a>
+  </div>
+
+  <button id="menu-button" onclick="openNav()">☰</button>
+
+  <!-- Blog Post Banner -->
+  <div class="banner">
+    <div class="banner-content">
+      <h1>{{ page.title }}</h1>
+      <p>By {{ page.author }} | {{ page.date | date: "%B %d, %Y" }}</p>
+    </div>
+  </div>
+
+  <!-- Blog Content -->
+  <main class="blog-container">
+    <article class="blog-post">
+      <p>
+        I went on a trip to Rocky Mountain National Park in the summer of 2022 with my Dad, 
+        and I ended up taking a lot of wildlife photos while we were there. It was my first
+        time spending a lot of time in the state while purpossely looking for wildlife to photograph,
+        and I was very excited with what I was able to take pictures of.
+        Here are some of my favorite photos from the trip.
+      </p>
+
+      <h2>Equipment Used</h2>
+      <ul>
+        <li>Camera: Olympus OM-D EM1 MK3</li>
+        <li>Lenses: M.Zuiko ED 100-400mm and Olympus M. Zuiko 12-45mm</li>
+      </ul>
+
+      <h2>Photo Gallery</h2>
+        <figure>
+          <picture>
+            <source srcset="/pages/wildlife_photography_blog/blog_posts/Colorado/images/Bull_moose_in_lake_content.webp" type="image/webp">
+            <img src="/pages/wildlife_photography_blog/blog_posts/Colorado/images/Bull_moose_in_lake.png" alt="Bull moose in a lake">
+          <figcaption>
+          <p>A bull moose in a pond, likely relieving itself of itchiness caused by mites in its fur.</p>
+          <p>ISO: 500 F-stop: f/6.3 Exposure: 1/125 sec</p>
+          </figcaption>
+
+        </figure>
+        <figure>
+          <picture>
+            <source srcset="/pages/wildlife_photography_blog/blog_posts/Colorado/images/Calf_content.webp" type="image/webp">
+            <img src="/pages/wildlife_photography_blog/blog_posts/Colorado/images/Calf.png" alt="An elk calf standing in a field">
+          </picture>
+          <figcaption>
+            <p>An elk calf eyeing me up in a field on a mountain peak.</p>
+            <p>ISO: 4000 F-stop: f/13 Exposure: 1/3200 sec</p>
+          </figcaption>
+        </figure>
+        <figure>
+          <picture>
+            <source srcset="/pages/wildlife_photography_blog/blog_posts/Colorado/images/Daisy_content.webp" type="image/webp">
+            <img src="/pages/wildlife_photography_blog/blog_posts/Colorado/images/Daisy.png" alt="A daisy flower close-up">
+          </picture>
+          <figcaption>
+            <p>A close up of a mountain daisy.</p>
+            <p>ISO: 1000 F-stop: f/6.3 Exposure: 1/800 sec</p>
+          </figcaption>
+        </figure>
+        <figure>
+          <picture>
+            <source srcset="/pages/wildlife_photography_blog/blog_posts/Colorado/images/Elk_content.webp" type="image/webp">
+            <img src="/pages/wildlife_photography_blog/blog_posts/Colorado/images/Elk.png" alt="Elk standing in a field">
+          </picture>
+          <figcaption>
+            <p>An elk walking in the same field.</p>
+            <p>ISO: 3200 F-stop: f/13 Exposure: 1/3200 sec</p>
+          </figcaption>
+        </figure>
+        <figure>
+          <picture>
+            <source srcset="/pages/wildlife_photography_blog/blog_posts/Colorado/images/Hummingbird_flying_content.webp" type="image/webp">
+            <img src="/pages/wildlife_photography_blog/blog_posts/Colorado/images/Hummingbird_flying.png" alt="A flying hummingbird">
+          </picture>
+          <figcaption>
+            <p>A flying hummingbird frozen in time</p>
+            <p>ISO: 3200 F-stop: f/14 Exposure: 1/1000 sec</p>
+          </figcaption>
+        </figure>
+        <figure>
+          <picture>
+            <source srcset="/pages/wildlife_photography_blog/blog_posts/Colorado/images/Hummingbird_sitting_content.webp" type="image/webp">
+            <img src="/pages/wildlife_photography_blog/blog_posts/Colorado/images/Hummingbird_sitting.png" alt="A hummingbird sitting">
+          </picture>
+          <figcaption>
+            <p>A hummingbird sitting on a bird feeder.</p>
+            <p>ISO: 6400 F-stop: f/11 Exposure: 1/320 sec</p>
+          </figcaption>
+        </figure>
+        <figure>
+          <picture>
+            <source srcset="/pages/wildlife_photography_blog/blog_posts/Colorado/images/Moose_in_grass_content.webp" type="image/webp">
+            <img src="/pages/wildlife_photography_blog/blog_posts/Colorado/images/Moose_in_grass.png" alt="A young moose in tall grass">
+          </picture>
+          <figcaption>
+            <p>A moose calf hiding in the tall grass.</p>
+            <p>ISO: 400 F-stop: f/6.3 Exposure: 1/1600 sec</p>
+          </figcaption>
+        </figure>
+        <figure>
+          <picture>
+            <source srcset="/pages/wildlife_photography_blog/blog_posts/Colorado/images/Moose_in_lake_content.webp" type="image/webp">
+            <img src="/pages/wildlife_photography_blog/blog_posts/Colorado/images/Moose_in_lake.png" alt="A moose standing in a lake">
+          </picture>
+          <figcaption>
+          <p>A moose standing in a lake, again most likely for relief from itchiness.</p>
+          <p>ISO: 500 F-stop: f/6.3 Exposure: 1/1000 sec</p>
+          </figcaption>
+        </figure>
+        <figure>
+          <picture>
+            <source srcset="/pages/wildlife_photography_blog/blog_posts/Colorado/images/Redtail_Hawk_content.webp" type="image/webp">
+            <img src="/pages/wildlife_photography_blog/blog_posts/Colorado/images/Redtail_Hawk.png" alt="A redtail hawk flying above">
+          </picture>
+          <figcaption>
+          <p>A redtail hawk flying circles above us during a hike.</p>
+          <p>ISO: 160 F-stop: f/6.3 Exposure: 1/2500 sec</p>
+          </figcaption>
+        </figure>
+
+
+      <h2>Lessons Learned</h2>
+      <p>
+        While taking these photos, I learned how to use knowledge of animal behavior to predict where animals would be
+        at certain times of the day. For example, I learned that moose often go into lakes and ponds to relieve itchiness caused by mites in their fur,
+        and they usually do this around mid-day, when the weather is at its warmest point. I also learned how to
+        utilize the exposure settings of my camera, which allowed me to take sharp photos of fast-moving animals like hummingbirds.
+      </p>
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; {{ site.time | date: '%Y' }} - {{ site.title }}. All rights reserved.</p>
+  </footer>
+
+  <script src="/pages/wildlife_photography_blog/blog_posts/Colorado/js/side_nav.js" defer></script>
+</body>
+</html>
