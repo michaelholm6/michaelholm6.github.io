@@ -124,6 +124,5 @@ figure {
   flex-direction: column;
   justify-content: center; /* Center vertically */
   align-items: center; /* Center horizontally */
-  height: 100vh; /* Full viewport height */
-  margin: 0; /* Remove default margins */
+  margin: 20px 0;
 }
