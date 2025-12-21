@@ -1,0 +1,140 @@
+---
+title: "An album of the Northern Lights"
+layout: default
+date: 2025-12-21
+author: "Michael Holm"
+tags: astrophotography, photography, northern lights
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ page.title }} - {{ site.title }}</title>
+  <link rel="stylesheet" href="/pages/astrophotography_blog/blog_posts/northern_lights/css/side_nav_menu.css">
+  <link rel="stylesheet" href="/pages/astrophotography_blog/blog_posts/northern_lights/css/astrophotography.css">
+</head>
+
+<body>
+  <div id="overlay" onclick="closeNav(), resumeBallInteraction()"></div>
+
+  <!-- Sidebar Navigation -->
+  <div id="mySidenav" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav(), resumeBallInteraction()">&times;</a>
+    <a href="/">Home</a>
+    <a href="/pages/publications/publications.html">Publications</a>
+    <div class="dropdown">
+      <a href="javascript:void(0)" class="dropdown-btn" onclick="toggleSubMenu()">
+        <span class="arrow">&#9654;&#xFE0E;</span> Photography
+      </a>
+      <div class="dropdown-content" id="photography-submenu">
+        <a href="/pages/astrophotography_blog/astrophotography.html">Astrophotography</a>
+        <a href="/pages/wildlife_photography_blog/wildlife_photography.html">Wildlife</a>
+      </div>
+    </div>
+    <a href="/pages/hiking/hiking.html">Hiking</a>
+    <a href="/pages/CV/CV.html">CV</a>
+  </div>
+
+  <button id="menu-button" onclick="openNav()">☰</button>
+
+  <!-- Blog Post Banner -->
+  <div class="banner">
+    <div class="banner-content">
+      <h1>{{ page.title }}</h1>
+      <p>By {{ page.author }} | {{ page.date | date: "%B %d, %Y" }}</p>
+    </div>
+  </div>
+
+  <!-- Blog Content -->
+  <main class="blog-container">
+    <article class="blog-post">
+      <p>
+        Throughout my time living in Iowa and Indiana, I've been fortunate enough to witness the Northern Lights on several occasions.
+        Every time I see them, I'm amazed by their beauty and the sense of wonder they make me feel for the earth we live on.
+        I imagine being an ancient human, looking up at those lights and imagining the sprits and concepts they might represent.
+        When you see things like this in the world around you, it's easy to understand how so many beliefs, stories, myths, and 
+        traditions were built around these natural phenomena, and how it resulted in such a wide variety of
+        cultures around the world. Watching the lights dance in the sky, and feeling the same sense of wonder that I know
+        those humans must have felt centuries ago makes me feel connected to something much larger than myself, and it's a feeling
+        that's difficult to put into words.
+
+        If you ever get the chance to see the Northern Lights in person, I highly recommend it.
+        It's an experience you won't forget.
+      </p>
+
+      <h2>Equipment Used</h2>
+      <ul>
+        <li>Camera: Olympus OM-D EM1 MK3</li>
+        <li>Lens: Olympus M. Zuiko Digital 12-45mm</li>
+        <li>Tripod: Peak Design Carbon Fiber Travel Tripod</li>
+        <li>Post-Processing Software: OM Workspace</li>
+      </ul>
+
+      <h2>The Northern Lights</h2>
+      <figure>
+        <picture>
+          <source srcset ="/pages/astrophotography_blog/blog_posts/northern_lights/images/northern_lights_1_content.webp" type="image/webp">
+          <img src="/pages/astrophotography_blog/blog_posts/northern_lights/images/northern_lights_1.jpg" alt="The northern lights over a car">
+        </picture>
+        <figcaption>The Northern Lights in Iowa, 2023</figcaption>
+        <p>ISO: 1600 F-stop: f/4 Exposure: 20 sec</p>
+      </figure>
+
+      <figure>
+        <picture>
+          <source srcset ="/pages/astrophotography_blog/blog_posts/northern_lights/images/northern_lights_2_content.webp" type="image/webp">
+          <img src="/pages/astrophotography_blog/blog_posts/northern_lights/images/northern_lights_2.jpg" alt="The northern lights over a road">
+        </picture>
+        <figcaption>The Northern Lights in Iowa, 2023</figcaption>
+        <p>ISO: 1600 F-stop: f/4 Exposure: 20 sec</p>
+      </figure>
+
+            <figure>
+        <picture>
+          <source srcset="/pages/astrophotography_blog/blog_posts/northern_lights/images/northern_lights_3_content.webp" type="image/webp">
+          <img src="/pages/astrophotography_blog/blog_posts/northern_lights/images/northern_lights_3.jpg" alt="The northern lights over farmland">
+        </picture>
+        <figcaption>The Northern Lights in Indiana, 2025</figcaption>
+        <p>ISO: 500 F-stop: f/4 Exposure: 10 sec</p>
+      </figure>
+
+      <figure>
+        <picture>
+          <source srcset="/pages/astrophotography_blog/blog_posts/northern_lights/images/northern_lights_4_content.webp" type="image/webp">
+          <img src="/pages/astrophotography_blog/blog_posts/northern_lights/images/northern_lights_4.jpg" alt="The northern lights over farmland">
+        </picture>
+        <figcaption>The Northern Lights in Indiana, 2025</figcaption>
+        <p>ISO: 500 F-stop: f/4 Exposure: 10 sec</p>
+      </figure>
+
+      <figure>
+        <picture>
+          <source srcset="/pages/astrophotography_blog/blog_posts/northern_lights/images/northern_lights_5_content.webp" type="image/webp">
+          <img src="/pages/astrophotography_blog/blog_posts/northern_lights/images/northern_lights_5.jpg" alt="The northern lights over farmland">
+        </picture>
+        <figcaption>The Northern Lights in Indiana, 2025</figcaption>
+        <p>ISO: 500 F-stop: f/4 Exposure: 10 sec</p>
+      </figure>
+
+
+      <h2>Conclusion</h2>
+      <p>
+        I hope these aren't the last images I get to take of the Northern Lights. Right now, the sun is at near it's 
+        peak of its 11 year cycle, so the chances of seeing the lights are higher than usual. As the years go on and
+        the sun goes into its quieter phase, I worry that I won't get to see them as often. But whenever I do get
+        the chance to see them again, I'll stay up irresponsibly late, drive far out of town, and set up my tripod
+        to get more pictures. Thanks for reading!
+      </p>
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; {{ site.time | date: '%Y' }} - {{ site.title }}. All rights reserved.</p>
+  </footer>
+
+  <script src="/pages/astrophotography_blog/blog_posts/northern_lights/js/side_nav.js" defer></script>
+</body>
+</html>
