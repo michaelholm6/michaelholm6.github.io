@@ -1,0 +1,134 @@
+---
+title: "The 2024 Great American Eclipse"
+layout: default
+date: 2026-02-01
+author: "Michael Holm"
+tags: astrophotography, eclipse, photography
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ page.title }} - {{ site.title }}</title>
+  <link rel="stylesheet" href="/pages/astrophotography_blog/blog_posts/orion_nebula/css/side_nav_menu.css">
+  <link rel="stylesheet" href="/pages/astrophotography_blog/blog_posts/orion_nebula/css/astrophotography.css">
+</head>
+
+<body>
+  <div id="overlay" onclick="closeNav(), resumeBallInteraction()"></div>
+
+  <!-- Sidebar Navigation -->
+  <div id="mySidenav" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav(), resumeBallInteraction()">&times;</a>
+    <a href="/">Home</a>
+    <a href="/pages/publications/publications.html">Publications</a>
+    <div class="dropdown">
+      <a href="javascript:void(0)" class="dropdown-btn" onclick="toggleSubMenu()">
+        <span class="arrow">&#9654;&#xFE0E;</span> Photography
+      </a>
+      <div class="dropdown-content" id="photography-submenu">
+        <a href="/pages/astrophotography_blog/astrophotography.html">Astrophotography</a>
+        <a href="/pages/wildlife_photography_blog/wildlife_photography.html">Wildlife</a>
+      </div>
+    </div>
+    <a href="/pages/hiking/hiking.html">Hiking</a>
+    <a href="/pages/CV/CV.html">CV</a>
+  </div>
+
+  <button id="menu-button" onclick="openNav()">☰</button>
+
+  <!-- Blog Post Banner -->
+  <div class="banner">
+    <div class="banner-content">
+      <h1>{{ page.title }}</h1>
+      <p>By {{ page.author }} | {{ page.date | date: "%B %d, %Y" }}</p>
+    </div>
+  </div>
+
+  <!-- Blog Content -->
+  <main class="blog-container">
+    <article class="blog-post">
+      <p>
+        In 2024, I drove to southern Indiana with 3 of my friends to witness and photograph the Great American Solar Eclipse. On this trip,
+        we drove to southern Indiana for a day, and then camped behind a gas station for the night, because all the hotels and campsites
+        were totally booked up, and I didn't want to book things in advance to make sure I could go where there was no cloud cover 
+        on the day of the eclipse.
+        
+      </p>
+      <p>
+        That next morning we got up, got breakfast at a local diner, and then drove out to an agricultural field, where we were the only ones there.
+        We laid out a blanket, and had a little picnic while we waited for the eclipse to start. When the eclipse started, I set up my camera on a tripod, and used a solar filter to
+        protect my camera sensor. I took a series of photos throughout the eclipse, from the partial phases, to totality, and then back to partial again.
+        Below are two images I put together from the series of photos I took during the eclipse.
+      </p>
+      <p>
+        One area I totally screwed up on though is that I forgot to take OFF my solar filter during totality, so the image of the corona is
+        very dim and lacking in detail. Oh well, live and learn I guess! Hopefully I'll be able to photograph another eclipse in the future and do better next time.
+        I still think the photos I got are pretty impressive.
+      </p>
+      <p>
+        And really, regardless of the fact that I forgot to take off my filter, this trip with my friends was one of the best experiences
+        I had while at Iowa State, and it's something I'll remember for the rest of my life. I'll always look back on it fondly.
+      </p>
+
+      <h2>Equipment Used</h2>
+      <ul>
+        <li>Camera: Olympus OM-D EM1 MK3</li>
+        <li>Lens: M.Zuiko ED 100-400mm</li>
+        <li>Tripod: Peak Design Carbon Fiber Travel Tripod</li>
+        <li>Post-Processing Software: Gimp</li>
+      </ul>
+
+      <h2>Photo Settings</h2>
+      <ul>
+        <li>ISO: 250</li>
+        <li>F-stop: f/14</li>
+        <li>Exposure: 1/1000 sec.</li>
+      </ul>
+
+      <h2>Challenges and Learnings</h2>
+      <p>
+        This was actually a pretty easy shoot compared to my usual deep-sky astrophotography attempts, since the sun is so bright
+        and easy to photograph. The main challenge was just making sure I had the solar filter on during the partial phases,
+        and remembering to take it off during totality (which I failed to do). I also 
+        had to make sure I was using a fast enough shutter speed to avoid overexposing the sun, especially during the partial phases.
+      </p>
+
+      <h2>Eclipse Process Photo</h2>
+      <figure>
+        <picture>
+          <source srcset ="/pages/astrophotography_blog/blog_posts/solar_eclipse/images/Eclipse_hero.webp" type="image/webp">
+          <img src="/pages/astrophotography_blog/blog_posts/solar_eclipse/images/Eclipse.jpg" alt="Photo of the stages of the solar eclipse">
+        </picture>
+        <figcaption>Processed photo of the stages of the solar eclipse</figcaption>
+      </figure>
+
+      <h2>Totality Photo</h2>
+      <figure>
+        <picture>
+          <source srcset ="/pages/astrophotography_blog/blog_posts/solar_eclipse/images/Single_eclipse_hero.webp" type="image/webp">
+          <img src="/pages/astrophotography_blog/blog_posts/solar_eclipse/images/Single_eclipse.jpg" alt="Image of total the solar eclipse">
+        </picture>
+        <figcaption>Final processed photo of the solar eclipse during totality</figcaption>
+      </figure>
+
+      <h2>Conclusion</h2>
+      <p>
+        Overall, photographing the 2024 Great American Solar Eclipse was an incredible experience, and I'm glad I was able to capture
+        some images of it, even if I did forget to take off my solar filter during totality. The trip with my friends made it all the more special,
+        and I really hope I get the chance to photograph another eclipse in the future. The next total eclipse visible in the contiguous
+        United States will be in 2044, so I might have to wait a bit.
+      </p>
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; {{ site.time | date: '%Y' }} - {{ site.title }}. All rights reserved.</p>
+  </footer>
+
+  <script src="/pages/astrophotography_blog/blog_posts/solar_eclipse/js/side_nav.js" defer></script>
+</body>
+</html>
