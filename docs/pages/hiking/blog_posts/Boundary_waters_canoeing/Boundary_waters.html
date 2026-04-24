@@ -14,6 +14,7 @@ tags: hiking, Minnesota, adventure, canoeing, Boundary waters
   <title>{{ page.title }} - {{ site.title }}</title>
   <link rel="stylesheet" href="/pages/hiking/blog_posts/Boundary_waters_canoeing/css/side_nav_menu.css">
   <link rel="stylesheet" href="/pages/hiking/blog_posts/Boundary_waters_canoeing/css/Boundary_waters.css">
+  <link rel="stylesheet" href="/pages/hiking/blog_posts/Boundary_waters_canoeing/css/comments.css">
 </head>
 
 <body>
@@ -338,6 +339,32 @@ tags: hiking, Minnesota, adventure, canoeing, Boundary waters
         This was really a great trip. I was so thankful to my friend for planning it, and I hope to be able to go again with that group of guys sometime. I think next time I'd like to bring some fishing gear though. I regretted not having that with me on this trip. I think I could've set up a nice trolling line for a lot of the time. It was a good way to spend a week in the summer, and I feel lucky that I got to do it.
       </p>
     </article>
+
+    <section id="comments-section">
+    <h2>Comments</h2>
+
+    <!-- Login/Logout -->
+    <div id="auth-container" style="margin-bottom: 20px; display: flex; align-items: center; gap: 15px;">
+      <button id="google-signin-btn" onclick="signInWithGoogle()" style="padding: 10px 16px; cursor: pointer; background-color: #4285f4; color: white; border: none; border-radius: 4px;">
+        Sign in with Google
+      </button>
+      <button id="logout-btn" onclick="logOut()" style="padding: 10px 16px; cursor: pointer; background-color: #dc3545; color: white; border: none; border-radius: 4px; display: none;">
+        Log Out
+      </button>
+      <span id="user-info" style="margin-left: 20px;"></span>
+    </div>
+
+    <!-- Comment form (hidden until logged in) -->
+    <div id="comment-form-container"
+     style="display: none; margin: 0 0 30px 0; max-width: 700px;">
+      <textarea id="comment-text" placeholder="Write a comment..." style="width: 100%; height: 100px; padding: 10px; font-family: inherit;"></textarea>
+      <button id="post-comment-btn" disabled style="margin-top: 10px; padding: 8px 16px; cursor: pointer;">Post Comment</button>
+    </div>
+
+    <!-- Comments list -->
+    <div id="comments-list" style="margin-top: 20px;"></div>
+  </section>
+
   </main>
 
   <!-- Footer -->
@@ -345,6 +372,85 @@ tags: hiking, Minnesota, adventure, canoeing, Boundary waters
     <p>&copy; {{ site.time | date: '%Y' }} - {{ site.title }}. All rights reserved.</p>
   </footer>
 
-  <script src="/pages/hiking/blog_posts/grand_canyon/js/side_nav.js" defer></script>
+  <script type="module">
+    import { onAuthStateChanged } 
+from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
+  import { getAuth, GoogleAuthProvider, signInWithPopup, signOut } 
+    from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
+  import {
+    getDatabase,
+    ref,
+    set,
+    get,
+    push,
+    onValue,
+    remove,
+    runTransaction
+  } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-database.js";
+
+  // 👇 FUNCTIONS SETUP
+  import { getFunctions, httpsCallable } 
+    from "https://www.gstatic.com/firebasejs/10.7.0/firebase-functions.js";
+
+    const firebaseConfig = {
+    apiKey: "AIzaSyC7Fzb-NtmvRTnSg26nrHEwaUexpbIk_Vo",
+    authDomain: "michaels-workbench-comments.firebaseapp.com",
+    databaseURL: "https://michaels-workbench-comments-default-rtdb.firebaseio.com",
+    projectId: "michaels-workbench-comments",
+    storageBucket: "michaels-workbench-comments.firebasestorage.app",
+    messagingSenderId: "334714571311",
+    appId: "1:334714571311:web:d73f28c4095b58c25614da"
+  };
+
+  
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  import { setPersistence, browserLocalPersistence } 
+  from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
+
+  setPersistence(auth, browserLocalPersistence);
+  const db = getDatabase(app);
+
+  window.auth = auth;
+  window.db = db;
+  window.app = app;
+
+  // CRITICAL FIX: Specify the region where your Cloud Function is deployed
+  const functions = getFunctions(app, "us-central1");
+  
+window.firebaseFunctions = {
+  postComment: httpsCallable(getFunctions(window.app, "us-central1"), "postComment"),
+  deleteComment: httpsCallable(getFunctions(window.app, "us-central1"), "deleteComment"),
+  deleteReply: httpsCallable(getFunctions(window.app, "us-central1"), "deleteReply"),
+  editComment: httpsCallable(functions, "editComment")
+};
+
+
+  // existing global exports
+  window.firebase = {
+    auth,
+    db,
+    GoogleAuthProvider,
+    signInWithPopup,
+    signOut,
+    ref,
+    set,
+    get,
+    push,
+    onValue,
+    remove,
+    runTransaction
+  };
+</script>
+
+<script>
+  window.POST_ID = "{{ page.title | slugify }}";
+</script>
+
+  <script src="/pages/hiking/blog_posts/Boundary_waters_canoeing/js/side_nav.js" defer></script>
+  <script type="module" src="/pages/hiking/blog_posts/Boundary_waters_canoeing/js/comments.js"></script>
+
 </body>
 </html>

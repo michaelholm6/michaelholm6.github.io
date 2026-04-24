@@ -1,0 +1,122 @@
+#comments-section {
+  margin-top: 60px;
+
+  /* Match blog-post exactly */
+  max-width: 1600px;
+  margin-left: auto;
+  margin-right: auto;
+
+  padding: 20px;
+}
+
+#comments-section textarea {
+  resize: vertical;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.reply {
+  color: #111;
+  padding: 10px;
+  margin: 10px 0;   /* 👈 this is the spacing */
+  border-radius: 6px;
+}
+
+.delete-btn {
+  color: red;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 4px 8px;
+  font-size: 0.9em;
+}
+
+.delete-btn:hover {
+  text-decoration: underline;
+}
+
+#comments-section button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-size: 0.95em;
+}
+
+#comments-section button:hover {
+  background-color: #0056b3;
+}
+
+#comments-section button:active {
+  transform: scale(0.98);
+}
+
+.reply {
+  position: relative;
+  padding-left: 18px;
+}
+
+.reply {
+  color: #111;
+  padding: 10px;
+  margin: 14px 0;
+  border-radius: 6px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 30px;   /* 👈 THIS is the key */
+}
+
+.reply {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 8px 0 8px 20px; /* indent replies slightly */
+  
+  display: block;
+  color: inherit;
+}
+
+.reply::before {
+  content: "↳ ";
+  color: #888;
+}
+
+.reply-textarea {
+  width: 100%;
+  min-height: 80px;   /* makes it bigger */
+  resize: none;       /* disables resizing */
+  box-sizing: border-box;
+
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.reply-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;   /* centers horizontally */
+  margin: 15px 0;
+}
+
+.reply-textarea {
+  width: 100%;
+  max-width: 500px;      /* controls width */
+  min-height: 90px;
+
+  resize: none !important;   /* 🔥 force disable resizing */
+  display: block;
+
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.reply strong {
+  color: white;
+}
