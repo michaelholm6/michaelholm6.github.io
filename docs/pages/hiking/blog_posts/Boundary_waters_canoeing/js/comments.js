@@ -1,4 +1,14 @@
 // ==================== SETUP ====================
+function formatDisplayName(user) {
+  if (!user) return "User";
+
+  const firstName =
+    (user.displayName || "User").trim().split(/\s+/)[0];
+
+  const uidSuffix = user.uid?.slice(-5) || "xxxxx";
+
+  return `${firstName}${uidSuffix}`;
+}
 
 
 import {
@@ -51,7 +61,10 @@ function updateAuthUI(user) {
   if (user) {
     googleBtn.style.display = 'none';
     logoutBtn.style.display = 'inline-block';
-    userInfo.textContent = `Logged in as: ${user.displayName}`;
+      const firstName =
+      user.displayName?.split(" ")[0] || "User";
+
+    userInfo.textContent = `Logged in as: ${formatDisplayName(user)}`;
     form.style.display = 'block';
   } else {
     googleBtn.style.display = 'inline-block';
@@ -110,7 +123,8 @@ console.log("WINDOW USER:", window.currentUser);
   try {
     const result = await window.firebaseFunctions.postComment({
       text,
-      postId
+      postId,
+      displayName: auth.currentUser.displayName
     });
     
     console.log("Comment posted successfully:", result);
@@ -166,12 +180,14 @@ function loadComments() {
 }
 
 function createComment(comment) {
+
   const div = document.createElement('div');
   const user = auth.currentUser;
+  const likedByUser = comment.likedBy?.[user?.uid];
 
   div.innerHTML = `
     <div style="padding:12px;border:1px solid #ddd;margin-bottom:10px;">
-      <strong>${comment.author?.split(" ")[0] || "User"}</strong>
+      <strong>${comment.author}</strong>
       <span style="float:right;color:#999;">
         ${new Date(comment.timestamp).toLocaleDateString()}
       </span>
@@ -181,7 +197,9 @@ function createComment(comment) {
         <div class="btn-row">
 
         ${user ? `
-          <button onclick="likeComment('${comment.id}')">
+          <button 
+            class="like-btn ${likedByUser ? 'liked' : ''}"
+            onclick="likeComment('${comment.id}')">
             👍 ${comment.likes || 0}
           </button>
 
@@ -293,7 +311,7 @@ function loadReplies(commentId, container) {
       replyDiv.className = "reply";
 
       replyDiv.innerHTML = `
-  <strong>${r.author?.split(" ")[0] || "User"}</strong>
+  <strong>${r.author}</strong>
   <span style="float:right;color:#666;">
     ${new Date(r.timestamp).toLocaleDateString()}
   </span>
@@ -352,23 +370,46 @@ async function editCommentPrompt(commentId, oldText) {
   const newText = prompt("Edit comment:", oldText);
   if (!newText) return;
 
-  await window.firebaseFunctions.editComment({
-    postId,
-    commentId,
-    newText
-  });
+  try {
+    await window.firebaseFunctions.editComment({
+      postId,
+      commentId,
+      newText
+    });
+  } catch (err) {
+    console.error(err);
+
+    // 🔥 This is the important part
+    const msg =
+      err?.details ||        // sometimes used
+      err?.message ||        // standard
+      "Edit failed";
+
+    alert(msg);
+  }
 }
 
 async function editReplyPrompt(commentId, replyId, oldText) {
   const newText = prompt("Edit reply:", oldText);
   if (!newText) return;
 
-  await window.firebaseFunctions.editComment({
-    postId,
-    commentId,
-    replyId,
-    newText
-  });
+  try {
+    await window.firebaseFunctions.editComment({
+      postId,
+      commentId,
+      replyId,
+      newText
+    });
+  } catch (err) {
+    console.error(err);
+
+    const msg =
+      err?.details ||
+      err?.message ||
+      "Edit failed";
+
+    alert(msg);
+  }
 }
 
 window.editCommentPrompt = editCommentPrompt;

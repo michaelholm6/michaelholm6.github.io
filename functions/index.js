@@ -531,32 +531,39 @@ exports.postComment = onCall(
     );
     }
 
+  const firstName =
+    (request.auth.token.name || "").trim().split(/\s+/)[0] || "User";
 
-  const user = request.auth.token;
+  const uidSuffix = uid.slice(-5);
+  const author = `${firstName}${uidSuffix}`;
+
 
   const basePath = `comments/posts/${postId}/comments`;
 
   if (commentId) {
-    const ref = admin.database().ref(`${basePath}/${commentId}/replies`).push();
-    await ref.set({
-      author: user.name || "User",
-      authorID: uid,
-      content: text,
-      timestamp: Date.now(),
-      likes: 0,
-      likedBy: {}
-    });
-  } else {
-    const ref = admin.database().ref(basePath).push();
-    await ref.set({
-      author: user.name || "User",
-      authorID: uid,
-      content: text,
-      timestamp: Date.now(),
-      likes: 0,
-      likedBy: {}
-    });
-  }
+  const ref = admin.database().ref(`${basePath}/${commentId}/replies`).push();
+
+  await ref.set({
+    author: author,
+    authorID: uid,
+    content: text,
+    timestamp: Date.now(),
+    likes: 0,
+    likedBy: {}
+  });
+
+} else {
+  const ref = admin.database().ref(basePath).push();
+
+  await ref.set({
+    author: author,
+    authorID: uid,
+    content: text,
+    timestamp: Date.now(),
+    likes: 0,
+    likedBy: {}
+  });
+}
 
     await userRef.set(now);
   return { success: true };
@@ -645,7 +652,9 @@ exports.deleteReply = onCall(async (request) => {
   return { success: true };
 });
 
-exports.editComment = onCall(async (request) => {
+exports.editComment = onCall(
+  { secrets: [OPENAI_API_KEY] },
+  async (request) => {
   if (!request.auth) {
     throw new HttpsError("unauthenticated", "Login required");
   }
@@ -656,6 +665,32 @@ exports.editComment = onCall(async (request) => {
   if (!newText || newText.trim() === "") {
     throw new HttpsError("invalid-argument", "Empty text");
   }
+
+  if (containsBlacklistedWord(newText)) {
+  throw new HttpsError(
+    "permission-denied",
+    "You've used a word that's not allowed in comments"
+  );
+}
+
+// 🔴 TOXICITY CHECK
+let toxic = false;
+try {
+  toxic = await isToxic(newText);
+} catch (err) {
+  console.error("Moderation API failed:", err);
+  throw new HttpsError(
+    "internal",
+    "Content moderation failed. Try again later."
+  );
+}
+
+if (toxic) {
+  throw new HttpsError(
+    "permission-denied",
+    "Your edited content was flagged as inappropriate."
+  );
+}
 
   let path;
 

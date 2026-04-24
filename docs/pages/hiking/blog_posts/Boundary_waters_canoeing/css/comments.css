@@ -202,3 +202,13 @@
   align-items: center;
   line-height: 1;
 }
+
+.like-btn {
+  transition: all 0.15s ease;
+}
+
+.like-btn.liked {
+  background: #d0d0d0;
+  border-color: #999;
+  font-weight: 600;
+}
