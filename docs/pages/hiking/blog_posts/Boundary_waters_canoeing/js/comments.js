@@ -21,6 +21,14 @@ import {
   runTransaction
 } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-database.js";
 
+getRedirectResult(auth)
+  .then(result => {
+    if (result?.user) {
+      updateAuthUI(result.user);
+    }
+  })
+  .catch(console.error);
+
 const auth = getAuth(app);
 const db = getDatabase(app);
 
@@ -34,14 +42,16 @@ function signInWithGoogle() {
   const isMobile = /Mobi|Android/i.test(navigator.userAgent);
 
   if (isMobile) {
+    // IMPORTANT: no then/catch needed
     signInWithRedirect(auth, provider);
-  } else {
-    signInWithPopup(auth, provider)
-      .then(result => {
-        updateAuthUI(result.user);
-      })
-      .catch(err => alert(err.message));
+    return;
   }
+
+  signInWithPopup(auth, provider)
+    .then(result => {
+      updateAuthUI(result.user);
+    })
+    .catch(err => console.error(err));
 }
 
 function logOut() {
@@ -71,14 +81,6 @@ function updateAuthUI(user) {
 
 import { onAuthStateChanged } 
 from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
-
-getRedirectResult(auth)
-  .then(result => {
-    if (result?.user) {
-      updateAuthUI(result.user);
-    }
-  })
-  .catch(err => console.error(err));
 
 
 onAuthStateChanged(auth, async (user) => {
