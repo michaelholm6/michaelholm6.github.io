@@ -21,13 +21,6 @@ import {
   runTransaction
 } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-database.js";
 
-getRedirectResult(auth)
-  .then(result => {
-    if (result?.user) {
-      updateAuthUI(result.user);
-    }
-  })
-  .catch(console.error);
 
 const auth = getAuth(app);
 const db = getDatabase(app);
@@ -42,7 +35,6 @@ function signInWithGoogle() {
   const isMobile = /Mobi|Android/i.test(navigator.userAgent);
 
   if (isMobile) {
-    // IMPORTANT: no then/catch needed
     signInWithRedirect(auth, provider);
     return;
   }
@@ -51,8 +43,9 @@ function signInWithGoogle() {
     .then(result => {
       updateAuthUI(result.user);
     })
-    .catch(err => console.error(err));
+    .catch(console.error);
 }
+
 
 function logOut() {
   signOut(auth)
@@ -83,16 +76,24 @@ import { onAuthStateChanged }
 from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
 
 
+let commentsLoaded = false;
+
 onAuthStateChanged(auth, async (user) => {
   window.currentUser = user;
 
   const btn = document.getElementById("post-comment-btn");
   btn.disabled = !user;
 
-  updateAuthUI(user);          // ← YOU WERE MISSING THIS
-  await checkAdmin(user);      // ← ensures adminStatus is ready
-  loadComments();              // ← NOW load comments
+  updateAuthUI(user);
+
+  await checkAdmin(user);
+
+  if (!commentsLoaded) {
+    loadComments();
+    commentsLoaded = true;
+  }
 });
+
 
 
 
