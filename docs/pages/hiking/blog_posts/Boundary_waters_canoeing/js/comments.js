@@ -5,6 +5,8 @@ import {
   getAuth,
   GoogleAuthProvider,
   signInWithPopup,
+  signInWithRedirect,
+  getRedirectResult,
   signOut
 } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
 
@@ -29,11 +31,17 @@ const postId = window.POST_ID || window.location.pathname.replace(/\W+/g, "_");
 function signInWithGoogle() {
   const provider = new GoogleAuthProvider();
 
-  signInWithPopup(auth, provider)
-    .then(result => {
-      updateAuthUI(result.user);
-    })
-    .catch(err => alert(err.message));
+  const isMobile = /Mobi|Android/i.test(navigator.userAgent);
+
+  if (isMobile) {
+    signInWithRedirect(auth, provider);
+  } else {
+    signInWithPopup(auth, provider)
+      .then(result => {
+        updateAuthUI(result.user);
+      })
+      .catch(err => alert(err.message));
+  }
 }
 
 function logOut() {
@@ -63,6 +71,15 @@ function updateAuthUI(user) {
 
 import { onAuthStateChanged } 
 from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
+
+getRedirectResult(auth)
+  .then(result => {
+    if (result?.user) {
+      updateAuthUI(result.user);
+    }
+  })
+  .catch(err => console.error(err));
+
 
 onAuthStateChanged(auth, async (user) => {
   window.currentUser = user;
