@@ -178,13 +178,19 @@ function createComment(comment) {
       <p>${comment.content}</p>
 
       <div id="btns-${comment.id}" class="comment-buttons">
+        <div class="btn-row">
+
         ${user ? `
           <button onclick="likeComment('${comment.id}')">
-              👍 ${comment.likes || 0}
+            👍 ${comment.likes || 0}
           </button>
 
           <button onclick="toggleReply('${comment.id}')">Reply</button>
-        ` : ""}
+        ` : `
+          <span class="like-display">👍 ${comment.likes || 0}</span>
+        `}
+
+      
 
         ${renderDeleteButtonHTML({ commentId: comment.id, authorID: comment.authorID })}
 
@@ -193,6 +199,8 @@ function createComment(comment) {
           ✏️ Edit
         </button>
       ` : ""}
+
+          </div>
 
         </div>
 
@@ -294,11 +302,13 @@ function loadReplies(commentId, container) {
 
   <div class="btn-row">
 
-  ${(user) ? `
+    ${user ? `
     <button onclick="likeReply('${commentId}','${id}')">
       👍 ${r.likes || 0}
     </button>
-  ` : ""}
+  ` : `
+    <span class="like-display">👍 ${r.likes || 0}</span>
+  `}
 
   ${renderDeleteButtonHTML({
     commentId,

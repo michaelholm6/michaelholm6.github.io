@@ -158,9 +158,47 @@
   }
 }
 
+.like-display {
+  color: #777;
+  font-size: 0.9em;
+  padding: 6px 8px;
+  display: inline-block;
+}
+
 .btn-row {
-  margin-bottom: 12px;
   display: flex;
-  flex-wrap: wrap;
+  align-items: center;
   gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 6px;
+}
+
+/* ALL buttons identical */
+.btn-row button {
+  font-size: 13px;
+  padding: 4px 8px;
+  border: 1px solid #ccc;
+  background: #f7f7f7;
+  border-radius: 4px;
+  cursor: pointer;
+  line-height: 1;
+}
+
+/* prevent “Reply” from looking bigger */
+.btn-row button,
+.btn-row span {
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* non-interactive like display */
+.like-display {
+  font-size: 13px;
+  padding: 4px 8px;
+  border: 1px solid transparent;
+  color: #555;
+  display: inline-flex;
+  align-items: center;
+  line-height: 1;
 }
