@@ -5,8 +5,6 @@ import {
   getAuth,
   GoogleAuthProvider,
   signInWithPopup,
-  signInWithRedirect,
-  getRedirectResult,
   signOut
 } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
 
@@ -21,7 +19,6 @@ import {
   runTransaction
 } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-database.js";
 
-
 const auth = getAuth(app);
 const db = getDatabase(app);
 
@@ -32,20 +29,12 @@ const postId = window.POST_ID || window.location.pathname.replace(/\W+/g, "_");
 function signInWithGoogle() {
   const provider = new GoogleAuthProvider();
 
-  const isMobile = /Mobi|Android/i.test(navigator.userAgent);
-
-  if (isMobile) {
-    signInWithRedirect(auth, provider);
-    return;
-  }
-
   signInWithPopup(auth, provider)
     .then(result => {
       updateAuthUI(result.user);
     })
-    .catch(console.error);
+    .catch(err => alert(err.message));
 }
-
 
 function logOut() {
   signOut(auth)
@@ -75,25 +64,16 @@ function updateAuthUI(user) {
 import { onAuthStateChanged } 
 from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
 
-
-let commentsLoaded = false;
-
 onAuthStateChanged(auth, async (user) => {
   window.currentUser = user;
 
   const btn = document.getElementById("post-comment-btn");
   btn.disabled = !user;
 
-  updateAuthUI(user);
-
-  await checkAdmin(user);
-
-  if (!commentsLoaded) {
-    loadComments();
-    commentsLoaded = true;
-  }
+  updateAuthUI(user);          // ← YOU WERE MISSING THIS
+  await checkAdmin(user);      // ← ensures adminStatus is ready
+  loadComments();              // ← NOW load comments
 });
-
 
 
 
