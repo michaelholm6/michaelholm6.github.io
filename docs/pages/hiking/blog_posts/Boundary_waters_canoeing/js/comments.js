@@ -292,24 +292,28 @@ function loadReplies(commentId, container) {
 
   <p>${r.content}</p>
 
-  <div class="reply-btns" style="margin-bottom:12px;">
+  <div class="btn-row">
+
+  ${(user) ? `
     <button onclick="likeReply('${commentId}','${id}')">
       👍 ${r.likes || 0}
     </button>
+  ` : ""}
 
-    ${renderDeleteButtonHTML({
-      commentId,
-      replyId: id,
-      isReply: true,
-      authorID: r.authorID
-    })}
+  ${renderDeleteButtonHTML({
+    commentId,
+    replyId: id,
+    isReply: true,
+    authorID: r.authorID
+  })}
 
-    ${(user && (user.uid === r.authorID || window.adminStatus)) ? `
-      <button onclick="editReplyPrompt('${commentId}', '${id}', \`${r.content}\`)">
-        ✏️ Edit
-      </button>
-    ` : ""}
-  </div>
+  ${(user && (user.uid === r.authorID || window.adminStatus)) ? `
+    <button onclick="editReplyPrompt('${commentId}', '${id}', \`${r.content}\`)">
+      ✏️ Edit
+    </button>
+  ` : ""}
+
+</div>
 `;
 
 
