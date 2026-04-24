@@ -120,3 +120,40 @@
 .reply strong {
   color: white;
 }
+
+#comment-form-container {
+  padding: 0 16px;
+  box-sizing: border-box;
+}
+
+#comment-text {
+  box-sizing: border-box;
+}
+
+@media (max-width: 600px) {
+  #comment-form-container {
+    padding: 0 12px;
+  }
+}
+
+.comment-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.comment-buttons button {
+  padding: 6px 10px;
+  font-size: 14px;
+}
+
+@media (max-width: 600px) {
+  .comment-buttons {
+    gap: 6px;
+  }
+
+  .comment-buttons button {
+    flex: 1 1 auto;
+  }
+}

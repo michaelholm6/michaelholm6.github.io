@@ -177,12 +177,14 @@ function createComment(comment) {
       </span>
       <p>${comment.content}</p>
 
-      <div id="btns-${comment.id}" style="margin-bottom:12px;">
-        <button onclick="likeComment('${comment.id}')">
-            👍 ${comment.likes || 0}
-        </button>
+      <div id="btns-${comment.id}" class="comment-buttons">
+        ${user ? `
+          <button onclick="likeComment('${comment.id}')">
+              👍 ${comment.likes || 0}
+          </button>
 
-        <button onclick="toggleReply('${comment.id}')">Reply</button>
+          <button onclick="toggleReply('${comment.id}')">Reply</button>
+        ` : ""}
 
         ${renderDeleteButtonHTML({ commentId: comment.id, authorID: comment.authorID })}
 
@@ -283,30 +285,33 @@ function loadReplies(commentId, container) {
       replyDiv.className = "reply";
 
       replyDiv.innerHTML = `
-        <strong>${r.author?.split(" ")[0] || "User"}</strong>
-        <span style="float:right;color:#666;">
-          ${new Date(r.timestamp).toLocaleDateString()}
-        </span>
+  <strong>${r.author?.split(" ")[0] || "User"}</strong>
+  <span style="float:right;color:#666;">
+    ${new Date(r.timestamp).toLocaleDateString()}
+  </span>
 
-        <p>${r.content}</p>
+  <p>${r.content}</p>
 
-        <button onclick="likeReply('${commentId}','${id}')">
-          👍 ${r.likes || 0}
-        </button>
+  <div class="reply-btns" style="margin-bottom:12px;">
+    <button onclick="likeReply('${commentId}','${id}')">
+      👍 ${r.likes || 0}
+    </button>
 
-        ${renderDeleteButtonHTML({
-          commentId,
-          replyId: id,
-          isReply: true,
-          authorID: r.authorID
-        })}
+    ${renderDeleteButtonHTML({
+      commentId,
+      replyId: id,
+      isReply: true,
+      authorID: r.authorID
+    })}
 
-        ${(user && (user.uid === r.authorID || window.adminStatus)) ? `
-        <button onclick="editReplyPrompt('${commentId}', '${id}', \`${r.content}\`)">
-          ✏️ Edit
-        </button>
-      ` : ""}
-      `;
+    ${(user && (user.uid === r.authorID || window.adminStatus)) ? `
+      <button onclick="editReplyPrompt('${commentId}', '${id}', \`${r.content}\`)">
+        ✏️ Edit
+      </button>
+    ` : ""}
+  </div>
+`;
+
 
       container.appendChild(replyDiv);
     });
