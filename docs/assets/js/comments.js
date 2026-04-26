@@ -1,6 +1,24 @@
 // ==================== SETUP ====================
+import { auth, db, functions } from "/assets/js/firebase-init.js";
+
+document.addEventListener("DOMContentLoaded", () => {
+  document.getElementById("google-signin-btn")
+    ?.addEventListener("click", signInWithGoogle);
+
+  document.getElementById("logout-btn")
+    ?.addEventListener("click", logOut);
+
+  document.getElementById("post-comment-btn")
+    ?.addEventListener("click", postComment);
+});
+
 function formatDisplayName(user) {
   if (!user) return "User";
+
+  // 🔥 SPECIAL CASE: you
+  if (user.email === "michaelholm6@gmail.com") {
+    return "Michael Holm";
+  }
 
   const firstName =
     (user.displayName || "User").trim().split(/\s+/)[0];
@@ -29,10 +47,8 @@ import {
   runTransaction
 } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-database.js";
 
-const auth = getAuth(app);
-const db = getDatabase(app);
+const postId = window.POST_ID;
 
-const postId = window.POST_ID || window.location.pathname.replace(/\W+/g, "_");
 
 // ==================== AUTH ====================
 
@@ -61,9 +77,6 @@ function updateAuthUI(user) {
   if (user) {
     googleBtn.style.display = 'none';
     logoutBtn.style.display = 'inline-block';
-      const firstName =
-      user.displayName?.split(" ")[0] || "User";
-
     userInfo.textContent = `Logged in as: ${formatDisplayName(user)}`;
     form.style.display = 'block';
   } else {
@@ -124,7 +137,7 @@ console.log("WINDOW USER:", window.currentUser);
     const result = await window.firebaseFunctions.postComment({
       text,
       postId,
-      displayName: auth.currentUser.displayName
+      displayName: formatDisplayName(auth.currentUser)
     });
     
     console.log("Comment posted successfully:", result);
@@ -192,16 +205,21 @@ function createComment(comment) {
         ${new Date(comment.timestamp).toLocaleDateString()}
       </span>
       <p>${comment.content}</p>
+      <div id="edit-box-${comment.id}" style="display:none; margin-top:10px;">
+  <textarea id="edit-text-${comment.id}" style="width:100%; height:80px;"></textarea>
+  <button onclick="submitEditComment('${comment.id}')">Finish editing</button>
+  <button onclick="cancelEdit('${comment.id}')">Cancel</button>
+</div>
 
       <div id="btns-${comment.id}" class="comment-buttons">
         <div class="btn-row">
 
         ${user ? `
           <button 
-            class="like-btn ${likedByUser ? 'liked' : ''}"
-            onclick="likeComment('${comment.id}')">
-            👍 ${comment.likes || 0}
-          </button>
+          class="like-btn ${likedByUser ? 'liked' : ''}"
+          onclick="likeComment('${comment.id}')">
+          👍 ${comment.likes || 0}
+        </button>
 
           <button onclick="toggleReply('${comment.id}')">Reply</button>
         ` : `
@@ -213,9 +231,9 @@ function createComment(comment) {
         ${renderDeleteButtonHTML({ commentId: comment.id, authorID: comment.authorID })}
 
         ${(user && (user.uid === comment.authorID || window.adminStatus)) ? `
-        <button onclick="editCommentPrompt('${comment.id}', \`${comment.content}\`)">
-          ✏️ Edit
-        </button>
+        <button onclick="startEditComment('${comment.id}', \`${comment.content}\`)">
+  ✏️ Edit
+</button> 
       ` : ""}
 
           </div>
@@ -280,10 +298,11 @@ async function postReply(commentId) {
     const { postComment } = window.firebaseFunctions;
 
     await postComment({
-      text,
-      postId,
-      commentId
-    });
+  text,
+  postId,
+  commentId,
+  displayName: formatDisplayName(auth.currentUser)
+});
 
     document.getElementById(`reply-text-${commentId}`).value = '';
 
@@ -306,6 +325,8 @@ function loadReplies(commentId, container) {
     if (!data) return;
 
     Object.entries(data).forEach(([id, r]) => {
+       const user = auth.currentUser;
+      const likedByUser = r.likedBy?.[user?.uid];
       const replyDiv = document.createElement('div');
 
       replyDiv.className = "reply";
@@ -317,11 +338,18 @@ function loadReplies(commentId, container) {
   </span>
 
   <p>${r.content}</p>
+  <div id="edit-reply-box-${id}" style="display:none; margin-top:10px;">
+  <textarea id="edit-reply-text-${id}" style="width:100%; height:60px;"></textarea>
+  <button onclick="submitEditReply('${commentId}', '${id}')">Finish editing</button>
+  <button onclick="cancelEditReply('${id}')">Cancel</button>
+</div>
 
   <div class="btn-row">
 
     ${user ? `
-    <button onclick="likeReply('${commentId}','${id}')">
+    <button 
+      class="like-btn ${likedByUser ? 'liked' : ''}"
+      onclick="likeReply('${commentId}','${id}')">
       👍 ${r.likes || 0}
     </button>
   ` : `
@@ -336,7 +364,7 @@ function loadReplies(commentId, container) {
   })}
 
   ${(user && (user.uid === r.authorID || window.adminStatus)) ? `
-    <button onclick="editReplyPrompt('${commentId}', '${id}', \`${r.content}\`)">
+    <button onclick="startEditReply('${commentId}', '${id}', \`${r.content}\`)">
       ✏️ Edit
     </button>
   ` : ""}
@@ -350,6 +378,64 @@ function loadReplies(commentId, container) {
   });
 }
 
+function startEditComment(commentId, oldText) {
+  const box = document.getElementById(`edit-box-${commentId}`);
+  const textarea = document.getElementById(`edit-text-${commentId}`);
+
+  textarea.value = oldText;
+  box.style.display = "block";
+}
+
+async function submitEditComment(commentId) {
+  const textarea = document.getElementById(`edit-text-${commentId}`);
+  const newText = textarea.value.trim();
+
+  if (!newText) return alert("Cannot be empty");
+
+  try {
+    await window.firebaseFunctions.editComment({
+      postId,
+      commentId,
+      newText
+    });
+  } catch (err) {
+    alert(err.message || "Edit failed");
+  }
+}
+
+function cancelEdit(commentId) {
+  document.getElementById(`edit-box-${commentId}`).style.display = "none";
+}
+
+function startEditReply(commentId, replyId, oldText) {
+  const box = document.getElementById(`edit-reply-box-${replyId}`);
+  const textarea = document.getElementById(`edit-reply-text-${replyId}`);
+
+  textarea.value = oldText;
+  box.style.display = "block";
+}
+
+async function submitEditReply(commentId, replyId) {
+  const textarea = document.getElementById(`edit-reply-text-${replyId}`);
+  const newText = textarea.value.trim();
+
+  if (!newText) return alert("Cannot be empty");
+
+  try {
+    await window.firebaseFunctions.editComment({
+      postId,
+      commentId,
+      replyId,
+      newText
+    });
+  } catch (err) {
+    alert(err.message || "Edit failed");
+  }
+}
+
+function cancelEditReply(replyId) {
+  document.getElementById(`edit-reply-box-${replyId}`).style.display = "none";
+}
 
 
 async function deleteReply(commentId, replyId) {
@@ -504,3 +590,11 @@ async function deleteComment(id) {
     alert(err.message || "Delete failed");
   }
 }
+
+window.startEditComment = startEditComment;
+window.submitEditComment = submitEditComment;
+window.cancelEdit = cancelEdit;
+
+window.startEditReply = startEditReply;
+window.submitEditReply = submitEditReply;
+window.cancelEditReply = cancelEditReply;

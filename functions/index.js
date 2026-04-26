@@ -535,7 +535,7 @@ exports.postComment = onCall(
     (request.auth.token.name || "").trim().split(/\s+/)[0] || "User";
 
   const uidSuffix = uid.slice(-5);
-  const author = `${firstName}${uidSuffix}`;
+  const author = request.data.displayName || "User"
 
 
   const basePath = `comments/posts/${postId}/comments`;

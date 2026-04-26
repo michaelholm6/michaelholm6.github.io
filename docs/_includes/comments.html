@@ -1,0 +1,26 @@
+<link rel="stylesheet" href="/assets/css/comments.css">
+
+<section id="comments-section">
+  <h2>Comments</h2>
+
+  <div id="auth-container" style="margin-bottom: 20px; display: flex; align-items: center; gap: 15px;">
+    <button id="google-signin-btn">Sign in with Google</button>
+    <button id="logout-btn" style="display: none;">Log Out</button>
+    <span id="user-info"></span>
+  </div>
+
+  <div id="comment-form-container" style="display: none; margin-bottom: 30px;">
+    <textarea id="comment-text" placeholder="Write a comment..."></textarea>
+    <button id="post-comment-btn" disabled>Post Comment</button>
+  </div>
+
+  <div id="comments-list"></div>
+</section>
+
+<!-- Scripts -->
+<script>
+  window.POST_ID = "{{ page.title | slugify }}";
+</script>
+
+<script type="module" src="/assets/js/firebase-init.js"></script>
+<script type="module" src="/assets/js/comments.js"></script>
