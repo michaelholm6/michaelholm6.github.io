@@ -101,6 +101,11 @@ function enableOrientation() {
         mirror = !mirror;
       }
     }
+    // When the phone is near upright (little side tilt), there's no ambiguity —
+    // reset mirror so a stuck-true state from earlier jitter can't persist.
+    if (Math.abs(event.gamma) < 30) {
+      mirror = false;
+    }
     prevRawGamma = event.gamma;
     gamma = mirror ? -event.gamma : event.gamma;
     beta = event.beta;
@@ -662,7 +667,7 @@ else if (orientation_supported == 'true' || orientation_supported == 'undefined'
   drawWrappedText(ctx, promptText, promptX, promptY, promptMaxWidth, promptLineHeight);
 }
 
-  if (orientation_supported !== 'false') {
+  if (ballEnabled || orientation_supported == 'is not mobile') {
     updateBall(frameTime);
     drawBall();
   }
