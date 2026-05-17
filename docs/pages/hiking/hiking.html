@@ -9,29 +9,10 @@ title: "Backpacking"
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{ page.title }} - {{ site.title }}</title>
   <link rel="stylesheet" href="/pages/hiking/css/hiking.css">
-  <link rel="stylesheet" href="/pages/hiking/css/side_nav_menu.css">
+  <link rel="stylesheet" href="/assets/css/side_nav_menu.css">
 </head>
 <body>
-  <div id="overlay" onclick="closeNav(), resumeBallInteraction()"></div>
-
-  <div id="mySidenav" class="sidenav">
-    <a href="javascript:void(0)" class="closebtn" onclick="closeNav(), resumeBallInteraction()">&times;</a>
-    <a href="/">Home</a>
-    <a href="/pages/publications/publications.html">Publications</a>
-    <div class="dropdown">
-      <a href="javascript:void(0)" class="dropdown-btn" onclick="toggleSubMenu()">
-        <span class="arrow">&#9654;&#xFE0E;</span> Photography
-      </a>
-      <div class="dropdown-content" id="photography-submenu">
-        <a href="/pages/astrophotography_blog/astrophotography.html">Astrophotography</a>
-        <a href="/pages/wildlife_photography_blog/wildlife_photography.html">Wildlife</a>
-      </div>
-    </div>
-    <a href="/pages/hiking/hiking.html">Hiking</a>
-    <a href="/pages/CV/CV.html">CV</a>
-  </div>
-
-  <button id="menu-button" onclick="openNav()">☰</button>
+  {% include sidenav.html %}
 
   <div class="banner">
     <picture class="banner-picture">
@@ -101,6 +82,6 @@ title: "Backpacking"
     <p>&copy; {{ site.time | date: '%Y' }} - {{ site.title }}. All rights reserved.</p>
   </footer>
 
-  <script src="/pages/hiking/js/side_nav.js" defer></script>
+  <script src="/assets/js/side_nav.js" defer></script>
 </body>
 </html>

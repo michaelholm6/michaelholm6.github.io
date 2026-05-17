@@ -4,7 +4,7 @@ const canvas = document.getElementById('bannerCanvas');
 const ctx = canvas.getContext('2d');
 let letterBoxes = [];
 let gamma = 0;
-let referenceGamma = 0; 
+let prevRawGamma = null;
 canvas.width = window.innerWidth;
 canvas.height = canvas.offsetHeight;
 let beta = 0;
@@ -96,11 +96,12 @@ function enableOrientation() {
     screen_orientation = event.target.type;
   });
   window.addEventListener('deviceorientation', function(event) {
-    if (((gamma > 60 && event.gamma < -60) || (gamma < -60 && event.gamma > 60)) && !mirror) {
-      mirror = true;
-    } else if (((gamma < -60 && event.gamma < -60) || (gamma > 60 && event.gamma > 60)) && mirror) {
-      mirror = false;
+    if (prevRawGamma !== null) {
+      if ((prevRawGamma > 60 && event.gamma < -60) || (prevRawGamma < -60 && event.gamma > 60)) {
+        mirror = !mirror;
+      }
     }
+    prevRawGamma = event.gamma;
     gamma = mirror ? -event.gamma : event.gamma;
     beta = event.beta;
   });
@@ -377,25 +378,25 @@ function updateBall(frameTime) {
     gravityX = 0;
     gravityY = 0;
 
-    if (screen_orientation == 'portrait-primary' || screen_orientation == 'portrait-secondary') {
-      if (screen_orientation == 'portrait-primary') {
-        gravityX = Math.sin((gamma) * Math.PI / 180); // Gravity effect on X-axis based on gamma
-        gravityY = Math.sin(beta * Math.PI / 180); // Gravity effect on Y-axis based on beta
-      } else if (screen_orientation == 'portrait-secondary') {
-        gravityX = -Math.sin((gamma) * Math.PI / 180); // Gravity effect on X-axis based on gamma
-        gravityY = -Math.sin(beta * Math.PI / 180); // Gravity effect on Y-axis based on beta
+    if (orientation_supported == 'true') {
+      if (screen_orientation == 'portrait-primary' || screen_orientation == 'portrait-secondary') {
+        if (screen_orientation == 'portrait-primary') {
+          gravityX = Math.sin((gamma) * Math.PI / 180);
+          gravityY = Math.sin(beta * Math.PI / 180);
+        } else {
+          gravityX = -Math.sin((gamma) * Math.PI / 180);
+          gravityY = -Math.sin(beta * Math.PI / 180);
+        }
+      } else if (screen_orientation == 'landscape-primary' || screen_orientation == 'landscape-secondary') {
+        if (screen_orientation == 'landscape-primary') {
+          gravityX = Math.sin((beta) * Math.PI / 180);
+          gravityY = -Math.sin(gamma * Math.PI / 180);
+        } else {
+          gravityX = -Math.sin((beta) * Math.PI / 180);
+          gravityY = Math.sin(gamma * Math.PI / 180);
+        }
       }
-    } else if (screen_orientation == 'landscape-primary' || screen_orientation == 'landscape-secondary') {
-      if (screen_orientation == 'landscape-primary') {
-        gravityX = Math.sin((beta) * Math.PI / 180); // Gravity effect on X-axis based on gamma
-        gravityY = -Math.sin(gamma * Math.PI / 180); // Gravity effect on Y-axis based on beta
-      } else if (screen_orientation == 'landscape-secondary') {
-        gravityX = -Math.sin((beta) * Math.PI / 180); // Gravity effect on X-axis based on gamma
-        gravityY = Math.sin(gamma * Math.PI / 180); // Gravity effect on Y-axis based on beta
-      }
-    }
-
-    if (orientation_supported == 'is not mobile') {
+    } else {
       gravityX = 0;
       gravityY = 1;
     }
@@ -652,7 +653,7 @@ else if (orientation_supported == 'true' || orientation_supported == 'undefined'
   ctx.textBaseline = 'top';
 
   // Set global prompt text
-  promptText = "Hold your device flat and then tap here to enable ball game";
+  promptText = "Tap here to enable tilt control";
   promptMaxWidth = canvas.width * 0.8;
   promptLineHeight = 26;
   promptX = canvas.width / 2;
@@ -661,7 +662,7 @@ else if (orientation_supported == 'true' || orientation_supported == 'undefined'
   drawWrappedText(ctx, promptText, promptX, promptY, promptMaxWidth, promptLineHeight);
 }
 
-  if (ballEnabled || orientation_supported == 'is not mobile') {
+  if (orientation_supported !== 'false') {
     updateBall(frameTime);
     drawBall();
   }
@@ -701,8 +702,9 @@ canvas.addEventListener('mouseleave', function () {
 
 function isMobile() {
   const userAgent = navigator.userAgent;
-  // Check for mobile devices based on the user agent (Android, iPhone, iPad, etc.)
-  return /Mobi|Android|iPhone|iPad|iPod/i.test(userAgent);
+  // iPadOS 13+ sends a Macintosh UA but has touch points
+  const isModernIpad = /Macintosh/i.test(userAgent) && navigator.maxTouchPoints > 0;
+  return /Mobi|Android|iPhone|iPad|iPod/i.test(userAgent) || isModernIpad;
 }
 
 function supportsOrientation() {
@@ -741,3 +743,14 @@ function colorLetterBoxes(letterBoxes) {
       ctx.fillRect(box.x, box.top, box.width, box.bottom - box.top);
   });
 }
+
+// Pause/resume the ball whenever the nav opens or closes.
+// Deferred scripts run before DOMContentLoaded fires, so side_nav.js has
+// already defined openNav/closeNav by the time this listener executes.
+document.addEventListener('DOMContentLoaded', () => {
+  const origOpen = window.openNav;
+  window.openNav = function () { origOpen?.(); haltBallInteraction(); };
+
+  const origClose = window.closeNav;
+  window.closeNav = function () { origClose?.(); resumeBallInteraction(); };
+});

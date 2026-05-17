@@ -12,32 +12,12 @@ tags: wildlife photography, Colorado, photography
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{ page.title }} - {{ site.title }}</title>
-  <link rel="stylesheet" href="/pages/wildlife_photography_blog/blog_posts/Colorado/css/side_nav_menu.css">
-  <link rel="stylesheet" href="/pages/wildlife_photography_blog/blog_posts/Colorado/css/Colorado.css">
+  <link rel="stylesheet" href="/assets/css/side_nav_menu.css">
+  <link rel="stylesheet" href="/assets/css/blog-post-green.css">
 </head>
 
 <body>
-  <div id="overlay" onclick="closeNav(), resumeBallInteraction()"></div>
-
-  <!-- Sidebar Navigation -->
-  <div id="mySidenav" class="sidenav">
-    <a href="javascript:void(0)" class="closebtn" onclick="closeNav(), resumeBallInteraction()">&times;</a>
-    <a href="/">Home</a>
-    <a href="/pages/publications/publications.html">Publications</a>
-    <div class="dropdown">
-      <a href="javascript:void(0)" class="dropdown-btn" onclick="toggleSubMenu()">
-        <span class="arrow">&#9654;&#xFE0E;</span> Photography
-      </a>
-      <div class="dropdown-content" id="photography-submenu">
-        <a href="/pages/astrophotography_blog/astrophotography.html">Astrophotography</a>
-        <a href="/pages/wildlife_photography_blog/wildlife_photography.html">Wildlife</a>
-      </div>
-    </div>
-    <a href="/pages/hiking/hiking.html">Hiking</a>
-    <a href="/pages/CV/CV.html">CV</a>
-  </div>
-
-  <button id="menu-button" onclick="openNav()">☰</button>
+  {% include sidenav.html %}
 
   <!-- Blog Post Banner -->
   <div class="banner">
@@ -176,6 +156,6 @@ tags: wildlife photography, Colorado, photography
     <p>&copy; {{ site.time | date: '%Y' }} - {{ site.title }}. All rights reserved.</p>
   </footer>
 
-  <script src="/pages/wildlife_photography_blog/blog_posts/Colorado/js/side_nav.js" defer></script>
+  <script src="/assets/js/side_nav.js" defer></script>
 </body>
 </html>

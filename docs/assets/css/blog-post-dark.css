@@ -7,7 +7,6 @@ body {
   line-height: 1.6;
 }
 
-/* Blog Content Container */
 .blog-post {
   max-width: 1600px;
   margin: 50px auto;
@@ -17,7 +16,6 @@ body {
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
 }
 
-/* Headers */
 h1, h2, h3 {
   font-weight: bold;
   text-shadow: 2px 2px 4px black;
@@ -34,7 +32,6 @@ h1 {
   text-align: center;
 }
 
-
 h2 {
   font-size: 2rem;
   color: #ffcc00;
@@ -48,14 +45,12 @@ h3 {
   color: #ffcc00;
 }
 
-/* Paragraphs */
 p {
   font-size: 1.1rem;
   color: #ddd;
   margin-bottom: 20px;
 }
 
-/* Horizontal Rule */
 hr {
   border: 0;
   height: 1px;
@@ -63,7 +58,6 @@ hr {
   margin: 30px 0;
 }
 
-/* Blockquotes */
 blockquote {
   border-left: 5px solid #ffcc00;
   padding: 10px 20px;
@@ -73,7 +67,6 @@ blockquote {
   color: #ffcc00;
 }
 
-/* Links */
 a {
   color: #ffcc00;
   text-decoration: none;
@@ -84,33 +77,10 @@ a:hover {
   color: #ffea70;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-  .blog-post {
-      width: 90%;
-      padding: 15px;
-  }
-
-  h1 {
-      font-size: 2rem;
-  }
-
-  h2 {
-      font-size: 1.7rem;
-  }
-
-  p {
-      font-size: 1rem;
-  }
-}
-
 img {
   max-width: 100%;
   max-height: 80vh;
   height: auto;
-  justify-content: center;
-  align-items: center;
-  align-content: center;
 }
 
 figcaption {
@@ -122,7 +92,18 @@ figcaption {
 figure {
   display: flex;
   flex-direction: column;
-  justify-content: center; /* Center vertically */
-  align-items: center; /* Center horizontally */
-  margin: 0; /* Remove default margins */
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+}
+
+@media (max-width: 768px) {
+  .blog-post {
+    width: 90%;
+    padding: 15px;
+  }
+
+  h1 { font-size: 2rem; }
+  h2 { font-size: 1.7rem; }
+  p { font-size: 1rem; }
 }

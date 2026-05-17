@@ -1,8 +1,8 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background-color: #374925; /* Deeper earthy green */
-  color: #f0e6d2; /* Warm light beige (like sand or trail dust) */
+  background-color: #374925;
+  color: #f0e6d2;
   text-align: center;
 }
 
@@ -12,27 +12,27 @@ body {
   width: 100%;
   max-width: 1200px;
   margin: 20px auto;
-  padding: 0 10px;        /* horizontal space */
+  padding: 0 10px;
   display: flex;
   justify-content: center;
   align-items: center;
   overflow: hidden;
   border-radius: 20px;
   background-color: #374925;
-  box-sizing: border-box; /* INCLUDE padding in width */
+  box-sizing: border-box;
 }
 
 .banner-picture {
   width: 100%;
   height: 100%;
-  display: block;         /* make picture behave like a block */
+  display: block;
 }
 
 .banner-picture img {
   width: 100%;
   height: 100%;
-  object-fit: cover;      /* fills the banner */
-  display: block;         /* remove inline spacing */
+  object-fit: cover;
+  display: block;
   object-position: bottom center;
 }
 
@@ -46,23 +46,11 @@ body {
   z-index: 1;
   border-radius: 10px;
 }
-picture {
-  border-radius: 12px;
-  overflow: hidden;
-  display: block;         /* keeps block-level behavior for border-radius */
-  max-width: 800px;       /* optional: limits width */
-  margin: 0 auto;         /* centers the picture horizontally */
-}
 
-picture img {
-  display: block;         /* still needed for proper border-radius */
-  width: 100%;            /* fill container */
-  height: auto;
-}
 .banner h1 {
   font-size: 3rem;
   margin: 0;
-  text-shadow: 2px 2px 4px #2d1b0f; /* Deep brown shadow for contrast */
+  text-shadow: 2px 2px 4px #2d1b0f;
 }
 
 .banner p {
@@ -71,15 +59,15 @@ picture img {
 
 @media (max-width: 768px) {
   .banner {
-      height: 200px;
+    height: 200px;
   }
 
   .banner h1 {
-      font-size: 2rem;
+    font-size: 2rem;
   }
 
   .banner p {
-      font-size: 1rem;
+    font-size: 1rem;
   }
 }
 
@@ -101,65 +89,52 @@ picture img {
 }
 
 .post {
-  background: rgba(255, 255, 255, 0.08); /* Slightly more subtle transparent layer */
+  background: rgba(255, 255, 255, 0.08);
   border-radius: 10px;
   padding: 20px;
-  transition: transform 0.3s ease-in-out;
   display: flex;
   flex-direction: column;
   align-items: center;
   max-width: 300px;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out, background-color 0.2s ease-in-out;
 }
 
 .post:hover {
   transform: scale(1.05);
-  background-color: #5c7a3f; /* Mossy green on hover */
+  background-color: #5c7a3f;
 }
 
+.post picture,
 .post img {
+  display: block;
   width: 100%;
   height: 200px;
   object-fit: cover;
-  border-radius: 15px;
+  border-radius: 8px;
   margin-bottom: 10px;
 }
 
 .post a {
-  color: #d9853b; /* Warm earthy orange (like sunset) */
+  color: #d9853b;
   text-decoration: none;
   transition: color 0.3s;
+}
+
+h2 a {
+  text-decoration: underline;
+  color: #d38550;
+}
+
+h2 a:visited {
+  color: #9b7045;
 }
 
 footer {
   margin-top: 40px;
   padding: 10px;
-  background-color: #2f3a1d; /* Very dark olive green */
+  background-color: #2f3a1d;
   text-align: left;
-}
-
-.post {
-  cursor: pointer;
-  transition: background-color 0.2s ease-in-out;
-}
-
-.post:hover {
-  background-color: #5c7a3f; /* Same mossy green on hover */
-}
-
-h2 a {
-  text-decoration: underline;
-  color: #d38550; /* Rich bark-like brown */
-}
-
-h2 a:visited {
-  color: #9b7045; /* Darker earthy brown for visited links */
-}
-  .post picture,
-.post img {
-  display: block;       /* removes inline gaps */
-  width: 100%;          /* makes image fill container width */
-  height: auto;         /* keeps correct aspect ratio */
-  border-radius: 8px;   /* optional: smooth corners */
 }
 
 @media (max-width: 600px) {

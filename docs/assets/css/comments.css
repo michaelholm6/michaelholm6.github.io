@@ -1,11 +1,6 @@
 #comments-section {
-  margin-top: 10px;
-
-  /* Match blog-post exactly */
   max-width: 1600px;
-  margin-left: auto;
-  margin-right: auto;
-
+  margin: 10px auto;
   padding: 10px;
 }
 
@@ -13,26 +8,6 @@
   resize: vertical;
   border: 1px solid #ddd;
   border-radius: 4px;
-}
-
-.reply {
-  color: #111;
-  padding: 10px;
-  margin: 10px 0;   /* 👈 this is the spacing */
-  border-radius: 6px;
-}
-
-.delete-btn {
-  color: red;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  padding: 4px 8px;
-  font-size: 0.9em;
-}
-
-.delete-btn:hover {
-  text-decoration: underline;
 }
 
 #comments-section button {
@@ -53,28 +28,42 @@
   transform: scale(0.98);
 }
 
+#comment-form-container {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 0 40px 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+#comment-text {
+  width: 100%;
+  height: 80px;
+  min-height: 60px;
+  font-size: 16px;
+  padding: 10px;
+  resize: vertical;
+  box-sizing: border-box;
+}
+
+#comment-text:focus {
+  outline: none;
+  border-color: #4285f4;
+  box-shadow: 0 0 0 3px rgba(66, 133, 244, 0.15);
+}
+
+@media (max-width: 600px) {
+  #comment-form-container {
+    padding: 0 12px;
+  }
+}
+
 .reply {
   position: relative;
-  padding-left: 18px;
-}
-
-.reply {
-  color: #111;
-  padding: 10px;
-  margin: 14px 0;
-  border-radius: 6px;
-
-  display: flex;
-  flex-direction: column;
-  gap: 30px;   /* 👈 THIS is the key */
-}
-
-.reply {
   background: none;
   border: none;
   padding: 0;
-  margin: 8px 0 8px 20px; /* indent replies slightly */
-  
+  margin: 8px 0 8px 20px;
   display: block;
   color: inherit;
 }
@@ -84,56 +73,41 @@
   color: #888;
 }
 
+.reply strong {
+  color: white;
+}
+
 .reply-textarea {
   width: 100%;
-  min-height: 80px;   /* makes it bigger */
-  resize: none;       /* disables resizing */
-  box-sizing: border-box;
-
+  max-width: 500px;
+  min-height: 90px;
+  resize: none !important;
+  display: block;
   padding: 10px;
   font-size: 14px;
   border: 1px solid #ccc;
   border-radius: 6px;
+  box-sizing: border-box;
 }
 
 .reply-form {
   display: flex;
   flex-direction: column;
-  align-items: center;   /* centers horizontally */
+  align-items: center;
   margin: 15px 0;
 }
 
-.reply-textarea {
-  width: 100%;
-  max-width: 500px;      /* controls width */
-  min-height: 90px;
-
-  resize: none !important;   /* 🔥 force disable resizing */
-  display: block;
-
-  padding: 10px;
-  font-size: 14px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
+.delete-btn {
+  color: red;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 4px 8px;
+  font-size: 0.9em;
 }
 
-.reply strong {
-  color: white;
-}
-
-#comment-form-container {
-  padding: 0 16px;
-  box-sizing: border-box;
-}
-
-#comment-text {
-  box-sizing: border-box;
-}
-
-@media (max-width: 600px) {
-  #comment-form-container {
-    padding: 0 12px;
-  }
+.delete-btn:hover {
+  text-decoration: underline;
 }
 
 .comment-buttons {
@@ -158,13 +132,6 @@
   }
 }
 
-.like-display {
-  color: #777;
-  font-size: 0.9em;
-  padding: 6px 8px;
-  display: inline-block;
-}
-
 .btn-row {
   display: flex;
   align-items: center;
@@ -173,7 +140,13 @@
   margin-top: 6px;
 }
 
-/* ALL buttons identical */
+.btn-row button,
+.btn-row span {
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+}
+
 .btn-row button {
   font-size: 13px;
   padding: 4px 8px;
@@ -184,15 +157,6 @@
   line-height: 1;
 }
 
-/* prevent “Reply” from looking bigger */
-.btn-row button,
-.btn-row span {
-  height: 28px;
-  display: inline-flex;
-  align-items: center;
-}
-
-/* non-interactive like display */
 .like-display {
   font-size: 13px;
   padding: 4px 8px;
@@ -212,29 +176,4 @@
   border-color: #27ae60 !important;
   color: white !important;
   font-weight: 600;
-}
-
-#comment-text {
-  width: 100%;
-  height: 80px;        /* shorter */
-  min-height: 60px;    /* prevents it from growing too tall */
-  font-size: 16px;
-  padding: 10px;
-  resize: vertical;
-  box-sizing: border-box;
-}
-
-/* make it feel more "editor-like" when focused */
-#comment-text:focus {
-  outline: none;
-  border-color: #4285f4;
-  box-shadow: 0 0 0 3px rgba(66, 133, 244, 0.15);
-}
-
-#comment-form-container {
-  width: 100%;
-  max-width: 900px;
-  margin: 0 0 40px 0;
-  padding: 0;   /* 👈 removes the offset */
-  box-sizing: border-box;
 }

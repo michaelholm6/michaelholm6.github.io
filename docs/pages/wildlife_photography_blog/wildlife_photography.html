@@ -9,29 +9,10 @@ title: "Wildlife Photography"
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{ page.title }} - {{ site.title }}</title>
   <link rel="stylesheet" href="/pages/wildlife_photography_blog/css/wildlife_photography.css">
-  <link rel="stylesheet" href="/pages/wildlife_photography_blog/css/side_nav_menu.css">
+  <link rel="stylesheet" href="/assets/css/side_nav_menu.css">
 </head>
 <body>
-  <div id="overlay" onclick="closeNav(), resumeBallInteraction()"></div>
-
-  <div id="mySidenav" class="sidenav">
-    <a href="javascript:void(0)" class="closebtn" onclick="closeNav(), resumeBallInteraction()">&times;</a>
-    <a href="/">Home</a>
-    <a href="/pages/publications/publications.html">Publications</a>
-    <div class="dropdown">
-      <a href="javascript:void(0)" class="dropdown-btn" onclick="toggleSubMenu()">
-        <span class="arrow">&#9654;&#xFE0E;</span> Photography
-      </a>
-      <div class="dropdown-content" id="photography-submenu">
-        <a href="/pages/astrophotography_blog/astrophotography.html">Astrophotography</a>
-        <a href="/pages/wildlife_photography_blog/wildlife_photography.html">Wildlife</a>
-      </div>
-    </div>
-    <a href="/pages/hiking/hiking.html">Hiking</a>
-    <a href="/pages/CV/CV.html">CV</a>
-  </div>
-
-  <button id="menu-button" onclick="openNav()">☰</button>
+  {% include sidenav.html %}
 <div class="banner">
   <picture class="banner-picture">
     <source srcset="/pages/wildlife_photography_blog/images/Hummingbird_hero.webp" type="image/webp">
@@ -49,7 +30,7 @@ title: "Wildlife Photography"
             <source srcset="/pages/wildlife_photography_blog/images/Toucan_with_fruit_thumb.webp" type="image/webp">
             <img src="/pages/wildlife_photography_blog/images/Toucan_with_fruit.jpg" alt="Toucan with Fruit">
           </picture>
-            <h2><a href="/pages/wildlife_photography_blog/blog_posts/">Costa Rica</a></h2>
+            <h2><a href="/pages/wildlife_photography_blog/blog_posts/Costa_rica/costa_rica.html">Costa Rica</a></h2>
             <p>Photos from a trip to Costa Rica</p>
         </article>
 
@@ -58,7 +39,7 @@ title: "Wildlife Photography"
             <source srcset="/pages/wildlife_photography_blog/images/Elk_with_calf_thumb.webp" type="image/webp">
             <img src="/pages/wildlife_photography_blog/images/Elk_with_calf.png" alt="And elk with its calf">
           </picture>
-            <h2><a href="/pages/wildlife_photography_blog/blog_posts/">Rocky Mountain National Park</a></h2>
+            <h2><a href="/pages/wildlife_photography_blog/blog_posts/Colorado/Colorado.html">Rocky Mountain National Park</a></h2>
             <p>Photos from a trip to Colorado</p>
         </article>
     </section>
@@ -68,6 +49,6 @@ title: "Wildlife Photography"
     <p>&copy; {{ site.time | date: '%Y' }} - {{ site.title }}. All rights reserved.</p>
   </footer>
 
-  <script src="/pages/wildlife_photography_blog/js/side_nav.js" defer></script>
+  <script src="/assets/js/side_nav.js" defer></script>
 </body>
 </html>
