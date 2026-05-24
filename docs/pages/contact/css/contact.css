@@ -1,0 +1,127 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+
+.banner {
+  position: relative;
+  height: 300px;
+  background: linear-gradient(to right, #007614, #01f055);
+  color: white;
+}
+
+.banner-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.banner h1 {
+  font-size: 3rem;
+  margin: 0;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+@media (max-width: 768px) {
+  .banner {
+    height: 200px;
+  }
+
+  .banner h1 {
+    font-size: 2rem;
+  }
+}
+
+.contact-wrapper {
+  max-width: 680px;
+  margin: 2.5em auto 3em;
+  padding: 0 1.5em;
+}
+
+.contact-intro {
+  color: #555;
+  margin-bottom: 1.8em;
+  font-size: 1.05rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.2em;
+}
+
+.form-group label {
+  font-weight: bold;
+  margin-bottom: 0.35em;
+  color: #333;
+}
+
+.form-group input,
+.form-group textarea {
+  padding: 0.6em 0.8em;
+  font-size: 1rem;
+  font-family: Arial, sans-serif;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  transition: border-color 0.2s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #007614;
+}
+
+.form-group textarea {
+  resize: vertical;
+}
+
+.submit-btn {
+  display: inline-block;
+  padding: 0.6em 1.6em;
+  background: #333;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.submit-btn:hover:not(:disabled) {
+  background: #007614;
+}
+
+.submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.success-message {
+  background: #e6f4ea;
+  border: 1px solid #a8d5b0;
+  color: #2d6a4f;
+  padding: 1em;
+  border-radius: 4px;
+  margin-bottom: 1.2em;
+}
+
+.error-message {
+  background: #fdecea;
+  border: 1px solid #f5c6c4;
+  color: #922;
+  padding: 1em;
+  border-radius: 4px;
+  margin-bottom: 1.2em;
+}
+
+footer {
+  text-align: center;
+  padding: 1.5em 0;
+  color: #777;
+  font-size: 0.9rem;
+  border-top: 1px solid #eee;
+}

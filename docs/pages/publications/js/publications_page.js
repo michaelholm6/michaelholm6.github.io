@@ -103,6 +103,44 @@ async function renderPDF(url, canvas) {
 window.addEventListener("load", generateFlexGrid("flex-grid-first-author", leadPdfFiles));
 window.addEventListener("load", generateFlexGrid("flex-grid-co-author", coPdfFiles));
 
+const presentationItems = [
+    { caption: "Presented at The Minerals, Metals & Materials Society 2026 Annual Meeting & Exhibition", url: "https://www.programmaster.org/PM/PM.nsf/ApprovedAbstracts/6646BAFDBEE5010285258CC80070B310?OpenDocument" }
+];
+
+function generatePresentationGrid(flex_grid_name, presentations) {
+    const grid = document.getElementById(flex_grid_name);
+    grid.innerHTML = "";
+
+    presentations.forEach(presentation => {
+        const item = document.createElement("div");
+        item.classList.add("flex-item");
+        item.addEventListener("click", () => window.open(presentation.url, "_blank", "noopener,noreferrer"));
+
+        const placeholder = document.createElement("div");
+        placeholder.classList.add("presentation-placeholder");
+        placeholder.innerHTML = `
+            <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                <line x1="8" y1="21" x2="16" y2="21"></line>
+                <line x1="12" y1="17" x2="12" y2="21"></line>
+            </svg>`;
+        item.appendChild(placeholder);
+
+        const title = document.createElement("a");
+        title.classList.add("pdf-title");
+        title.href = presentation.url;
+        title.textContent = presentation.caption;
+        title.target = "_blank";
+        title.rel = "noopener noreferrer";
+        title.addEventListener("click", (event) => event.stopPropagation());
+        item.appendChild(title);
+
+        grid.appendChild(item);
+    });
+}
+
+window.addEventListener("load", generatePresentationGrid("flex-grid-presentations", presentationItems));
+
 let pdfDoc = null;
     let currentPage = 1;
     let scale = 1.5; // Adjust scale for better readability

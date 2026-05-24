@@ -1,5 +1,7 @@
 const { defineSecret } = require("firebase-functions/params");
 const OPENAI_API_KEY = defineSecret("OPENAI_API_KEY");
+const RESEND_API_KEY = defineSecret("RESEND_API_KEY");
+const crypto = require("crypto");
 /**
  * Import function triggers from their respective submodules:
  *
@@ -476,6 +478,62 @@ async function isToxic(text) {
 
 
 const { onCall, HttpsError } = require("firebase-functions/v2/https");
+
+exports.submitContactForm = onCall(
+  { secrets: [RESEND_API_KEY] },
+  async (request) => {
+    const { name, email, subject, message } = request.data;
+
+    if (!name || !email || !message) {
+      throw new HttpsError("invalid-argument", "Name, email, and message are required.");
+    }
+
+    const rawIP =
+      request.rawRequest?.headers?.["x-forwarded-for"]?.split(",")[0]?.trim() ||
+      request.rawRequest?.ip ||
+      "unknown";
+    const ipHash = crypto.createHash("sha256").update(rawIP).digest("hex").substring(0, 16);
+
+    const rateLimitRef = admin.database().ref(`contactRateLimit/${ipHash}`);
+    const snap = await rateLimitRef.get();
+
+    const now = Date.now();
+    const lastTime = snap.val() || 0;
+    const COOLDOWN = 5 * 60 * 1000;
+
+    if (now - lastTime < COOLDOWN) {
+      const remainingSec = Math.ceil((COOLDOWN - (now - lastTime)) / 1000);
+      throw new HttpsError(
+        "resource-exhausted",
+        `Please wait ${remainingSec} seconds before sending another message.`
+      );
+    }
+
+    const res = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${RESEND_API_KEY.value()}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        from: "Contact Form <onboarding@resend.dev>",
+        to: ["michaelholm6@gmail.com"],
+        reply_to: email,
+        subject: subject ? `Contact: ${subject}` : `Contact from ${name}`,
+        text: `Name: ${name}\nEmail: ${email}\n\n${message}`,
+      }),
+    });
+
+    if (!res.ok) {
+      const errText = await res.text();
+      console.error("Resend error:", errText);
+      throw new HttpsError("internal", "Failed to send email. Please try again later.");
+    }
+
+    await rateLimitRef.set(now);
+    return { success: true };
+  }
+);
 
 exports.postComment = onCall(
   { secrets: [OPENAI_API_KEY] },

@@ -45,7 +45,8 @@ window.firebaseFunctions = {
   postComment: httpsCallable(functions, "postComment"),
   deleteComment: httpsCallable(functions, "deleteComment"),
   deleteReply: httpsCallable(functions, "deleteReply"),
-  editComment: httpsCallable(functions, "editComment")
+  editComment: httpsCallable(functions, "editComment"),
+  submitContactForm: httpsCallable(functions, "submitContactForm")
 };
 
 export { app, auth, db, functions };
