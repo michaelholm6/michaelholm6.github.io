@@ -658,7 +658,7 @@ else if (orientation_supported == 'true' || orientation_supported == 'undefined'
   ctx.textBaseline = 'top';
 
   // Set global prompt text
-  promptText = "Tap here to enable tilt control";
+  promptText = "Tap here to enable ball game";
   promptMaxWidth = canvas.width * 0.8;
   promptLineHeight = 26;
   promptX = canvas.width / 2;
