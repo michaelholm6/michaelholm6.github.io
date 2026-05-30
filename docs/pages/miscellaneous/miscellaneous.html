@@ -1,0 +1,43 @@
+---
+title: "Miscellaneous"
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ page.title }} - {{ site.title }}</title>
+  <link rel="stylesheet" href="/pages/miscellaneous/css/miscellaneous.css">
+  <link rel="stylesheet" href="/assets/css/side_nav_menu.css">
+</head>
+<body>
+  {% include sidenav.html %}
+
+  <div class="banner">
+    <div class="banner-content">
+      <h1>Miscellaneous</h1>
+    </div>
+  </div>
+
+  <main class="blog-container">
+    <section class="blog-posts">
+
+      <article class="post" onclick="window.location.href='/pages/miscellaneous/blog_posts/NDSEG/NDSEG.html'">
+        <picture>
+          <img src="/pages/miscellaneous/blog_posts/NDSEG/assets/bell_tower.jpg" alt="Purdue University Bell Tower">
+        </picture>
+        <h2><a href="/pages/miscellaneous/blog_posts/NDSEG/NDSEG.html">Winning the NDSEG Fellowship</a></h2>
+        <p>My experience applying for the NDSEG Fellowship, plus guidance and examples of application materials for future applicants.</p>
+      </article>
+
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; {{ site.time | date: '%Y' }} - {{ site.title }}. All rights reserved.</p>
+  </footer>
+
+  <script src="/assets/js/side_nav.js" defer></script>
+</body>
+</html>

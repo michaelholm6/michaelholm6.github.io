@@ -1,0 +1,162 @@
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+  color: #333;
+  line-height: 1.6;
+}
+
+.banner {
+  position: relative;
+  height: 300px;
+  background-image: url(/pages/publications/images/publications_banner.jpg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: white;
+}
+
+.banner-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  padding: 20px;
+}
+
+.banner-content p {
+  text-align: center;
+  color: white;
+  text-shadow: 1px 1px 3px black;
+}
+
+.banner h1 {
+  font-size: 2.5rem;
+  margin: 0;
+  text-shadow: 2px 2px 4px black;
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .banner {
+    height: 200px;
+  }
+
+  .banner h1 {
+    font-size: 2rem;
+  }
+}
+
+.blog-container {
+  padding: 20px;
+}
+
+#comments-section {
+  text-align: left;
+}
+
+.blog-post {
+  max-width: 1600px;
+  margin: 50px auto;
+  padding: 20px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1, h2, h3 {
+  font-weight: bold;
+}
+
+h1 {
+  font-size: 2.5rem;
+  text-align: center;
+  color: white;
+  margin-bottom: 10px;
+}
+
+h2 {
+  font-size: 2rem;
+  color: #333;
+  border-bottom: 2px solid #ddd;
+  padding-bottom: 5px;
+  margin-top: 30px;
+}
+
+h3 {
+  font-size: 1.5rem;
+  color: #444;
+}
+
+p {
+  font-size: 1.1rem;
+  color: #444;
+  margin-bottom: 20px;
+}
+
+hr {
+  border: 0;
+  height: 1px;
+  background: #ddd;
+  margin: 30px 0;
+}
+
+blockquote {
+  border-left: 5px solid #aaa;
+  padding: 10px 20px;
+  margin: 20px 0;
+  background: #eee;
+  font-style: italic;
+  color: #555;
+}
+
+a {
+  color: #0066cc;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+a:hover {
+  color: #004999;
+}
+
+img {
+  max-width: 100%;
+  max-height: 80vh;
+  height: auto;
+}
+
+figcaption {
+  font-size: 1.1rem;
+  color: #666;
+  text-align: center;
+}
+
+figure {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+}
+
+footer {
+  margin-top: 40px;
+  padding: 10px;
+  background-color: #ddd;
+  text-align: left;
+  color: #555;
+}
+
+@media (max-width: 768px) {
+  .blog-post {
+    width: 90%;
+    padding: 15px;
+  }
+
+  h1 { font-size: 2rem; }
+  h2 { font-size: 1.7rem; }
+  p { font-size: 1rem; }
+}

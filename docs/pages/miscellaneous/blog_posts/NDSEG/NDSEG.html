@@ -1,0 +1,579 @@
+---
+title: "Winning the NDSEG Fellowship: My Experience and Application Guidance"
+layout: default
+date: 2026-05-30
+author: "Michael Holm"
+tags: miscellaneous, fellowship, graduate school, funding
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ page.title }} - {{ site.title }}</title>
+  <link rel="stylesheet" href="/assets/css/side_nav_menu.css">
+  <link rel="stylesheet" href="/assets/css/blog-post-plain.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+  <style>
+    .award-box {
+      background: #f0f4f8;
+      border-left: 5px solid #0066cc;
+      border-radius: 6px;
+      padding: 20px 25px;
+      margin: 25px 0;
+    }
+
+    .award-box h3 {
+      margin-top: 0;
+      color: #0066cc;
+      font-size: 1.2rem;
+    }
+
+    .award-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      margin: 20px 0;
+    }
+
+    .award-item {
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 15px;
+      text-align: center;
+    }
+
+    .award-item .amount {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: #0066cc;
+      display: block;
+    }
+
+    .award-item .label {
+      font-size: 0.95rem;
+      color: #555;
+    }
+
+    .warning-box {
+      background: #fff8e1;
+      border-left: 5px solid #f0a500;
+      border-radius: 6px;
+      padding: 20px 25px;
+      margin: 25px 0;
+    }
+
+    .warning-box h3 {
+      margin-top: 0;
+      color: #b37a00;
+      font-size: 1.2rem;
+    }
+
+    .tip-box {
+      background: #f0fff4;
+      border-left: 5px solid #28a745;
+      border-radius: 6px;
+      padding: 20px 25px;
+      margin: 25px 0;
+    }
+
+    .tip-box h3 {
+      margin-top: 0;
+      color: #1a7a30;
+      font-size: 1.2rem;
+    }
+
+    .stat-callout {
+      text-align: center;
+      padding: 20px;
+      margin: 25px 0;
+      background: #f0f4f8;
+      border-radius: 8px;
+    }
+
+    .stat-callout .big-number {
+      font-size: 3rem;
+      font-weight: bold;
+      color: #0066cc;
+      display: block;
+    }
+
+    .stat-callout .big-label {
+      font-size: 1.1rem;
+      color: #555;
+    }
+
+    .banner {
+      background-image: url(/pages/miscellaneous/blog_posts/NDSEG/assets/bell_tower.jpg);
+    }
+
+    .photo-credit {
+      position: absolute;
+      bottom: 6px;
+      right: 10px;
+      font-size: 0.7rem;
+      color: rgba(255,255,255,0.7);
+    }
+
+    .photo-credit a {
+      color: rgba(255,255,255,0.7);
+    }
+
+    /* PDF viewer - mirrors publications page */
+    .flex-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      padding: 10px 0;
+      width: 100%;
+    }
+
+    .flex-item {
+      background: #f5f5f5;
+      padding: 10px;
+      text-align: center;
+      border-radius: 5px;
+      position: relative;
+      box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+      width: 400px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .pdf-preview-container {
+      position: relative;
+      width: 100%;
+    }
+
+    .pdf-preview-container canvas {
+      width: 100% !important;
+      height: auto !important;
+      max-width: 100%;
+      border: 1px solid #ddd;
+    }
+
+    .pdf-title {
+      margin-top: 5px;
+      font-size: 14px;
+      font-weight: bold;
+      word-wrap: break-word;
+      text-align: center;
+      color: #333;
+      text-decoration: none;
+    }
+
+    .pdf-title:hover {
+      color: #0066cc;
+    }
+
+    .pdf-download-btn {
+      position: absolute;
+      top: 30px;
+      right: 30px;
+      background-color: rgba(100, 100, 100, 0.7);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-size: 18px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .pdf-preview-container:hover .pdf-download-btn {
+      opacity: 1;
+    }
+
+    .pdf-download-btn:hover {
+      background-color: rgba(50, 50, 50, 0.9);
+    }
+
+    .always-visible {
+      opacity: 1 !important;
+    }
+
+    /* Modal */
+    .pdf-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      justify-content: center;
+      align-items: center;
+      overflow: auto;
+      z-index: 9999;
+    }
+
+    .pdf-modal-content {
+      position: relative;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 50vw;
+      max-height: 90vh;
+      overflow-y: auto;
+      text-align: center;
+    }
+
+    #pdf-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      max-width: 800px;
+      margin: auto;
+    }
+
+    #pdf-container canvas {
+      width: 100%;
+      height: auto;
+      border: 1px solid #ddd;
+      margin-bottom: 1px;
+    }
+
+    .close-btn {
+      position: fixed;
+      top: 10px;
+      right: 20px;
+      font-size: 70px;
+      cursor: pointer;
+      color: white;
+    }
+
+    @media (max-width: 768px) {
+      .pdf-modal-content {
+        max-width: 95vw;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  {% include sidenav.html %}
+
+  <div id="pdf-modal" class="pdf-modal" onclick="closePDF(event)">
+    <span class="close-btn" onclick="closePDF(event)">&times;</span>
+    <div class="pdf-modal-content" onclick="event.stopPropagation();">
+      <div id="pdf-container"></div>
+    </div>
+  </div>
+
+  <div class="banner">
+    <div class="banner-content">
+      <h1>{{ page.title }}</h1>
+      <p>By {{ page.author }} | {{ page.date | date: "%B %d, %Y" }}</p>
+    </div>
+    <span class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/File:Purdue_University_Bell_Tower.jpg" target="_blank" rel="noopener">A Hazy</a>, CC BY-SA 4.0</span>
+  </div>
+
+  <main class="blog-container">
+    <article class="blog-post">
+
+      <p>
+        I was awarded the National Defense Science and Engineering Graduate (NDSEG) Fellowship during my second year of
+        my Mechanical Engineering Ph.D. at Purdue University. Honestly, I did not expect to get it. For context: I
+        applied for the NSF GRFP in 2023 and did not even receive an honorable mention. At the time, I did not
+        really understand how to write a good research proposal. I must have figured it out over the past couple of
+        years, though. The NDSEG acceptance rate is typically somewhere between 2% and 5% depending on the year, so
+        I applied mostly hoping for the experience of writing a strong research proposal. This page is intended to share what I know about the award, what the
+        application process looks like, and to make my application materials available so they can be useful to
+        future applicants.
+      </p>
+
+      <p>
+        If you have questions after reading through this, feel free to leave a comment at the bottom of the page or
+        reach out to me directly through the <a href="/pages/contact/contact.html">contact page</a>.
+      </p>
+
+      <h2>What is the NDSEG Fellowship?</h2>
+
+      <p>
+        The NDSEG Fellowship is a highly competitive graduate fellowship sponsored by the Department of Defense (DoD).
+        It is awarded to U.S. citizens and nationals pursuing doctoral degrees in science or engineering disciplines
+        relevant to national defense. The fellowship is intended to increase the number of U.S. scientists and
+        engineers in defense-related fields. It is one of the most prestigious fellowships available to Ph.D. students
+        in STEM, and it comes with substantial financial support over a three-year period.
+      </p>
+
+      <p>
+        The official application portal is at <a href="https://ndseg.sysplus.com/" target="_blank">ndseg.sysplus.com</a>.
+      </p>
+
+      <h2>Eligibility</h2>
+
+      <p>Before applying, confirm you meet all of the following requirements:</p>
+
+      <ul>
+        <li>
+          <strong>U.S. citizenship or nationality.</strong> Permanent residents are not eligible. Dual citizens may
+          apply. Citizenship documentation is required upon a formal offer.
+        </li>
+        <li>
+          <strong>Early career status.</strong> You must be in your first or second year of a doctoral program, or
+          be receiving your bachelor's degree in the year of application. If you are entering your third year of
+          graduate school or beyond, you are not eligible.
+        </li>
+        <li>
+          <strong>At least three years remaining in your program.</strong> Since the fellowship provides three years
+          of funding, you must have at least three years left in your PhD as of the fall the fellowship begins.
+        </li>
+        <li>
+          <strong>Approved STEM discipline.</strong> Your research must fall within one of the 18 disciplines
+          supported by the program: Aeronautical/Astronautical Engineering, Astrodynamics, Biomedical Engineering,
+          Biosciences, Chemical Engineering, Chemistry, Civil Engineering, Cognitive/Neural/Behavioral Sciences
+          (excluding PsyD), Computer Science, Electrical Engineering, Geosciences, Materials Science, Mathematics,
+          Mechanical Engineering, Naval Architecture, Oceanography, Physics, and Space Physics.
+        </li>
+        <li>
+          <strong>Full-time enrollment at a U.S. institution.</strong> You must be enrolled or intend to enroll
+          full-time at an accredited U.S. graduate institution for the duration of the fellowship.
+        </li>
+        <li>
+          <strong>No simultaneous major fellowships.</strong> You cannot hold another major fellowship at the same
+          time as the NDSEG. Internships and smaller scholarships are generally fine with prior approval.
+        </li>
+      </ul>
+
+      <p>
+        There is no service obligation. The only programmatic requirement beyond the research itself is attendance
+        at the NDSEG Class Conference at some point during your tenure as a fellow.
+      </p>
+
+      <div class="award-grid" style="margin: 25px 0;">
+        <div class="award-item">
+          <span class="amount">~7,900</span>
+          <span class="label">Applicants per year (2020–2021 cycle)</span>
+        </div>
+        <div class="award-item">
+          <span class="amount">~150</span>
+          <span class="label">Fellowships awarded per year</span>
+        </div>
+        <div class="award-item">
+          <span class="amount">2–7%</span>
+          <span class="label">Acceptance rate (2% in recent cycles, up to ~7% historically)</span>
+        </div>
+      </div>
+
+      <p>
+        The program has awarded nearly 4,700 fellowships from over 70,000 applications since its inception in 1989.
+        In the most recent cycle with published data (2020–2021), 159 fellows were selected from approximately
+        7,942 applicants, a selection rate of around 2%. The historical average across the program's entire
+        history is closer to 7%, suggesting the pool has grown significantly more competitive in recent years.
+      </p>
+
+      <h2>Award Details</h2>
+
+      <p>
+        The NDSEG Fellowship provides three years of funding. Here is a breakdown of what the award includes:
+      </p>
+
+      <div class="award-grid">
+        <div class="award-item">
+          <span class="amount">$44,400</span>
+          <span class="label">Annual stipend (pre-tax), for 3 years</span>
+        </div>
+        <div class="award-item">
+          <span class="amount">$1,600</span>
+          <span class="label">Annual health insurance supplement</span>
+        </div>
+        <div class="award-item">
+          <span class="amount">$5,000</span>
+          <span class="label">Annual travel budget</span>
+        </div>
+        <div class="award-item">
+          <span class="amount">$1,500</span>
+          <span class="label">Annual non-travel professional development budget</span>
+        </div>
+        <div class="award-item">
+          <span class="amount">Full</span>
+          <span class="label">Tuition coverage at your institution</span>
+        </div>
+      </div>
+
+      <p>
+        The stipend is paid directly to you, not to your university, and it is pre-tax income. Tuition is covered
+        separately and paid to your institution. The travel and professional development funds can be used for things
+        like conference registration, field research, equipment, and training. Note that these budgets are annual,
+        not a one-time sum.
+      </p>
+
+      <h2>About the Application</h2>
+
+      <p>
+        The NDSEG application consists of several components: a personal statement, a research proposal, letters of
+        recommendation, transcripts, and a resume. The research proposal is the most substantial piece in terms of
+        length and effort. Here is some general guidance on each part.
+      </p>
+
+      <h3>Research Proposal</h3>
+      <p>
+        Your research proposal needs to be clear, well-motivated, and relevant to DoD interests. You do not need to
+        be working on something explicitly military. Basic science and engineering research qualifies as long as it
+        falls within the eligible disciplines. The reviewers evaluating your proposal may not be specialists in your
+        exact subfield, so write for an intelligent but non-expert audience. Avoid excessive jargon and make sure your
+        motivation section is compelling.
+      </p>
+
+      <h3>Choosing a BAA to Align Your Proposal With</h3>
+      <p>
+        This is one of the more confusing parts of the application. NDSEG requires you to align your research
+        proposal with a Broad Agency Announcement (BAA) from one of the three supporting DoD agencies: the
+        Air Force (AFOSR), the Army Research Office (ARO), or the Office of Naval Research (ONR). Each agency
+        publishes a BAA that describes specific research programs and topic areas they are currently interested in
+        funding. You can find links to all of them through the NDSEG portal at
+        <a href="https://ndseg.sysplus.com/NDSEG/About/DoD-Agencies" target="_blank">ndseg.sysplus.com/NDSEG/About/DoD-Agencies</a>.
+      </p>
+
+      <p>
+        The key thing to understand is that you are <strong>not</strong> required to fulfill the requirements of the
+        BAA you select. You are only using it to demonstrate that your research aligns with DoD strategic priorities.
+        Think of it as finding the program description that most closely matches what you are already working on,
+        not as a constraint on what your research has to be.
+      </p>
+
+      <p>
+        To choose a BAA, read through the program descriptions across the three agencies and find the one whose
+        stated research interests most closely match your work. Each BAA is broken into sections covering different
+        research areas, so read carefully. When you reference it in your proposal, cite the specific section
+        number, not just the agency name.
+      </p>
+
+      <div class="tip-box">
+        <h3>Important: Do Not Contact the DoD About BAA Questions</h3>
+        <p>
+          The NDSEG program explicitly prohibits applicants from reaching out to any member of the Department of
+          Defense regarding their application or BAA selection. If you have questions, direct them to the program
+          office at <strong>NDSEG.PMO@sysplus.com</strong>.
+        </p>
+      </div>
+
+      <p>
+        For my own proposal, I aligned with the <strong>AFOSR Dynamical Systems and Control Theory program
+        (BAA Section A.2.c)</strong>. My research on a machine learning-enabled model predictive control
+        framework for autonomous systems fits within AFOSR's emphasis on rigorous methods for control of nonlinear,
+        uncertain, and adversarial systems. If your work touches on control theory, autonomous systems, or
+        related areas, this section may be worth looking at.
+      </p>
+
+      <h3>Personal Statement</h3>
+      <p>
+        The personal statement is your opportunity to explain who you are as a scientist or engineer and why you are
+        a strong candidate. Focus on your research experiences, what you learned from them, and how they have prepared
+        you for doctoral work. The NDSEG reviewers are looking for evidence that you can think independently and carry
+        out research.
+      </p>
+
+      <h3>Letters of Recommendation</h3>
+      <p>
+        Letters of recommendation are optional, but you can submit up to three. I would strongly recommend
+        including them if you have good recommenders available. Give them plenty of lead time (at least a month).
+        Some people share their research proposal and personal statement with their recommenders so they can tailor
+        their letters, though I did not do this myself. Strong letters speak specifically to your research ability
+        and potential, not just your grades.
+      </p>
+
+      <h3>Resume</h3>
+      <p>
+        Keep it clean and focused on research experience. Publications, conference presentations, and lab experience
+        are the most relevant items. GPA and test scores are less important than demonstrated research ability.
+      </p>
+
+      <div class="warning-box">
+        <h3>&#9888; Warning: Budget Extra Time for the Application Website</h3>
+        <p>
+          The application portal at <a href="https://ndseg.sysplus.com/" target="_blank">ndseg.sysplus.com</a> is
+          genuinely painful to work with. Expect to encounter confusing navigation, unexpected session timeouts,
+          file upload issues, and form behavior that does not match your expectations. I strongly recommend budgeting
+          at least an extra week beyond when you think you'll be done writing, purely to deal with the submission
+          process. Do not leave the final submission for the last day. Start uploading and reviewing your materials
+          well in advance, and save or screenshot confirmation of each completed section as you go.
+        </p>
+        <p>
+          Beyond the portal itself, be aware that when I applied, several parts of the NDSEG website had outdated
+          documentation, broken links, and instructions that contradicted each other. Do not assume that everything
+          you read on the site is current or consistent. If something is unclear or seems to conflict with
+          something else you have read, email the program office directly at
+          <strong>NDSEG.PMO@sysplus.com</strong> rather than guessing. They are the authoritative source.
+        </p>
+      </div>
+
+      <h2>The Redaction Requirement</h2>
+
+      <p>
+        NDSEG uses a blind review process, which means all submitted documents must be free of personally
+        identifying information (PII). This includes your name, your institution, your advisor's name, the names
+        of journals you have published in, the names of places you have worked, and anything else that could
+        identify you or your affiliation to a reviewer.
+      </p>
+
+      <p>
+        How this plays out in practice depends on the document. For the <strong>personal essays</strong>, the
+        requirement is straightforward: simply do not include any PII when writing them. If you write them
+        correctly from the start, no after-the-fact redaction is needed. For the <strong>research proposal</strong>,
+        it is harder to avoid PII entirely, since your institution, advisor, and affiliated labs tend to come up
+        naturally. The application allows you to submit both a redacted and an unredacted version of your research
+        proposal. The approach I used for the redacted copy was to write the proposal normally, then go back and
+        physically draw over any identifying information using a black marker on my iPad before saving it as a PDF.
+        For the <strong>resume</strong>, the same applies: remove your name, address, institution, and employer names.
+      </p>
+
+      <div class="tip-box">
+        <h3>Tip: Do the Research Proposal Redaction Last</h3>
+        <p>
+          Write and finalize your research proposal first, then do a single pass to cover PII at the end. Trying
+          to write around PII as you go tends to make the proposal read awkwardly. It is easier to write naturally
+          and redact cleanly than to contort your writing to avoid mentioning your institution or advisor.
+        </p>
+      </div>
+
+      <h2>My Application Materials</h2>
+
+      <p>
+        Click either document to view it in full. Use the download icon to save a copy. The personal essays contain
+        no PII because they were written that way from the start. The research proposal has PII, which was then phyiscally drawn over on an iPad for the
+        redacted proposal submission. Both serve as concrete examples of format, length, and writing style.
+      </p>
+
+      <div class="flex-container" id="ndseg-pdf-grid"></div>
+
+      <h2>Final Thoughts</h2>
+
+      <p>
+        Apply even if you are not sure you'll get it. I was genuinely surprised when I received the award. The
+        acceptance rate is low enough that it is easy to talk yourself out of applying. The exercise of writing a
+        serious research proposal is valuable regardless of outcome, and a fellowship of this magnitude is worth
+        the effort.
+      </p>
+
+      <p>
+        If you have specific questions about the application (the essays, the research proposal, the website, or
+        anything else), feel free to leave a comment below or contact me directly. I am happy to share what I know.
+      </p>
+
+    </article>
+
+    {% include comments.html %}
+
+  </main>
+
+  <footer>
+    <p>&copy; {{ site.time | date: '%Y' }} - {{ site.title }}. All rights reserved.</p>
+  </footer>
+
+  <script src="/pages/miscellaneous/blog_posts/NDSEG/js/ndseg.js" defer></script>
+  <script src="/assets/js/side_nav.js" defer></script>
+</body>
+</html>
