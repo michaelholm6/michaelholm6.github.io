@@ -91,6 +91,10 @@ body {
   text-align: center;
 }
 
+.post p {
+  text-align: center;
+}
+
 .post a {
   color: #0066cc;
   text-decoration: none;
