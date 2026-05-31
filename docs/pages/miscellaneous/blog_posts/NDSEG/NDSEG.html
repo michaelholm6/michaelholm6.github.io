@@ -251,6 +251,7 @@ tags: miscellaneous, fellowship, graduate school, funding
       font-size: 70px;
       cursor: pointer;
       color: white;
+      z-index: 10000;
     }
 
     @media (max-width: 768px) {
@@ -258,18 +259,39 @@ tags: miscellaneous, fellowship, graduate school, funding
         max-width: 95vw;
       }
     }
+
+    @media (max-width: 500px) {
+      .banner {
+        height: auto;
+        min-height: 160px;
+        padding: 55px 15px 30px;
+      }
+      .banner-content {
+        position: relative;
+        top: auto;
+        left: auto;
+        transform: none;
+        padding: 0;
+      }
+      .banner h1 {
+        font-size: 1.2rem;
+      }
+      .banner p {
+        font-size: 0.85rem;
+      }
+    }
   </style>
 </head>
 
 <body>
-  {% include sidenav.html %}
-
   <div id="pdf-modal" class="pdf-modal" onclick="closePDF(event)">
     <span class="close-btn" onclick="closePDF(event)">&times;</span>
     <div class="pdf-modal-content" onclick="event.stopPropagation();">
       <div id="pdf-container"></div>
     </div>
   </div>
+
+  {% include sidenav.html %}
 
   <div class="banner">
     <div class="banner-content">
