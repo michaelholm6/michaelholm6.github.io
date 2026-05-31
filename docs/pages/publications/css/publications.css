@@ -197,3 +197,9 @@ canvas {
   opacity: 1 !important;
 }
 
+@media (max-width: 768px) {
+  .pdf-modal-content {
+    max-width: 95vw;
+  }
+}
+
