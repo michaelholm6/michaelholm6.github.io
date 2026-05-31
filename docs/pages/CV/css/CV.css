@@ -113,10 +113,19 @@ canvas {
 .close-btn {
   position: fixed;
   top: 10px;
-  right: 20px;
-  font-size: 70px;
+  right: 15px;
+  font-size: 36px;
   cursor: pointer;
   color: white;
+  z-index: 10000;
+  background: rgba(0, 0, 0, 0.75);
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
 }
 
 .pdf-download {
@@ -182,5 +191,11 @@ canvas {
 
 .always-visible {
   opacity: 1 !important;
+}
+
+@media (max-width: 768px) {
+  .pdf-modal-content {
+    max-width: 95vw;
+  }
 }
 
