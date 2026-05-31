@@ -112,7 +112,7 @@ canvas {
 
 .close-btn {
   position: fixed;
-  top: 10px;
+  top: 20px;
   right: 15px;
   font-size: 36px;
   cursor: pointer;
