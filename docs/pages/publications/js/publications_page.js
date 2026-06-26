@@ -103,28 +103,67 @@ async function renderPDF(url, canvas) {
 window.addEventListener("load", generateFlexGrid("flex-grid-first-author", leadPdfFiles));
 window.addEventListener("load", generateFlexGrid("flex-grid-co-author", coPdfFiles));
 
+/* Presentations section temporarily disabled
 const presentationItems = [
-    { caption: "Presented at The Minerals, Metals & Materials Society 2026 Annual Meeting & Exhibition", url: "https://www.programmaster.org/PM/PM.nsf/ApprovedAbstracts/6646BAFDBEE5010285258CC80070B310?OpenDocument" }
+    // Once the presentation PDF is available, set `pdf` to its path (e.g.
+    // "/pages/publications/publication_pdfs/presentations/TMS_2026.pdf") and it
+    // will render a preview + download button + click-to-open modal like the
+    // publications above. Until then, the placeholder graphic is shown.
+    { caption: "Presented at The Minerals, Metals & Materials Society 2026 Annual Meeting & Exhibition", url: "https://www.programmaster.org/PM/PM.nsf/ApprovedAbstracts/6646BAFDBEE5010285258CC80070B310?OpenDocument", pdf: null }
 ];
 
 function generatePresentationGrid(flex_grid_name, presentations) {
     const grid = document.getElementById(flex_grid_name);
     grid.innerHTML = "";
 
+    const isTouchDevice = isMobile();
+
     presentations.forEach(presentation => {
         const item = document.createElement("div");
         item.classList.add("flex-item");
-        item.addEventListener("click", () => window.open(presentation.url, "_blank", "noopener,noreferrer"));
 
-        const placeholder = document.createElement("div");
-        placeholder.classList.add("presentation-placeholder");
-        placeholder.innerHTML = `
-            <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
-                <line x1="8" y1="21" x2="16" y2="21"></line>
-                <line x1="12" y1="17" x2="12" y2="21"></line>
-            </svg>`;
-        item.appendChild(placeholder);
+        const previewContainer = document.createElement("div");
+        previewContainer.classList.add("pdf-preview-container");
+
+        if (presentation.pdf) {
+            // Render the PDF preview, like the publication items.
+            const canvas = document.createElement("canvas");
+            previewContainer.appendChild(canvas);
+
+            const downloadBtn = document.createElement("a");
+            downloadBtn.classList.add("pdf-download-btn");
+            downloadBtn.href = presentation.pdf;
+            downloadBtn.download = presentation.pdf.split('/').pop();
+            downloadBtn.target = "_blank";
+            downloadBtn.innerHTML = `
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="7 10 12 15 17 10"></polyline>
+                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>`;
+            downloadBtn.addEventListener("click", (event) => event.stopPropagation());
+            if (isTouchDevice) {
+                downloadBtn.classList.add("always-visible");
+            }
+            previewContainer.appendChild(downloadBtn);
+
+            item.appendChild(previewContainer);
+            renderPDF(presentation.pdf, canvas);
+            item.addEventListener("click", () => openPDF(presentation.pdf));
+        } else {
+            // No PDF yet — show a placeholder graphic and link out to the abstract.
+            const placeholder = document.createElement("div");
+            placeholder.classList.add("presentation-placeholder");
+            placeholder.innerHTML = `
+                <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                    <line x1="8" y1="21" x2="16" y2="21"></line>
+                    <line x1="12" y1="17" x2="12" y2="21"></line>
+                </svg>`;
+            previewContainer.appendChild(placeholder);
+            item.appendChild(previewContainer);
+            item.addEventListener("click", () => window.open(presentation.url, "_blank", "noopener,noreferrer"));
+        }
 
         const title = document.createElement("a");
         title.classList.add("pdf-title");
@@ -140,6 +179,7 @@ function generatePresentationGrid(flex_grid_name, presentations) {
 }
 
 window.addEventListener("load", generatePresentationGrid("flex-grid-presentations", presentationItems));
+*/
 
 let pdfDoc = null;
     let currentPage = 1;
