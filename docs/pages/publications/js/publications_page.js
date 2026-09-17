@@ -1,4 +1,5 @@
 const leadPdfFiles = [
+    { url: "/pages/publications/publication_pdfs/first author/SMASIS_2026.pdf", caption: "Accepted to the ASME 2026 Conference on Smart Materials, Adaptive Structures and Intelligent Systems (preprint)", publication_site: "https://arxiv.org/abs/2608.25176"},
     { url: "/pages/publications/publication_pdfs/first author/Masters_Thesis.pdf", caption: "Master's Thesis", publication_site: "https://dr.lib.iastate.edu/entities/publication/7e99883f-c98b-40e7-ad56-55601966e091" },
     { url: "/pages/publications/publication_pdfs/first author/JIST_2024.pdf", caption: "Published in Journal of Imaging Science and Technology 2024", publication_site:  "https://library.imaging.org/jist/articles/68/6/060506"},
     { url: "/pages/publications/publication_pdfs/first author/LIM_2024.pdf", caption: "Published in London Imaging Meeting 2024 Proceedings", publication_site:  "https://library.imaging.org/lim/articles/5/1/16"}, 
